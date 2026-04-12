@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-manifest.js",
+    "validate": "node scripts/build-manifest.js"
+  }
+}

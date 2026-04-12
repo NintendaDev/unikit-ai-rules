@@ -1,0 +1,39 @@
+name: Build Manifest
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '**/*.md'
+      - 'scripts/**'
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Build and validate manifest
+        run: node scripts/build-manifest.js
+
+      - name: Check manifest is up to date
+        run: |
+          git diff --exit-code manifest.json || {
+            echo "::error::manifest.json is out of date. Run 'node scripts/build-manifest.js' and commit."
+            exit 1
+          }
+
+      - name: Commit updated manifest (push to main only)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add manifest.json
+          git diff --cached --quiet || git commit -m "chore: regenerate manifest.json"
+          git push
