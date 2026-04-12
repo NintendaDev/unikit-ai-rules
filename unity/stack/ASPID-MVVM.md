@@ -6,7 +6,7 @@ version: 1.0.0
 
 > **Scope**: Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration.
 > **Load when**: UI views, ViewModel, MonoView, data binding, ICommand, RelayCommand, ASPID MVVM, UI feature development.
-> **References**: `references/aspid-mvvm-binders-quickref.md` (quick lookup), `references/aspid-mvvm-binders-full.md` (exhaustive index), `references/aspid-mvvm-converters.md` (converter catalog).
+> **References**: `.unikit/memory/stack/references/aspid-mvvm-binders-quickref.md` (quick lookup), `.unikit/memory/stack/references/aspid-mvvm-binders-full.md` (exhaustive index), `.unikit/memory/stack/references/aspid-mvvm-converters.md` (converter catalog).
 
 ---
 
@@ -278,7 +278,7 @@ Source Generator supports styles: `_name`, `m_name`, `s_name`, `name`.
 
 ### Binder Lookup Workflow
 
-When selecting a binder for a View field, use the reference files in `references/`:
+When selecting a binder for a View field, use the reference files in `.unikit/memory/stack/references/`:
 
 1. **First** — open `aspid-mvvm-binders-quickref.md`. It contains task-based and VM-property-type lookup tables covering the most common scenarios.
 2. **If nothing fits** — open `aspid-mvvm-binders-full.md`. It is the exhaustive index of every binder organized by folder/component, including all Switcher, Enum, EnumGroup, Addressable, and Caster variants.

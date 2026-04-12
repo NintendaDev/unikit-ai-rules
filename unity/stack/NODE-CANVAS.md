@@ -6,7 +6,7 @@ version: 1.0.0
 
 > **Scope**: Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes.
 > **Load when**: AI behaviour trees, FSM states, ActionTask, ConditionTask, BTNode, graph events, BBParameter, NodeCanvas.
-> **References**: `references/node-canvas-bt-nodes-quickref.md`, `references/node-canvas-bt-nodes-full.md`, `references/node-canvas-tasks-quickref.md`, `references/node-canvas-tasks-full.md`, `references/node-canvas-conditions-quickref.md`, `references/node-canvas-conditions-full.md`.
+> **References**: `.unikit/memory/stack/references/node-canvas-bt-nodes-quickref.md`, `.unikit/memory/stack/references/node-canvas-bt-nodes-full.md`, `.unikit/memory/stack/references/node-canvas-tasks-quickref.md`, `.unikit/memory/stack/references/node-canvas-tasks-full.md`, `.unikit/memory/stack/references/node-canvas-conditions-quickref.md`, `.unikit/memory/stack/references/node-canvas-conditions-full.md`.
 
 ---
 
@@ -16,18 +16,18 @@ When you need to find an existing built-in NodeCanvas task, condition, or BT nod
 
 ### BT Nodes (Composites, Decorators, Leafs)
 
-1. **First** — read `references/node-canvas-bt-nodes-quickref.md`
-2. **If not found** — read `references/node-canvas-bt-nodes-full.md`
+1. **First** — read `.unikit/memory/stack/references/node-canvas-bt-nodes-quickref.md`
+2. **If not found** — read `.unikit/memory/stack/references/node-canvas-bt-nodes-full.md`
 
 ### ActionTasks
 
-1. **First** — read `references/node-canvas-tasks-quickref.md`
-2. **If not found** — read `references/node-canvas-tasks-full.md`
+1. **First** — read `.unikit/memory/stack/references/node-canvas-tasks-quickref.md`
+2. **If not found** — read `.unikit/memory/stack/references/node-canvas-tasks-full.md`
 
 ### ConditionTasks
 
-1. **First** — read `references/node-canvas-conditions-quickref.md`
-2. **If not found** — read `references/node-canvas-conditions-full.md`
+1. **First** — read `.unikit/memory/stack/references/node-canvas-conditions-quickref.md`
+2. **If not found** — read `.unikit/memory/stack/references/node-canvas-conditions-full.md`
 
 ---
 
