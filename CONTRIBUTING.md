@@ -6,7 +6,7 @@
 2. Choose the category:
    - `core/` — universal best practices (code style, design, testing, performance)
    - `stack/` — framework-specific patterns (DOTween, Zenject, R3, etc.)
-3. Create the file: `<engine>/<category>/<RULE-NAME>.md`
+3. Create the file: `<engine>/<category>/<rule-name>.md`
 4. Follow the file format below
 5. Run `node scripts/build-manifest.js` to validate
 6. Submit a pull request
@@ -36,9 +36,9 @@ Common mistakes to avoid.
 
 ## Naming Conventions
 
-- **File name**: `UPPER-CASE-NAME.md` (e.g., `DOTWEEN.md`, `ZENJECT.md`, `CODE-STYLE.md`)
+- **File name**: `lower-case-name.md` (e.g., `dotween.md`, `zenject.md`, `code-style.md`)
 - **ID**: derived from filename without `.md` extension
-- **ID format**: `^[A-Z][A-Z0-9_-]*$` (uppercase, alphanumeric, hyphens, underscores)
+- **ID format**: `^[a-z][a-z0-9-]*$` (lowercase, alphanumeric, hyphens — underscores not allowed)
 
 ## Version Bumping
 
@@ -61,7 +61,7 @@ For complex frameworks that need supplementary documentation:
 
 Run `node scripts/build-manifest.js` before submitting. It checks:
 
-- ID format (`^[A-Z][A-Z0-9_-]*$`)
+- ID format (`^[a-z][a-z0-9-]*$`)
 - No duplicate IDs within core or stack of the same engine
 - No ID overlap between core and stack
 - Description length >= 10 characters

@@ -26,7 +26,7 @@ UniKit CLI fetches rules from this repository via `raw.githubusercontent.com`. T
 
 ```bash
 # Install a rule from this registry
-unikit-ai rules install DOTWEEN
+unikit-ai rules install dotween
 
 # List all available rules
 unikit-ai rules list
