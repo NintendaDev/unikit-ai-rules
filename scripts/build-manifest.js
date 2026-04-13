@@ -107,8 +107,8 @@ function validate(manifest) {
 
       for (const rule of rules) {
         // ID format
-        if (!/^[A-Z][A-Z0-9_-]*$/.test(rule.id)) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — invalid id format (must be ^[A-Z][A-Z0-9_-]*$)`);
+        if (!/^[a-z][a-z0-9-]*$/.test(rule.id)) {
+          console.error(`ERROR: ${engineId}/${category}/${rule.id} — invalid id format (must be ^[a-z][a-z0-9-]*$)`);
           errors++;
         }
 

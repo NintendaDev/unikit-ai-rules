@@ -1,38 +1,38 @@
 {
   "schema": 1,
-  "generated": "2026-04-13T03:47:32.094Z",
+  "generated": "2026-04-13T06:06:40.392Z",
   "engines": {
     "unity": {
       "core": [
         {
-          "id": "CODE-STYLE",
+          "id": "code-style",
           "description": "Universal C#/Unity code style conventions — naming, access modifiers, member ordering, class structure, formatting, component approach, documentation",
           "version": "1.0.0"
         },
         {
-          "id": "DESIGN-PRINCIPLES",
+          "id": "design-principles",
           "description": "Universal software design principles — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
           "version": "1.0.0"
         },
         {
-          "id": "FOLDERS_STRUCTURE",
+          "id": "folders-structure",
           "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
           "version": "1.0.0"
         },
         {
-          "id": "PERFORMANCE",
+          "id": "performance",
           "description": "Rules for performance optimization — memory/GC, caching, ZLinq, strings, object pooling, delegates, math, physics, UI optimization, mobile specifics",
           "version": "1.0.0"
         },
         {
-          "id": "TESTING",
+          "id": "testing",
           "description": "Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests",
           "version": "1.0.0"
         }
       ],
       "stack": [
         {
-          "id": "ASPID-MVVM",
+          "id": "aspid-mvvm",
           "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
           "version": "1.0.0",
           "references": [
@@ -42,12 +42,12 @@
           ]
         },
         {
-          "id": "IMGUI-EDITOR-TOOLS",
+          "id": "imgui-editor-tools",
           "description": "Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred",
           "version": "1.0.0"
         },
         {
-          "id": "NODE-CANVAS",
+          "id": "node-canvas",
           "description": "Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes",
           "version": "1.0.0",
           "references": [
@@ -60,27 +60,27 @@
           ]
         },
         {
-          "id": "ODIN-EDITOR-TOOLS",
+          "id": "odin-editor-tools",
           "description": "Rules for creating editor windows and tools using OdinEditorWindow, OdinMenuEditorWindow, PropertyTree, Proxy ScriptableObject pattern, split layouts, EditorPrefs persistence",
           "version": "1.0.0"
         },
         {
-          "id": "ODIN",
+          "id": "odin",
           "description": "Rules for Odin Inspector attributes (grouping, validation, conditional visibility) and Odin Validator (ISelfValidator, SceneValidator, RootObjectValidator, WithFix)",
           "version": "1.0.0"
         },
         {
-          "id": "R3",
+          "id": "r3",
           "description": "R3 reactive programming — observables, subscriptions, disposal, ReactiveProperty, EveryUpdate",
           "version": "1.0.0"
         },
         {
-          "id": "RNGNEEDS",
+          "id": "rngneeds",
           "description": "Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding",
           "version": "1.0.0"
         },
         {
-          "id": "UNITASK",
+          "id": "unitask",
           "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
           "version": "1.0.0"
         }
@@ -89,27 +89,27 @@
     "godot": {
       "core": [
         {
-          "id": "CODE-STYLE",
+          "id": "code-style",
           "description": "Universal GDScript/Godot code style conventions — naming, type hints, member ordering, class structure, formatting, node approach, documentation",
           "version": "1.0.0"
         },
         {
-          "id": "DESIGN-PRINCIPLES",
+          "id": "design-principles",
           "description": "Universal software design principles adapted for Godot — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
           "version": "1.0.0"
         },
         {
-          "id": "FOLDERS_STRUCTURE",
+          "id": "folders-structure",
           "description": "Project folder organization, module structure, file conventions, external asset boundaries",
           "version": "1.0.0"
         },
         {
-          "id": "PERFORMANCE",
+          "id": "performance",
           "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, signals, math, physics, UI optimization, process management, mobile specifics",
           "version": "1.0.0"
         },
         {
-          "id": "TESTING",
+          "id": "testing",
           "description": "Rules for GUT (Godot Unit Test) framework — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests",
           "version": "1.0.0"
         }
@@ -119,27 +119,27 @@
     "godot-net": {
       "core": [
         {
-          "id": "CODE-STYLE",
+          "id": "code-style",
           "description": "Universal C#/Godot .NET code style conventions — naming, access modifiers, member ordering, class structure, formatting, node approach, documentation",
           "version": "1.0.0"
         },
         {
-          "id": "DESIGN-PRINCIPLES",
+          "id": "design-principles",
           "description": "Universal software design principles adapted for Godot .NET — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
           "version": "1.0.0"
         },
         {
-          "id": "FOLDERS_STRUCTURE",
+          "id": "folders-structure",
           "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
           "version": "1.0.0"
         },
         {
-          "id": "PERFORMANCE",
+          "id": "performance",
           "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, process management, mobile specifics",
           "version": "1.0.0"
         },
         {
-          "id": "TESTING",
+          "id": "testing",
           "description": "Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests",
           "version": "1.0.0"
         }
@@ -149,109 +149,109 @@
     "unreal-engine-5": {
       "core": [
         {
-          "id": "CODE-STYLE",
+          "id": "code-style",
           "description": "Universal C++/UE5 code style conventions — naming, type prefixes, member ordering, class structure, formatting, UObject approach, macros, documentation",
           "version": "1.0.0"
         },
         {
-          "id": "DESIGN-PRINCIPLES",
+          "id": "design-principles",
           "description": "Universal software design principles adapted for UE5 — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
           "version": "1.0.0"
         },
         {
-          "id": "FOLDERS_STRUCTURE",
+          "id": "folders-structure",
           "description": "Project folder organization, module structure, namespace conventions, plugin boundaries, Build.cs patterns",
           "version": "1.0.0"
         },
         {
-          "id": "PERFORMANCE",
+          "id": "performance",
           "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, Tick management, cooking/packaging, mobile specifics",
           "version": "1.0.0"
         },
         {
-          "id": "PIPELINE",
+          "id": "pipeline",
           "description": "UE5 development pipeline — C++ scaffolding strategy, Blueprint iteration, Live Coding boundaries, structural change batching, data-driven configuration. Architecture-specific sections: Actor/Component, GAS, Mass Entity",
           "version": "1.0.0"
         },
         {
-          "id": "TESTING",
+          "id": "testing",
           "description": "Rules for UE5 Automation Framework tests — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands",
           "version": "1.0.0"
         }
       ],
       "stack": [
         {
-          "id": "ASSET-MANAGER",
+          "id": "asset-manager",
           "description": "UAssetManager, Primary/Secondary Assets, FPrimaryAssetId, Asset Bundles, FStreamableManager, async/sync loading, TSoftObjectPtr, TSoftClassPtr, soft/hard references, asset discovery, chunking, cooking rules",
           "version": "1.0.0"
         },
         {
-          "id": "BEHAVIOR-TREES",
+          "id": "behavior-trees",
           "description": "Behavior Tree AI system — composites, tasks, decorators, services, blackboard, C++ node authoring, execution flow, observer aborts, AI Controller integration",
           "version": "1.0.0"
         },
         {
-          "id": "BLUEPRINT",
+          "id": "blueprint",
           "description": "Blueprint visual scripting conventions, C++/Blueprint integration patterns, UFUNCTION specifiers, communication patterns, performance, organization",
           "version": "1.0.0"
         },
         {
-          "id": "EQS",
+          "id": "eqs",
           "description": "EQS — generators, tests, contexts, query execution from C++, custom nodes, scoring/filtering, Behavior Tree integration, debugging",
           "version": "1.0.0"
         },
         {
-          "id": "GAMEPLAY-TAGS",
+          "id": "gameplay-tags",
           "description": "FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, native tag declaration, hierarchy design, matching operations, replication, UPROPERTY meta specifiers, tag count container, C++ API patterns",
           "version": "1.0.0"
         },
         {
-          "id": "GAS",
+          "id": "gas",
           "description": "GAS architecture, AbilitySystemComponent, GameplayAbility, GameplayEffect, AttributeSet, GameplayTag, GameplayCue, ability activation, effect stacking, multiplayer replication, C++ setup patterns",
           "version": "1.0.0"
         },
         {
-          "id": "LUMEN",
+          "id": "lumen",
           "description": "Lumen GI and reflections system — software/hardware ray tracing, surface cache, mesh cards, distance fields, console variables, Post Process Volume settings, scalability, material compatibility, performance optimization",
           "version": "1.0.0"
         },
         {
-          "id": "MASS-AI",
+          "id": "mass-ai",
           "description": "AI layer built on Mass Entity — navigation (ZoneGraph, NavMesh), steering, avoidance, StateTree integration, signal system, SmartObject interaction, MassCrowd (lanes, density, obstacles), AI-specific processors and fragments, entity config setup for AI agents",
           "version": "1.0.0"
         },
         {
-          "id": "MASS-ENTITY",
+          "id": "mass-entity",
           "description": "Mass ECS architecture — fragments, processors, traits, observers, tags, archetypes, queries, spawning, LOD, entity manager, C++ API patterns, module dependencies, debugging",
           "version": "1.0.0"
         },
         {
-          "id": "NANITE",
+          "id": "nanite",
           "description": "Nanite mesh settings, enabling/disabling, material compatibility, console variables, cluster optimization, profiling, C++ API, performance guidelines, limitations",
           "version": "1.0.0"
         },
         {
-          "id": "SMART-OBJECTS",
+          "id": "smart-objects",
           "description": "Smart Object system — definitions, slots, behaviors, claiming/releasing workflow, spatial queries, filtering, tags, conditions, StateTree integration, Mass integration, C++ API patterns",
           "version": "1.0.0"
         },
         {
-          "id": "STATE-TREE",
+          "id": "state-tree",
           "description": "StateTree system — states, tasks, evaluators, conditions, transitions, data binding, schemas, contexts, external data, linked trees, C++ task authoring, Smart Object/Mass integration",
           "version": "1.0.0"
         },
         {
-          "id": "UAT",
+          "id": "uat",
           "description": "Unreal Automation Tool — RunUAT, BuildCookRun pipeline, cooking, packaging, staging, deploying, custom C# automation commands, BuildGraph scripting, CI/CD integration",
           "version": "1.0.0"
         },
         {
-          "id": "UBT",
+          "id": "ubt",
           "description": "Unreal Build Tool — Build.cs module rules, Target.cs target configuration, module dependencies, PCH/IWYU, module types, loading phases, plugin descriptors, build environments, link types",
           "version": "1.0.0"
         },
         {
-          "id": "UHT",
+          "id": "uht",
           "description": "Unreal Header Tool — reflection macros (UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM), specifiers, metadata, GENERATED_BODY, .generated.h code generation, UINTERFACE, delegates, UHT limitations",
           "version": "1.0.0"
         }
