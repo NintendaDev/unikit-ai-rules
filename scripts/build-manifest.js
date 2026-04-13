@@ -28,7 +28,6 @@ function parseFrontmatter(content) {
 
 function parseHeaderMeta(content) {
   let description = '';
-  let loadWhen = '';
   const references = [];
 
   // Strip frontmatter first
@@ -38,12 +37,6 @@ function parseHeaderMeta(content) {
     const scopeMatch = line.match(/^>\s*\*\*Scope\*\*:\s*(.+)/);
     if (scopeMatch) {
       description = scopeMatch[1].trim().replace(/\.$/, '');
-      continue;
-    }
-
-    const loadWhenMatch = line.match(/^>\s*\*\*Load when\*\*:\s*(.+)/);
-    if (loadWhenMatch) {
-      loadWhen = loadWhenMatch[1].trim().replace(/\.$/, '');
       continue;
     }
 
@@ -67,7 +60,7 @@ function parseHeaderMeta(content) {
     }
   }
 
-  return { description, loadWhen, references };
+  return { description, references };
 }
 
 function buildEngineManifest(engineId) {
@@ -90,7 +83,6 @@ function buildEngineManifest(engineId) {
       const rule = {
         id,
         description: meta.description,
-        loadWhen: meta.loadWhen,
         version: fm.version || '1.0.0',
       };
 
@@ -130,12 +122,6 @@ function validate(manifest) {
         // Description length
         if (rule.description.length < 10) {
           console.error(`ERROR: ${engineId}/${category}/${rule.id} — description too short (${rule.description.length} chars, min 10)`);
-          errors++;
-        }
-
-        // loadWhen length
-        if (rule.loadWhen.length < 10) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — loadWhen too short (${rule.loadWhen.length} chars, min 10)`);
           errors++;
         }
 
