@@ -5,7 +5,7 @@ version: 1.0.0
 # Unreal Build Tool (UBT)
 
 > **Scope**: Unreal Build Tool — Build.cs module rules, Target.cs target configuration, module dependencies, PCH/IWYU, module types, loading phases, plugin descriptors, build environments, link types
-> **Load when**: Build.cs, Target.cs, ModuleRules, TargetRules, PublicDependencyModuleNames, PrivateDependencyModuleNames, PCHUsage, IWYU, module, plugin, .uplugin, .uproject, ExtraModuleNames, DynamicallyLoadedModuleNames, MODULE_API, build configuration, UBT
+> **Load when**: editing UBT build files — writing or fixing ModuleRules in .Build.cs and TargetRules in .Target.cs, splitting dependencies between PublicDependencyModuleNames and PrivateDependencyModuleNames, configuring PCHUsage and IWYU, adding the MODULE_API export macro, and registering modules and loading phases in .uproject/.uplugin descriptors
 
 ---
 

@@ -5,7 +5,7 @@ version: 1.0.0
 # IMGUI Editor Windows & Tools
 
 > **Scope**: Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred.
-> **Load when**: creating editor windows with IMGUI, EditorWindow, EditorGUILayout, OnGUI for editor tools.
+> **Load when**: building Unity Editor tooling with plain IMGUI — subclassing EditorWindow/ScriptableWizard, laying out controls in OnGUI with EditorGUILayout, wiring MenuItem entries, persisting state via EditorPrefs, handling Undo and AssetDatabase mutations
 
 ---
 

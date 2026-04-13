@@ -5,7 +5,7 @@ version: 1.0.0
 # NodeCanvas — Custom Tasks, Nodes & States
 
 > **Scope**: Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes.
-> **Load when**: AI behaviour trees, FSM states, ActionTask, ConditionTask, BTNode, graph events, BBParameter, NodeCanvas.
+> **Load when**: authoring custom NodeCanvas nodes for AI graphs — writing ActionTask/ConditionTask/BTNode/BTDecorator/BTComposite/FSMState classes, wiring BBParameter blackboard fields, looking up built-in tasks and BT nodes, sending graph events between tasks
 > **References**: `.unikit/memory/stack/references/node-canvas-bt-nodes-quickref.md`, `.unikit/memory/stack/references/node-canvas-bt-nodes-full.md`, `.unikit/memory/stack/references/node-canvas-tasks-quickref.md`, `.unikit/memory/stack/references/node-canvas-tasks-full.md`, `.unikit/memory/stack/references/node-canvas-conditions-quickref.md`, `.unikit/memory/stack/references/node-canvas-conditions-full.md`.
 
 ---

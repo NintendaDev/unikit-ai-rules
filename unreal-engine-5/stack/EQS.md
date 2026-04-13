@@ -5,7 +5,7 @@ version: 1.0.0
 # Environment Query System (EQS)
 
 > **Scope**: EQS — generators, tests, contexts, query execution from C++, custom nodes, scoring/filtering, Behavior Tree integration, debugging
-> **Load when**: EQS, Environment Query, UEnvQuery, UEnvQueryGenerator, UEnvQueryTest, UEnvQueryContext, FEnvQueryRequest, EnvQueryManager, AI spatial query, find location, cover point, best position
+> **Load when**: building AI spatial queries with the Environment Query System — running UEnvQuery assets via FEnvQueryRequest, authoring custom UEnvQueryGenerator/UEnvQueryTest/UEnvQueryContext subclasses in C++, choosing run modes and scoring/filtering, integrating queries into Behavior Trees via Run EQS Query
 
 ---
 

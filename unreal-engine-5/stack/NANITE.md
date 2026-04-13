@@ -5,7 +5,7 @@ version: 1.0.0
 # Nanite Virtualized Geometry
 
 > **Scope**: Nanite mesh settings, enabling/disabling, material compatibility, console variables, cluster optimization, profiling, C++ API, performance guidelines, limitations
-> **Load when**: Nanite, virtualized geometry, high-poly mesh, mesh optimization, LOD, triangle count, cluster, raster bin, r.Nanite, FMeshNaniteSettings, NaniteSettings
+> **Load when**: enabling or troubleshooting Nanite on static meshes — adjusting cluster/raster settings, diagnosing material incompatibility, tuning r.Nanite cvars, profiling virtualized geometry performance
 
 ---
 

@@ -5,7 +5,7 @@ version: 1.0.0
 # Odin Inspector & Odin Validator
 
 > **Scope**: Rules for Odin Inspector attributes (grouping, validation, conditional visibility) and Odin Validator (ISelfValidator, SceneValidator, RootObjectValidator, WithFix).
-> **Load when**: adding inspector attributes like [ShowIf], [Required], [BoxGroup], [Title], validation, ISelfValidator, SceneValidator.
+> **Load when**: decorating MonoBehaviour/ScriptableObject fields with Odin Inspector attributes for grouping, conditional visibility and validation, or implementing ISelfValidator/SceneValidator/RootObjectValidator to enforce asset and scene integrity with WithFix auto-repairs
 
 ---
 

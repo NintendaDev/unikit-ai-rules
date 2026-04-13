@@ -5,7 +5,7 @@ version: 1.0.0
 # UniTask Async/Await
 
 > **Scope**: UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions.
-> **Load when**: async code, UniTask, CancellationToken, CancellationTokenSource, async UniTask, UniTaskVoid, await.
+> **Load when**: writing async/await code with UniTask — propagating CancellationToken through async chains, handling OperationCanceledException, applying timeouts, choosing between UniTask and UniTaskVoid for fire-and-forget
 
 ---
 

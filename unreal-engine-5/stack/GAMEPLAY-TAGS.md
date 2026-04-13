@@ -5,7 +5,7 @@ version: 1.0.0
 # Gameplay Tags
 
 > **Scope**: FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, native tag declaration, hierarchy design, matching operations, replication, UPROPERTY meta specifiers, tag count container, C++ API patterns
-> **Load when**: GameplayTag, FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, tag, tags, UE_DEFINE_GAMEPLAY_TAG, UE_DECLARE_GAMEPLAY_TAG_EXTERN, MatchesTag, HasTag, HasAny, HasAll, tag hierarchy
+> **Load when**: working with FGameplayTag-based state and queries — declaring native tags via UE_DEFINE_GAMEPLAY_TAG, designing dot-separated tag hierarchies, matching with HasTag/HasAny/HasAll on FGameplayTagContainer, building FGameplayTagQuery expressions, using FGameplayTagCountContainer for stacking, and configuring fast replication
 
 ---
 

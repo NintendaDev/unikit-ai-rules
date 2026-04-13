@@ -5,7 +5,7 @@ version: 1.0.0
 # Asset Manager
 
 > **Scope**: UAssetManager, Primary/Secondary Assets, FPrimaryAssetId, Asset Bundles, FStreamableManager, async/sync loading, TSoftObjectPtr, TSoftClassPtr, soft/hard references, asset discovery, chunking, cooking rules
-> **Load when**: Asset Manager, AssetManager, PrimaryAsset, FPrimaryAssetId, FPrimaryAssetType, async load, soft reference, TSoftObjectPtr, TSoftClassPtr, FStreamableManager, asset bundle, UPrimaryDataAsset, LoadPrimaryAsset, RequestAsyncLoad, streaming, asset loading, addressable
+> **Load when**: managing async asset loading through UAssetManager — declaring UPrimaryDataAsset types and FPrimaryAssetId, choosing between TSoftObjectPtr/TSoftClassPtr and hard references, organizing soft refs into asset bundles, loading or preloading primary assets via FStreamableManager, subclassing UAssetManager and registering primary asset types in DefaultGame.ini
 
 ---
 

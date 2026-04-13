@@ -5,7 +5,7 @@ version: 1.0.0
 # Editor Windows & Tools (Odin)
 
 > **Scope**: Rules for creating editor windows and tools using OdinEditorWindow, OdinMenuEditorWindow, PropertyTree, Proxy ScriptableObject pattern, split layouts, EditorPrefs persistence.
-> **Load when**: creating editor windows, custom inspectors, OdinEditorWindow, OdinMenuEditorWindow, editor tools with Odin.
+> **Load when**: building Unity Editor tooling on top of Odin — subclassing OdinEditorWindow/OdinMenuEditorWindow, rendering arbitrary objects via PropertyTree, implementing the Proxy ScriptableObject pattern for [SerializeReference] editing, deferring AssetDatabase mutations safely outside IMGUI events
 > **Dependencies**: also read ODIN.md for basic Odin attributes.
 
 ---

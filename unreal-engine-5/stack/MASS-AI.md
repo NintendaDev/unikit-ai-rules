@@ -5,7 +5,7 @@ version: 1.0.0
 # Mass AI
 
 > **Scope**: AI layer built on Mass Entity — navigation (ZoneGraph, NavMesh), steering, avoidance, StateTree integration, signal system, SmartObject interaction, MassCrowd (lanes, density, obstacles), AI-specific processors and fragments, entity config setup for AI agents
-> **Load when**: MassAI, MassCrowd, MassNavigation, ZoneGraph, Mass StateTree, Mass SmartObject, crowd simulation, Mass navigation, Mass avoidance, Mass steering, Mass signal, FMassMoveTargetFragment, UMassStateTreeProcessor, UMassCrowdSubsystem, FMassSmartObjectHandler
+> **Load when**: building Mass-based AI crowds and traffic — composing EntityConfig traits for movement/steering/avoidance, driving entities along ZoneGraph or NavMesh via FMassMoveTargetFragment, wiring signal-driven Mass StateTree behaviors, integrating SmartObjects through FMassSmartObjectHandler, and managing crowd lanes/density with UMassCrowdSubsystem
 
 ---
 

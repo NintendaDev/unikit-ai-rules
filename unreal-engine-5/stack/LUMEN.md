@@ -5,7 +5,7 @@ version: 1.0.0
 # Lumen Global Illumination & Reflections
 
 > **Scope**: Lumen GI and reflections system — software/hardware ray tracing, surface cache, mesh cards, distance fields, console variables, Post Process Volume settings, scalability, material compatibility, performance optimization
-> **Load when**: Lumen, global illumination, GI, reflections, ray tracing, distance field, mesh cards, surface cache, r.Lumen, indirect lighting, screen traces, emissive lighting
+> **Load when**: configuring or troubleshooting Lumen global illumination and reflections — choosing between software and hardware ray tracing, tuning Post Process Volume settings like Max Trace Distance and Final Gather Quality, adjusting r.Lumen cvars, diagnosing surface cache and mesh card issues, and profiling Lumen GPU cost
 
 ---
 

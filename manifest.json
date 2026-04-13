@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-12T13:21:43.594Z",
+  "generated": "2026-04-13T03:12:39.110Z",
   "engines": {
     "unity": {
       "core": [
@@ -39,7 +39,7 @@
         {
           "id": "ASPID-MVVM",
           "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
-          "loadWhen": "UI views, ViewModel, MonoView, data binding, ICommand, RelayCommand, ASPID MVVM, UI feature development",
+          "loadWhen": "building UI features with Aspid.MVVM — authoring ViewModel/MonoView pairs, wiring [OneWayBind]/[TwoWayBind]/[RelayCommand] source-generated bindings, registering ViewModels in Zenject, projecting domain collections into observable child ViewModels via CreateSync",
           "version": "1.0.0",
           "references": [
             "aspid-mvvm-binders-quickref.md",
@@ -50,13 +50,13 @@
         {
           "id": "IMGUI-EDITOR-TOOLS",
           "description": "Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred",
-          "loadWhen": "creating editor windows with IMGUI, EditorWindow, EditorGUILayout, OnGUI for editor tools",
+          "loadWhen": "building Unity Editor tooling with plain IMGUI — subclassing EditorWindow/ScriptableWizard, laying out controls in OnGUI with EditorGUILayout, wiring MenuItem entries, persisting state via EditorPrefs, handling Undo and AssetDatabase mutations",
           "version": "1.0.0"
         },
         {
           "id": "NODE-CANVAS",
           "description": "Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes",
-          "loadWhen": "AI behaviour trees, FSM states, ActionTask, ConditionTask, BTNode, graph events, BBParameter, NodeCanvas",
+          "loadWhen": "authoring custom NodeCanvas nodes for AI graphs — writing ActionTask/ConditionTask/BTNode/BTDecorator/BTComposite/FSMState classes, wiring BBParameter blackboard fields, looking up built-in tasks and BT nodes, sending graph events between tasks",
           "version": "1.0.0",
           "references": [
             "node-canvas-bt-nodes-quickref.md",
@@ -70,31 +70,31 @@
         {
           "id": "ODIN-EDITOR-TOOLS",
           "description": "Rules for creating editor windows and tools using OdinEditorWindow, OdinMenuEditorWindow, PropertyTree, Proxy ScriptableObject pattern, split layouts, EditorPrefs persistence",
-          "loadWhen": "creating editor windows, custom inspectors, OdinEditorWindow, OdinMenuEditorWindow, editor tools with Odin",
+          "loadWhen": "building Unity Editor tooling on top of Odin — subclassing OdinEditorWindow/OdinMenuEditorWindow, rendering arbitrary objects via PropertyTree, implementing the Proxy ScriptableObject pattern for [SerializeReference] editing, deferring AssetDatabase mutations safely outside IMGUI events",
           "version": "1.0.0"
         },
         {
           "id": "ODIN",
           "description": "Rules for Odin Inspector attributes (grouping, validation, conditional visibility) and Odin Validator (ISelfValidator, SceneValidator, RootObjectValidator, WithFix)",
-          "loadWhen": "adding inspector attributes like [ShowIf], [Required], [BoxGroup], [Title], validation, ISelfValidator, SceneValidator",
+          "loadWhen": "decorating MonoBehaviour/ScriptableObject fields with Odin Inspector attributes for grouping, conditional visibility and validation, or implementing ISelfValidator/SceneValidator/RootObjectValidator to enforce asset and scene integrity with WithFix auto-repairs",
           "version": "1.0.0"
         },
         {
           "id": "R3",
           "description": "R3 reactive programming — observables, subscriptions, disposal, ReactiveProperty, EveryUpdate",
-          "loadWhen": "reactive streams, Observable, Subscribe, ReactiveProperty, CompositeDisposable, AddTo, R3",
+          "loadWhen": "writing reactive code with R3 — creating and disposing observable subscriptions in MonoBehaviour or plain classes, exposing ReactiveProperty state, replacing Update() loops with Observable.EveryUpdate",
           "version": "1.0.0"
         },
         {
           "id": "RNGNEEDS",
           "description": "Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding",
-          "loadWhen": "weighted random selection, probability lists, ProbabilityList, RNGNeeds",
+          "loadWhen": "implementing weighted random selection with RNGNeeds — declaring ProbabilityList<T> fields, picking values via TryPickValue/PickValues, configuring repeat-prevention and depletable items, plugging in seed providers or IProbabilityInfluenceProvider for dynamic weighting",
           "version": "1.0.0"
         },
         {
           "id": "UNITASK",
           "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
-          "loadWhen": "async code, UniTask, CancellationToken, CancellationTokenSource, async UniTask, UniTaskVoid, await",
+          "loadWhen": "writing async/await code with UniTask — propagating CancellationToken through async chains, handling OperationCanceledException, applying timeouts, choosing between UniTask and UniTaskVoid for fire-and-forget",
           "version": "1.0.0"
         }
       ]
@@ -212,91 +212,91 @@
         {
           "id": "ASSET-MANAGER",
           "description": "UAssetManager, Primary/Secondary Assets, FPrimaryAssetId, Asset Bundles, FStreamableManager, async/sync loading, TSoftObjectPtr, TSoftClassPtr, soft/hard references, asset discovery, chunking, cooking rules",
-          "loadWhen": "Asset Manager, AssetManager, PrimaryAsset, FPrimaryAssetId, FPrimaryAssetType, async load, soft reference, TSoftObjectPtr, TSoftClassPtr, FStreamableManager, asset bundle, UPrimaryDataAsset, LoadPrimaryAsset, RequestAsyncLoad, streaming, asset loading, addressable",
+          "loadWhen": "managing async asset loading through UAssetManager — declaring UPrimaryDataAsset types and FPrimaryAssetId, choosing between TSoftObjectPtr/TSoftClassPtr and hard references, organizing soft refs into asset bundles, loading or preloading primary assets via FStreamableManager, subclassing UAssetManager and registering primary asset types in DefaultGame.ini",
           "version": "1.0.0"
         },
         {
           "id": "BEHAVIOR-TREES",
           "description": "Behavior Tree AI system — composites, tasks, decorators, services, blackboard, C++ node authoring, execution flow, observer aborts, AI Controller integration",
-          "loadWhen": "Behavior Tree, BehaviorTree, BT_, UBTTaskNode, UBTDecorator, UBTService, Blackboard, AIController, RunBehaviorTree, EBTNodeResult, ExecuteTask, TickNode, AI behavior, NPC logic",
+          "loadWhen": "authoring NPC AI with UE5 Behavior Trees — writing custom UBTTaskNode/UBTDecorator/UBTService classes in C++, returning EBTNodeResult and handling FinishLatentTask, reading and writing blackboard keys via FBlackboardKeySelector, configuring observer aborts, and starting trees from AAIController::OnPossess",
           "version": "1.0.0"
         },
         {
           "id": "BLUEPRINT",
           "description": "Blueprint visual scripting conventions, C++/Blueprint integration patterns, UFUNCTION specifiers, communication patterns, performance, organization",
-          "loadWhen": "Blueprint, BP_, WBP_, ABP_, visual scripting, BlueprintCallable, BlueprintImplementableEvent, BlueprintNativeEvent, BlueprintPure, UFUNCTION, event dispatcher, Blueprint interface, Blueprint communication",
+          "loadWhen": "working with Blueprints or exposing C++ to them — naming BP_/WBP_/ABP_ assets, choosing UFUNCTION specifiers like BlueprintCallable/BlueprintPure/BlueprintNativeEvent/BlueprintImplementableEvent, picking a communication pattern (interfaces, event dispatchers, casting), and avoiding tick/cast/hard-reference performance traps",
           "version": "1.0.0"
         },
         {
           "id": "EQS",
           "description": "EQS — generators, tests, contexts, query execution from C++, custom nodes, scoring/filtering, Behavior Tree integration, debugging",
-          "loadWhen": "EQS, Environment Query, UEnvQuery, UEnvQueryGenerator, UEnvQueryTest, UEnvQueryContext, FEnvQueryRequest, EnvQueryManager, AI spatial query, find location, cover point, best position",
+          "loadWhen": "building AI spatial queries with the Environment Query System — running UEnvQuery assets via FEnvQueryRequest, authoring custom UEnvQueryGenerator/UEnvQueryTest/UEnvQueryContext subclasses in C++, choosing run modes and scoring/filtering, integrating queries into Behavior Trees via Run EQS Query",
           "version": "1.0.0"
         },
         {
           "id": "GAMEPLAY-TAGS",
           "description": "FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, native tag declaration, hierarchy design, matching operations, replication, UPROPERTY meta specifiers, tag count container, C++ API patterns",
-          "loadWhen": "GameplayTag, FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, tag, tags, UE_DEFINE_GAMEPLAY_TAG, UE_DECLARE_GAMEPLAY_TAG_EXTERN, MatchesTag, HasTag, HasAny, HasAll, tag hierarchy",
+          "loadWhen": "working with FGameplayTag-based state and queries — declaring native tags via UE_DEFINE_GAMEPLAY_TAG, designing dot-separated tag hierarchies, matching with HasTag/HasAny/HasAll on FGameplayTagContainer, building FGameplayTagQuery expressions, using FGameplayTagCountContainer for stacking, and configuring fast replication",
           "version": "1.0.0"
         },
         {
           "id": "GAS",
           "description": "GAS architecture, AbilitySystemComponent, GameplayAbility, GameplayEffect, AttributeSet, GameplayTag, GameplayCue, ability activation, effect stacking, multiplayer replication, C++ setup patterns",
-          "loadWhen": "GAS, Gameplay Ability System, AbilitySystemComponent, ASC, GameplayAbility, GameplayEffect, GameplayTag, AttributeSet, GameplayCue, ability, effect, attribute, cooldown, cost, prediction",
+          "loadWhen": "implementing gameplay mechanics on top of GAS — authoring GameplayAbility/GameplayEffect/AttributeSet classes, wiring AbilitySystemComponent on actors, handling activation, cooldown/cost, replication and prediction",
           "version": "1.0.0"
         },
         {
           "id": "LUMEN",
           "description": "Lumen GI and reflections system — software/hardware ray tracing, surface cache, mesh cards, distance fields, console variables, Post Process Volume settings, scalability, material compatibility, performance optimization",
-          "loadWhen": "Lumen, global illumination, GI, reflections, ray tracing, distance field, mesh cards, surface cache, r.Lumen, indirect lighting, screen traces, emissive lighting",
+          "loadWhen": "configuring or troubleshooting Lumen global illumination and reflections — choosing between software and hardware ray tracing, tuning Post Process Volume settings like Max Trace Distance and Final Gather Quality, adjusting r.Lumen cvars, diagnosing surface cache and mesh card issues, and profiling Lumen GPU cost",
           "version": "1.0.0"
         },
         {
           "id": "MASS-AI",
           "description": "AI layer built on Mass Entity — navigation (ZoneGraph, NavMesh), steering, avoidance, StateTree integration, signal system, SmartObject interaction, MassCrowd (lanes, density, obstacles), AI-specific processors and fragments, entity config setup for AI agents",
-          "loadWhen": "MassAI, MassCrowd, MassNavigation, ZoneGraph, Mass StateTree, Mass SmartObject, crowd simulation, Mass navigation, Mass avoidance, Mass steering, Mass signal, FMassMoveTargetFragment, UMassStateTreeProcessor, UMassCrowdSubsystem, FMassSmartObjectHandler",
+          "loadWhen": "building Mass-based AI crowds and traffic — composing EntityConfig traits for movement/steering/avoidance, driving entities along ZoneGraph or NavMesh via FMassMoveTargetFragment, wiring signal-driven Mass StateTree behaviors, integrating SmartObjects through FMassSmartObjectHandler, and managing crowd lanes/density with UMassCrowdSubsystem",
           "version": "1.0.0"
         },
         {
           "id": "MASS-ENTITY",
           "description": "Mass ECS architecture — fragments, processors, traits, observers, tags, archetypes, queries, spawning, LOD, entity manager, C++ API patterns, module dependencies, debugging",
-          "loadWhen": "Mass, MassEntity, ECS, Entity Component System, FMassFragment, UMassProcessor, FMassEntityManager, archetype, crowd simulation, MassGameplay, MassAI, FMassTag, UMassObserverProcessor",
+          "loadWhen": "writing Mass Entity ECS code — defining FMassFragment/FMassSharedFragment/FMassTag types, authoring UMassProcessor and UMassObserverProcessor classes with FMassEntityQuery requirements, composing UMassEntityTraitBase traits, spawning entities through MassSpawner, and using deferred commands inside Execute()",
           "version": "1.0.0"
         },
         {
           "id": "NANITE",
           "description": "Nanite mesh settings, enabling/disabling, material compatibility, console variables, cluster optimization, profiling, C++ API, performance guidelines, limitations",
-          "loadWhen": "Nanite, virtualized geometry, high-poly mesh, mesh optimization, LOD, triangle count, cluster, raster bin, r.Nanite, FMeshNaniteSettings, NaniteSettings",
+          "loadWhen": "enabling or troubleshooting Nanite on static meshes — adjusting cluster/raster settings, diagnosing material incompatibility, tuning r.Nanite cvars, profiling virtualized geometry performance",
           "version": "1.0.0"
         },
         {
           "id": "SMART-OBJECTS",
           "description": "Smart Object system — definitions, slots, behaviors, claiming/releasing workflow, spatial queries, filtering, tags, conditions, StateTree integration, Mass integration, C++ API patterns",
-          "loadWhen": "Smart Object, SmartObject, USmartObjectSubsystem, USmartObjectComponent, USmartObjectDefinition, slot, claim, behavior definition, GameplayBehavior, interaction point, AI interaction",
+          "loadWhen": "setting up actor interaction points with Smart Objects — authoring USmartObjectDefinition assets and slots, subclassing USmartObjectBehaviorDefinition, finding/claiming/using/releasing slots through USmartObjectSubsystem and FSmartObjectClaimHandle, filtering by activity and user tags, and wiring SO interactions into AITasks or StateTree",
           "version": "1.0.0"
         },
         {
           "id": "STATE-TREE",
           "description": "StateTree system — states, tasks, evaluators, conditions, transitions, data binding, schemas, contexts, external data, linked trees, C++ task authoring, Smart Object/Mass integration",
-          "loadWhen": "StateTree, State Tree, FStateTreeTaskBase, UStateTreeComponent, evaluator, state machine, AI behavior, UStateTree, transition, FStateTreeExecutionContext, linked tree, EStateTreeRunStatus",
+          "loadWhen": "building hierarchical AI logic with StateTree — authoring FStateTreeTaskCommonBase tasks with InstanceData, returning EStateTreeRunStatus from EnterState/Tick/ExitState, defining evaluators and conditions, configuring transitions and linked subtrees, running trees via UStateTreeComponent and binding properties between nodes",
           "version": "1.0.0"
         },
         {
           "id": "UAT",
           "description": "Unreal Automation Tool — RunUAT, BuildCookRun pipeline, cooking, packaging, staging, deploying, custom C# automation commands, BuildGraph scripting, CI/CD integration",
-          "loadWhen": "RunUAT, UAT, BuildCookRun, cook, package, stage, deploy, archive, BuildGraph, automation script, .Automation.csproj, CI/CD, packaging pipeline, shipping build, pak, RunAutomationTests",
+          "loadWhen": "scripting build, cook, stage, package and deploy pipelines through Unreal Automation Tool — invoking RunUAT BuildCookRun with the right flags, writing custom .Automation.csproj BuildCommand subclasses, authoring BuildGraph XML scripts, and wiring shipping or CI/CD packaging",
           "version": "1.0.0"
         },
         {
           "id": "UBT",
           "description": "Unreal Build Tool — Build.cs module rules, Target.cs target configuration, module dependencies, PCH/IWYU, module types, loading phases, plugin descriptors, build environments, link types",
-          "loadWhen": "Build.cs, Target.cs, ModuleRules, TargetRules, PublicDependencyModuleNames, PrivateDependencyModuleNames, PCHUsage, IWYU, module, plugin, .uplugin, .uproject, ExtraModuleNames, DynamicallyLoadedModuleNames, MODULE_API, build configuration, UBT",
+          "loadWhen": "editing UBT build files — writing or fixing ModuleRules in .Build.cs and TargetRules in .Target.cs, splitting dependencies between PublicDependencyModuleNames and PrivateDependencyModuleNames, configuring PCHUsage and IWYU, adding the MODULE_API export macro, and registering modules and loading phases in .uproject/.uplugin descriptors",
           "version": "1.0.0"
         },
         {
           "id": "UHT",
           "description": "Unreal Header Tool — reflection macros (UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM), specifiers, metadata, GENERATED_BODY, .generated.h code generation, UINTERFACE, delegates, UHT limitations",
-          "loadWhen": "UHT, UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM, UMETA, UINTERFACE, GENERATED_BODY, .generated.h, reflection, specifier, metadata, BlueprintCallable, BlueprintReadWrite, EditAnywhere, Replicated, delegate, DECLARE_DYNAMIC_MULTICAST_DELEGATE",
+          "loadWhen": "declaring UObject reflection in C++ headers — annotating types with UCLASS/USTRUCT/UENUM/UINTERFACE and GENERATED_BODY, picking UPROPERTY and UFUNCTION specifiers for editor visibility/Blueprint exposure/replication, declaring dynamic delegates, and avoiding UHT parser limitations around templates and conditional compilation",
           "version": "1.0.0"
         }
       ]

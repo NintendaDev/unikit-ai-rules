@@ -5,7 +5,7 @@ version: 1.0.0
 # Blueprint
 
 > **Scope**: Blueprint visual scripting conventions, C++/Blueprint integration patterns, UFUNCTION specifiers, communication patterns, performance, organization
-> **Load when**: Blueprint, BP_, WBP_, ABP_, visual scripting, BlueprintCallable, BlueprintImplementableEvent, BlueprintNativeEvent, BlueprintPure, UFUNCTION, event dispatcher, Blueprint interface, Blueprint communication
+> **Load when**: working with Blueprints or exposing C++ to them — naming BP_/WBP_/ABP_ assets, choosing UFUNCTION specifiers like BlueprintCallable/BlueprintPure/BlueprintNativeEvent/BlueprintImplementableEvent, picking a communication pattern (interfaces, event dispatchers, casting), and avoiding tick/cast/hard-reference performance traps
 
 ---
 

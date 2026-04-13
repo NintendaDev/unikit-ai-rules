@@ -5,7 +5,7 @@ version: 1.0.0
 # Unreal Header Tool (UHT)
 
 > **Scope**: Unreal Header Tool — reflection macros (UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM), specifiers, metadata, GENERATED_BODY, .generated.h code generation, UINTERFACE, delegates, UHT limitations
-> **Load when**: UHT, UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM, UMETA, UINTERFACE, GENERATED_BODY, .generated.h, reflection, specifier, metadata, BlueprintCallable, BlueprintReadWrite, EditAnywhere, Replicated, delegate, DECLARE_DYNAMIC_MULTICAST_DELEGATE
+> **Load when**: declaring UObject reflection in C++ headers — annotating types with UCLASS/USTRUCT/UENUM/UINTERFACE and GENERATED_BODY, picking UPROPERTY and UFUNCTION specifiers for editor visibility/Blueprint exposure/replication, declaring dynamic delegates, and avoiding UHT parser limitations around templates and conditional compilation
 
 ---
 

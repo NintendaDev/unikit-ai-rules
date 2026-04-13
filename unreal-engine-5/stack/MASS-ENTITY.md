@@ -5,7 +5,7 @@ version: 1.0.0
 # Mass Entity Framework
 
 > **Scope**: Mass ECS architecture — fragments, processors, traits, observers, tags, archetypes, queries, spawning, LOD, entity manager, C++ API patterns, module dependencies, debugging
-> **Load when**: Mass, MassEntity, ECS, Entity Component System, FMassFragment, UMassProcessor, FMassEntityManager, archetype, crowd simulation, MassGameplay, MassAI, FMassTag, UMassObserverProcessor
+> **Load when**: writing Mass Entity ECS code — defining FMassFragment/FMassSharedFragment/FMassTag types, authoring UMassProcessor and UMassObserverProcessor classes with FMassEntityQuery requirements, composing UMassEntityTraitBase traits, spawning entities through MassSpawner, and using deferred commands inside Execute()
 
 ---
 

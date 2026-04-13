@@ -5,7 +5,7 @@ version: 1.0.0
 # StateTree
 
 > **Scope**: StateTree system — states, tasks, evaluators, conditions, transitions, data binding, schemas, contexts, external data, linked trees, C++ task authoring, Smart Object/Mass integration
-> **Load when**: StateTree, State Tree, FStateTreeTaskBase, UStateTreeComponent, evaluator, state machine, AI behavior, UStateTree, transition, FStateTreeExecutionContext, linked tree, EStateTreeRunStatus
+> **Load when**: building hierarchical AI logic with StateTree — authoring FStateTreeTaskCommonBase tasks with InstanceData, returning EStateTreeRunStatus from EnterState/Tick/ExitState, defining evaluators and conditions, configuring transitions and linked subtrees, running trees via UStateTreeComponent and binding properties between nodes
 
 ---
 

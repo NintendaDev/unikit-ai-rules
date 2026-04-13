@@ -5,7 +5,7 @@ version: 1.0.0
 # Unreal Automation Tool (UAT)
 
 > **Scope**: Unreal Automation Tool — RunUAT, BuildCookRun pipeline, cooking, packaging, staging, deploying, custom C# automation commands, BuildGraph scripting, CI/CD integration
-> **Load when**: RunUAT, UAT, BuildCookRun, cook, package, stage, deploy, archive, BuildGraph, automation script, .Automation.csproj, CI/CD, packaging pipeline, shipping build, pak, RunAutomationTests
+> **Load when**: scripting build, cook, stage, package and deploy pipelines through Unreal Automation Tool — invoking RunUAT BuildCookRun with the right flags, writing custom .Automation.csproj BuildCommand subclasses, authoring BuildGraph XML scripts, and wiring shipping or CI/CD packaging
 
 ---
 

@@ -5,7 +5,7 @@ version: 1.0.0
 # ASPID MVVM — UI Binding Framework
 
 > **Scope**: Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration.
-> **Load when**: UI views, ViewModel, MonoView, data binding, ICommand, RelayCommand, ASPID MVVM, UI feature development.
+> **Load when**: building UI features with Aspid.MVVM — authoring ViewModel/MonoView pairs, wiring [OneWayBind]/[TwoWayBind]/[RelayCommand] source-generated bindings, registering ViewModels in Zenject, projecting domain collections into observable child ViewModels via CreateSync
 > **References**: `.unikit/memory/stack/references/aspid-mvvm-binders-quickref.md` (quick lookup), `.unikit/memory/stack/references/aspid-mvvm-binders-full.md` (exhaustive index), `.unikit/memory/stack/references/aspid-mvvm-converters.md` (converter catalog).
 
 ---

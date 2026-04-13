@@ -5,7 +5,7 @@ version: 1.0.0
 # RNGNeeds Rules
 
 > **Scope**: Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding.
-> **Load when**: weighted random selection, probability lists, ProbabilityList, RNGNeeds.
+> **Load when**: implementing weighted random selection with RNGNeeds — declaring ProbabilityList<T> fields, picking values via TryPickValue/PickValues, configuring repeat-prevention and depletable items, plugging in seed providers or IProbabilityInfluenceProvider for dynamic weighting
 
 ---
 

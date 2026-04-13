@@ -5,7 +5,7 @@ version: 1.0.0
 # Behavior Trees
 
 > **Scope**: Behavior Tree AI system — composites, tasks, decorators, services, blackboard, C++ node authoring, execution flow, observer aborts, AI Controller integration
-> **Load when**: Behavior Tree, BehaviorTree, BT_, UBTTaskNode, UBTDecorator, UBTService, Blackboard, AIController, RunBehaviorTree, EBTNodeResult, ExecuteTask, TickNode, AI behavior, NPC logic
+> **Load when**: authoring NPC AI with UE5 Behavior Trees — writing custom UBTTaskNode/UBTDecorator/UBTService classes in C++, returning EBTNodeResult and handling FinishLatentTask, reading and writing blackboard keys via FBlackboardKeySelector, configuring observer aborts, and starting trees from AAIController::OnPossess
 
 ---
 

@@ -5,7 +5,7 @@ version: 1.0.0
 # Smart Objects
 
 > **Scope**: Smart Object system — definitions, slots, behaviors, claiming/releasing workflow, spatial queries, filtering, tags, conditions, StateTree integration, Mass integration, C++ API patterns
-> **Load when**: Smart Object, SmartObject, USmartObjectSubsystem, USmartObjectComponent, USmartObjectDefinition, slot, claim, behavior definition, GameplayBehavior, interaction point, AI interaction
+> **Load when**: setting up actor interaction points with Smart Objects — authoring USmartObjectDefinition assets and slots, subclassing USmartObjectBehaviorDefinition, finding/claiming/using/releasing slots through USmartObjectSubsystem and FSmartObjectClaimHandle, filtering by activity and user tags, and wiring SO interactions into AITasks or StateTree
 
 ---
 

@@ -5,7 +5,7 @@ version: 1.0.0
 # Gameplay Ability System (GAS)
 
 > **Scope**: GAS architecture, AbilitySystemComponent, GameplayAbility, GameplayEffect, AttributeSet, GameplayTag, GameplayCue, ability activation, effect stacking, multiplayer replication, C++ setup patterns
-> **Load when**: GAS, Gameplay Ability System, AbilitySystemComponent, ASC, GameplayAbility, GameplayEffect, GameplayTag, AttributeSet, GameplayCue, ability, effect, attribute, cooldown, cost, prediction
+> **Load when**: implementing gameplay mechanics on top of GAS — authoring GameplayAbility/GameplayEffect/AttributeSet classes, wiring AbilitySystemComponent on actors, handling activation, cooldown/cost, replication and prediction
 
 ---
 
