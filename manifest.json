@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-16T04:01:15.148Z",
+  "generated": "2026-04-16T09:32:28.704Z",
   "engines": {
     "unity": {
       "core": [
@@ -144,7 +144,147 @@
           "version": "1.0.0"
         }
       ],
-      "stack": []
+      "stack": [
+        {
+          "id": "chickensoft-auto-inject",
+          "description": "Reflection-free, node-based dependency injection for Godot 4 C# — Provider/Dependent patterns, automatic node binding with `[Node]`, lifecycle hooks, and test-friendly initialization via source-generated metadata (no reflection)",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-collections",
+          "description": "Chickensoft.Collections library usage — specialized data structures for insertion-order-preserving collections, type-keyed storage, struct-safe queuing, and object pooling in Godot 4 .NET projects",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-editor-config",
+          "description": "Setup and conventions for the Chickensoft `.editorconfig` used in Godot 4 C# projects — formatting defaults per file type, C# code style rules (var, expression-bodied members, pattern matching, braces, namespaces), the Chickensoft naming convention system, and Roslyn diagnostic overrides",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-game-tools",
+          "description": "Utilities from the Chickensoft.GameTools package — background resource loading via the Loader class, strongly-typed runtime environment detection via the Features API, and DPI-aware window scaling via display extension methods",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-godot-node-interfaces",
+          "description": "Patterns and rules for using GodotNodeInterfaces to make Godot node scripts unit-testable — generated interfaces for node types, `IFakeNodeTreeEnabled` adoption, `Ex` extension methods, fake scene tree setup, and integration with the Chickensoft testing ecosystem",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-godot-test-driver",
+          "description": "Integration testing for Godot 4 C# projects using the Chickensoft.GodotTestDriver library — scene loading via the Fixture class, the test-driver pattern for abstracting node interactions, input simulation (keyboard, mouse, controller, actions), and async waiting utilities",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-godot-test",
+          "description": "Chickensoft's C# test runner for Godot 4 — test class authoring with `TestClass`, lifecycle attributes, async test support, `TestEnvironment` configuration, code coverage via coverlet, and VS Code debug launch integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-godotenv",
+          "description": "Environment management for Godot 4 .NET projects — installing and switching Godot versions, managing asset library addons via `addons.json`, configuring the `GODOT` environment variable symlink, and integrating GodotEnv into CI/CD pipelines",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-introspection",
+          "description": "Build-time type metadata generation for AOT-compatible reflection in Godot 4 C# — `[Meta]`, `[Id]`, `[Version]`, `[Mixin]` attributes, type registry, type graph queries, and the mixin system",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-log",
+          "description": "Logging in Godot 4 C# projects using the Chickensoft.Log and Chickensoft.Log.Godot packages — creating loggers, choosing writers, configuring formatters, and testing logging behavior without mocking",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-logicblocks",
+          "description": "Hierarchical, serializable state machine authoring with LogicBlocks — defining logic blocks, states, inputs, outputs, blackboard dependencies, lifecycle hooks, the binding system, and integrating state machines into Godot .NET nodes",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-palette-painter",
+          "description": "PalettePainter is a .NET CLI tool for generating color-ramp palette PNG files following the Slynyrd pixel art methodology — covers installation, CLI usage, parameter tuning, Godot asset workflow, and CI/CD integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-platform",
+          "description": "Low-level, cross-platform native display detection for Godot 4 C# — querying true native pixel resolution and DPI scale factor directly from the OS when GameTools' `LookGood()` is too high-level",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-save-file-builder",
+          "description": "Composing game save data from loosely coupled chunks distributed across the scene tree — defining `SaveFile<T>`, authoring `SaveChunk<T>` nodes, wiring chunks through AutoInject, and integrating with Chickensoft.Serialization for AOT-compatible persistence",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-serialization",
+          "description": "AOT-compatible, polymorphic serialization for Godot 4 C# game models — covers the [Meta]/[Id]/[Save]/[Version] attribute system, JsonSerializerOptions setup, versioning with IOutdated, custom hooks via ICustomSerializable, Godot-type converters, and the SaveFileBuilder/SaveChunk save-file composition pattern",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-sync",
+          "description": "Synchronous, single-threaded reactive programming primitives for Godot 4 .NET — observable values and collections (`AutoValue`, `AutoList`, `AutoSet`, `AutoMap`), broadcast channels (`AutoChannel`, `AutoCache`), fluent binding subscriptions, reentrancy-safe deferred mutations, and the ownership pattern for exposing reactive state",
+          "version": "1.0.0"
+        },
+        {
+          "id": "chickensoft-uml-generator",
+          "description": "Build-time PlantUML diagram generation from C# class declarations and Godot `.tscn` scene files — the `[ClassDiagram]` attribute, csproj configuration, generated `.g.puml` file placement, and IDE rendering setup",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godot-epic-online-services",
+          "description": "Integration of Epic Online Services (EOS) into Godot 4.2+ via the EOSG GDExtension plugin — platform initialization, authentication flows, lobby management, P2P networking, and accessing GDScript singletons from C#",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godotsteam",
+          "description": "Steam platform integration in Godot 4 .NET C# projects — choosing between GodotSteam and Steamworks.NET, installing and initializing the Steam API, implementing the SteamManager autoload singleton, running callbacks every frame, using Callback<T> and CallResult<T> patterns, and integrating achievements, stats, leaderboards, lobbies, and the Steam overlay",
+          "version": "1.0.0"
+        },
+        {
+          "id": "google-play-games-plugin",
+          "description": "Integration of Google Play Game Services (achievements, leaderboards, sign-in, cloud saves) into Godot 4 Android projects using the `godot-play-game-services` plugin — covers installation, credential configuration, C# wrapper patterns, node lifecycle, and troubleshooting authentication errors",
+          "version": "1.0.0"
+        },
+        {
+          "id": "leoecs",
+          "description": "LeoECS Lite (Leopotam.EcsLite) entity-component-system framework usage — defining components and systems, world and filter management, entity lifecycle, event patterns, system groups, and Godot 4 node integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "litenetlib",
+          "description": "LiteNetLib reliable UDP networking library usage in Godot 4 .NET — NetManager initialization, connection lifecycle, delivery method selection, NetPacketProcessor for typed packets, raw binary serialization with NetDataWriter/NetDataReader, NetManager configuration, and Godot-specific integration patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "memorypack",
+          "description": "MemoryPack binary serialization — type annotation with attributes, constructor selection rules, versioning strategies, union types for polymorphism, custom formatters, Brotli compression, and performance-oriented serialization patterns in Godot 4 .NET projects",
+          "version": "1.0.0"
+        },
+        {
+          "id": "mirage-godot",
+          "description": "High-level C# networking for Godot 4 — NetworkBehaviour authoring, SyncVar field synchronization, ServerRpc/ClientRpc remote calls, networked object spawning, server/client lifecycle events, and UDP transport configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "nakama",
+          "description": "Nakama .NET SDK integration for Godot 4 C# — client setup, authentication, session lifecycle, real-time socket connection, error handling, retry configuration, and data serialization",
+          "version": "1.0.0",
+          "references": [
+            "nakama-social.md",
+            "nakama-gameplay.md"
+          ]
+        },
+        {
+          "id": "newtonsoft-json",
+          "description": "JSON serialization and deserialization in Godot 4 .NET — strongly-typed and dynamic JSON handling, custom converters for Godot types, game save/load patterns, serialization settings configuration, and safe polymorphic type handling",
+          "version": "1.0.0"
+        },
+        {
+          "id": "r3",
+          "description": "Reactive programming with R3 (Cysharp) in Godot 4 .NET — Observable/Observer patterns, ReactiveProperty, Subject types, subscription disposal, Godot-specific frame providers, signal integration, async operators, and testing with FakeTimeProvider/FakeFrameProvider",
+          "version": "1.0.0"
+        }
+      ]
     },
     "unreal-engine-5": {
       "core": [
