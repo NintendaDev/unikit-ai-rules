@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-16T11:57:49.116Z",
+  "generated": "2026-04-16T12:46:50.273Z",
   "engines": {
     "unity": {
       "core": [
@@ -255,6 +255,11 @@
       ],
       "stack": [
         {
+          "id": "animation-tree",
+          "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace1D/2D, OneShot, Blend2, Transition), and root motion integration in Godot 4 .NET C# projects",
+          "version": "1.0.0"
+        },
+        {
           "id": "chickensoft-auto-inject",
           "description": "Reflection-free, node-based dependency injection for Godot 4 C# — Provider/Dependent patterns, automatic node binding with `[Node]`, lifecycle hooks, and test-friendly initialization via source-generated metadata (no reflection)",
           "version": "1.0.0"
@@ -340,8 +345,33 @@
           "version": "1.0.0"
         },
         {
+          "id": "editor-plugin",
+          "description": "Godot 4 editor extension authoring — creating persistent editor plugins with custom docks, inspector overrides, and custom node types via `EditorPlugin`, and running one-off editor automation scripts via `EditorScript`",
+          "version": "1.0.0"
+        },
+        {
+          "id": "enet",
+          "description": "ENet transport layer usage in Godot 4 — ENetMultiplayerPeer lifecycle for server/client/mesh topologies, low-level ENetConnection event service loop, per-peer packet control via ENetPacketPeer, channel isolation strategies, bandwidth and timeout tuning, DTLS encryption setup, and mesh network configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "fmod-for-godot",
+          "description": "FMOD Studio audio middleware integration in Godot 4 .NET projects — installing the GDExtension plugin, loading banks, playing events and controlling instances, managing parameters and adaptive audio, mixing via VCAs and buses, spatial audio setup, and accessing FMOD from C# using the FMOD Sharp wrapper or the official FMOD C# SDK",
+          "version": "1.0.0"
+        },
+        {
+          "id": "gdextension",
+          "description": "Authoring Godot 4 native extensions in C++ using godot-cpp — class declaration and registration, method and property binding, signal system, memory management, initialization lifecycle, error handling, build system setup, and `.gdextension` manifest configuration",
+          "version": "1.0.0"
+        },
+        {
           "id": "godot-epic-online-services",
           "description": "Integration of Epic Online Services (EOS) into Godot 4.2+ via the EOSG GDExtension plugin — platform initialization, authentication flows, lobby management, P2P networking, and accessing GDScript singletons from C#",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godot-jolt",
+          "description": "Jolt Physics integration in Godot 4 .NET — enabling the 3D physics backend, behavioral differences from Godot Physics, project settings, joint configuration, and migration guidance for Godot 4.4+",
           "version": "1.0.0"
         },
         {
@@ -357,6 +387,11 @@
         {
           "id": "leoecs",
           "description": "LeoECS Lite (Leopotam.EcsLite) entity-component-system framework usage — defining components and systems, world and filter management, entity lifecycle, event patterns, system groups, and Godot 4 node integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "limbo-ai",
+          "description": "Behavior tree and hierarchical state machine authoring with LimboAI — custom task creation, BTPlayer setup, Blackboard variable management, LimboHSM state transitions, BTState integration, and C# usage patterns in Godot 4 .NET projects",
           "version": "1.0.0"
         },
         {
@@ -384,6 +419,11 @@
           ]
         },
         {
+          "id": "navigation-server3d",
+          "description": "Godot 4 built-in navigation system — NavigationAgent3D path following and lifecycle, RVO avoidance setup, direct NavigationServer3D API for map/region management and path queries, NavigationObstacle3D behavior, and navigation layer filtering",
+          "version": "1.0.0"
+        },
+        {
           "id": "newtonsoft-json",
           "description": "JSON serialization and deserialization in Godot 4 .NET — strongly-typed and dynamic JSON handling, custom converters for Godot types, game save/load patterns, serialization settings configuration, and safe polymorphic type handling",
           "version": "1.0.0"
@@ -391,6 +431,26 @@
         {
           "id": "r3",
           "description": "Reactive programming with R3 (Cysharp) in Godot 4 .NET — Observable/Observer patterns, ReactiveProperty, Subject types, subscription disposal, Godot-specific frame providers, signal integration, async operators, and testing with FakeTimeProvider/FakeFrameProvider",
+          "version": "1.0.0"
+        },
+        {
+          "id": "soft-body-3d",
+          "description": "Soft body physics simulation in Godot 4 — deformable mesh setup, simulation parameter tuning, vertex pinning to anchors and skeletons, collision configuration, and known engine limitations",
+          "version": "1.0.0"
+        },
+        {
+          "id": "tilemap",
+          "description": "Godot 4 tile-based map authoring using TileMapLayer nodes and TileSet resources — node setup, runtime cell manipulation, terrain autotiling, physics/navigation/custom data layer configuration, coordinate conversion, and performance tuning",
+          "version": "1.0.0"
+        },
+        {
+          "id": "tween",
+          "description": "Godot 4 Tween and Tweener system — creating and controlling property/method/callback animations via script, managing lifecycle, sequential and parallel sequencing, transition and ease configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "wwise-godot",
+          "description": "Audiokinetic Wwise audio middleware integration in Godot 4 .NET C# projects — event posting, bank management, 3D spatial audio, RTPC/state/switch control, game object registration lifecycle, and Godot node integration patterns",
           "version": "1.0.0"
         }
       ]
