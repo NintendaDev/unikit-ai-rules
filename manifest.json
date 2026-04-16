@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-16T09:32:28.704Z",
+  "generated": "2026-04-16T11:57:49.116Z",
   "engines": {
     "unity": {
       "core": [
@@ -114,7 +114,116 @@
           "version": "1.0.0"
         }
       ],
-      "stack": []
+      "stack": [
+        {
+          "id": "animation-tree",
+          "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace, OneShot, Transition, Blend2), and root motion integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "beehave",
+          "description": "Beehave behavior tree addon authoring — custom ActionLeaf/ConditionLeaf implementation, composite node selection (Selector vs Sequence and their reactive/star variants), decorator wrapping, Blackboard data sharing, and BeehaveTree configuration for Godot 4",
+          "version": "1.0.0"
+        },
+        {
+          "id": "dialogic",
+          "description": "Dialogic 2 plugin for Godot 4 — timeline authoring, dialogue flow control, subsystem API, character/portrait management, variable integration, save/load patterns, and game-code integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "dialogue-manager",
+          "description": "Nathan Hoad's Dialogue Manager addon for Godot 4 — authoring `.dialogue` files, integrating the runtime via GDScript, managing dialogue balloon UI, writing mutations and conditions, and communicating with game state",
+          "version": "1.0.0"
+        },
+        {
+          "id": "editor-plugin",
+          "description": "Godot 4 editor extension authoring — EditorPlugin lifecycle, plugin structure, adding docks/controls/menu items, custom types, autoload registration, inspector plugins, main screen plugins, and EditorScript for one-off editor tasks",
+          "version": "1.0.0"
+        },
+        {
+          "id": "enet",
+          "description": "ENet transport layer in Godot 4 — ENetMultiplayerPeer server/client lifecycle, low-level ENetConnection event service loop, ENetPacketPeer direct packet control, transfer channel isolation, timeout and bandwidth tuning, DTLS encryption, and mesh networking setup",
+          "version": "1.0.0"
+        },
+        {
+          "id": "fmod",
+          "description": "FMOD Studio GDExtension (utopia-rise/fmod-gdextension) for Godot 4 — bank lifecycle management, event playback tiers (one-shot / node / manual), parameter control, 3D spatial audio, Bus/VCA mixer control, timeline callbacks, and project export with banks",
+          "version": "1.0.0"
+        },
+        {
+          "id": "gdextension",
+          "description": "Patterns, conventions, and rules for building Godot 4 extensions in C++ using the GDExtension system and godot-cpp bindings — class registration, method binding, memory management, initialization lifecycle, and `.gdextension` file configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godot-jolt",
+          "description": "Godot Jolt Physics integration — enabling Jolt as the 3D physics backend, behavioral differences from Godot Physics, configuration guidance, and GDScript usage patterns",
+          "version": "1.0.0",
+          "references": [
+            "godot-jolt-settings.md"
+          ]
+        },
+        {
+          "id": "godot-sqlite",
+          "description": "godot-sqlite (2shady4u) GDExtension plugin — database connection lifecycle, query execution with parameter binding, CRUD helpers, transaction management, BLOB handling, schema definition, and save/load patterns for Godot 4 GDScript projects",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godot-state-charts",
+          "description": "Godot State Charts plugin (derkork/godot-statecharts) — node hierarchy setup, StateChart API, event-driven transitions, guard types, signal wiring, and integration patterns for Godot 4",
+          "version": "1.0.0"
+        },
+        {
+          "id": "godotsteam",
+          "description": "GodotSteam GDExtension integration for Godot 4 — installation, initialization lifecycle, callback management, achievements and stats, lobby and matchmaking, cloud save, export/shipping, and common error patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "limbo-ai",
+          "description": "LimboAI behavior tree and hierarchical state machine authoring — custom BTTask/BTAction/BTCondition/BTDecorator implementation, Blackboard variable management, BTPlayer setup, LimboHSM/LimboState/BTState patterns, and event-driven AI composition for Godot 4",
+          "version": "1.0.0"
+        },
+        {
+          "id": "multiplayer",
+          "description": "Godot 4 built-in multiplayer system — MultiplayerAPI, MultiplayerSynchronizer, MultiplayerSpawner, RPC annotation system, authority model, peer management, and scene replication patterns for networked games",
+          "version": "1.0.0"
+        },
+        {
+          "id": "navigation-server3d",
+          "description": "Godot 4 navigation system — NavigationAgent3D usage patterns, initialization timing, RVO avoidance setup, direct NavigationServer3D API, path query objects, NavigationObstacle3D behavior, and navigation layer filtering",
+          "version": "1.0.0"
+        },
+        {
+          "id": "phantom-camera",
+          "description": "Phantom Camera addon for Godot 4 — priority-based camera management, PhantomCameraHost wiring, follow modes, look-at modes, tween transitions, noise/shake, and 2D boundary setup for Camera2D and Camera3D nodes",
+          "version": "1.0.0"
+        },
+        {
+          "id": "rivet",
+          "description": "Integration of the Rivet/OpenGameBackend multiplayer backend into Godot 4 — plugin setup, matchmaker and lobby flow, game server lifecycle, actor-based backend design, and GDScript client patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "soft-body-3d",
+          "description": "Godot 4 SoftBody3D simulation — configuring deformable physics meshes, tuning simulation parameters, pinning vertices to anchor nodes, integrating with skeletons, and handling known engine limitations",
+          "version": "1.0.0"
+        },
+        {
+          "id": "tilemap",
+          "description": "Godot 4 tile-based map authoring — TileMapLayer node usage, TileSet resource configuration, tile manipulation at runtime via GDScript, physics/navigation/custom data layer setup, terrain autotiling, and performance tuning",
+          "version": "1.0.0"
+        },
+        {
+          "id": "tween",
+          "description": "Godot 4 Tween and Tweener system — creating, configuring, and controlling property/method/callback animations via script, including lifecycle management, sequential and parallel sequencing, transition and ease curves",
+          "version": "1.0.0"
+        },
+        {
+          "id": "wwise",
+          "description": "Integration of Audiokinetic Wwise audio middleware into Godot 4 via the `alessandrofama/wwise-godot-integration` GDExtension — event posting, SoundBank management, RTPC control, state/switch management, spatial audio nodes, and the Wwise Types inspector workflow",
+          "version": "1.0.0"
+        }
+      ]
     },
     "godot-net": {
       "core": [
