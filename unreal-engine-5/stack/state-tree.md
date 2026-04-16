@@ -1,77 +1,54 @@
----
 version: 1.0.0
----
 
 # StateTree
 
-> **Scope**: StateTree system — states, tasks, evaluators, conditions, transitions, data binding, schemas, contexts, external data, linked trees, C++ task authoring, Smart Object/Mass integration
-> **Load when**: building hierarchical AI logic with StateTree — authoring FStateTreeTaskCommonBase tasks with InstanceData, returning EStateTreeRunStatus from EnterState/Tick/ExitState, defining evaluators and conditions, configuring transitions and linked subtrees, running trees via UStateTreeComponent and binding properties between nodes
+> **Scope**: StateTree plugin usage in UE5 — authoring Tasks, Evaluators, and Conditions in C++, configuring Schemas and context data, managing InstanceData, setting up transitions and selectors, integrating with AI controllers, and running External StateTrees.
+> **Load when**: authoring StateTree tasks or evaluators, creating custom StateTree conditions, setting up StateTree schema, binding context or instance data, debugging state transitions, integrating StateTree with AI systems, designing hierarchical state machines, using StateTreeComponent or External StateTree.
 
 ---
 
 ## Core Concepts
 
-StateTree is UE5's hierarchical state machine framework — a hybrid of state machines and behavior trees. Unlike Behavior Trees, StateTrees:
-- Run on any actor via `UStateTreeComponent` (no AI Controller required)
-- Support concurrent task execution within states
-- Use data binding for passing values between nodes
-- Integrate natively with Smart Objects and Mass Entity Framework
+StateTree is a general-purpose hierarchical state machine that combines **Selectors** (from behavior trees) with **States** and **Transitions** (from state machines). All tasks in the active branch (root to leaf) execute concurrently.
 
-**Key classes:**
+| Component | Role |
+|-----------|------|
+| **State** | A node in the hierarchy; holds enter conditions, tasks, and outgoing transitions |
+| **Task** | Logic executed while a state is active — has a full lifecycle: `EnterState`, `Tick`, `ExitState` |
+| **Evaluator** | Lightweight observer that collects/transforms world data on a schedule and exposes it to the tree |
+| **Condition** | Boolean check used in enter conditions or transitions |
+| **Selector** | Determines how child states are chosen (Ordered, Random, Utility) |
+| **Schema** | Declares which external types (Actors, Components, Subsystems) the tree can access |
 
-| Class / Struct | Purpose |
-|---------------|---------|
-| `UStateTree` | Asset containing tree definition (editor + baked runtime) |
-| `UStateTreeComponent` | Component running a StateTree on an actor |
-| `UStateTreeSchema` | Defines valid inputs, evaluators, tasks, and conditions |
-| `FStateTreeExecutionContext` | Runtime context passed to all node callbacks |
-| `FStateTreeTaskBase` / `FStateTreeTaskCommonBase` | Base structs for C++ tasks |
-| `UStateTreeTaskBlueprintBase` | Base class for Blueprint tasks |
-| `UStateTreeEvaluatorBlueprintBase` | Base class for Blueprint evaluators |
-| `UStateTreeConditionBlueprintBase` | Base class for Blueprint conditions |
-| `FStateTreeTransitionResult` | Transition data passed to Enter/ExitState |
+---
 
-## Module Setup
+## Module Setup (Build.cs)
 
 ```csharp
-// MyProject.Build.cs
-PublicDependencyModuleNames.AddRange(new string[] {
-    "StateTreeModule",
-    "GameplayStateTreeModule"  // For gameplay-specific tasks/evaluators
+PublicDependencyModuleNames.AddRange(new string[]
+{
+    "StateTreeModule",          // Core StateTree runtime and editor
+    "GameplayStateTreeModule",  // AIController-specific built-in tasks (MoveToTask, etc.)
+    "GameplayTags",             // Tag-based conditions and transitions
 });
 ```
 
-Enable the **StateTree** plugin in your `.uproject` file.
+Also enable the `StateTree` and `GameplayStateTree` plugins in `.uproject`.
 
-## States
+---
 
-States form the tree hierarchy. Each state has:
-- **Tasks** — behaviors executed while the state is active (run concurrently)
-- **Enter Conditions** — evaluated before entering the state
-- **Transitions** — rules for leaving the state
-- **Child States** — sub-states forming the hierarchy
+## Task Authoring (C++)
 
-**State types:**
+Use `FStateTreeTaskCommonBase` for struct-based tasks (preferred for all tasks that don't need delegate binding). Use `UStateTreeTaskBlueprintBase` only when you must bind delegates or hold UObject references in instance state.
 
-| Type | Purpose |
-|------|---------|
-| State | Standard state with tasks and transitions |
-| Linked Asset | References another StateTree asset (subtree) |
-| Group | Organizational container (no tasks) |
-
-**Completion behavior** defines what happens when all tasks in a state complete — succeed, fail, or keep running.
-
-## Tasks (C++)
-
-### Basic Structure
+### Minimal struct-based task
 
 ```cpp
-USTRUCT(meta = (DisplayName = "My Custom Task"))
-struct FMyTask : public FStateTreeTaskCommonBase
+USTRUCT(DisplayName="My Task")
+struct MYGAME_API FMyTask : public FStateTreeTaskCommonBase
 {
     GENERATED_BODY()
 
-    // Instance data type for runtime state
     using FInstanceDataType = FMyTaskInstanceData;
 
     virtual const UStruct* GetInstanceDataType() const override
@@ -83,230 +60,285 @@ struct FMyTask : public FStateTreeTaskCommonBase
         FStateTreeExecutionContext& Context,
         const FStateTreeTransitionResult& Transition) const override;
 
+    // Only override Tick when the task actually needs per-frame logic:
+    virtual EStateTreeRunStatus Tick(
+        FStateTreeExecutionContext& Context,
+        float DeltaTime) const override;
+
     virtual void ExitState(
         FStateTreeExecutionContext& Context,
         const FStateTreeTransitionResult& Transition) const override;
+};
+```
 
-    virtual EStateTreeRunStatus Tick(
+### InstanceData struct
+
+```cpp
+USTRUCT()
+struct MYGAME_API FMyTaskInstanceData
+{
+    GENERATED_BODY()
+
+    // Input: must be bound in the editor
+    UPROPERTY(EditAnywhere, Category=Input)
+    float Radius = 100.f;
+
+    // Output: written by the task, readable by other tasks and evaluators
+    UPROPERTY(EditAnywhere, Category=Output)
+    float Result = 0.f;
+
+    // Parameter: optional binding; can be set directly in the editor
+    UPROPERTY(EditAnywhere, Category=Parameter)
+    FGameplayTag TargetTag;
+
+    // Context: auto-bound from the StateTree context by matching property name
+    UPROPERTY(EditAnywhere, Category=Context)
+    TObjectPtr<AActor> ContextActor = nullptr;
+};
+```
+
+### Accessing InstanceData inside lifecycle methods
+
+```cpp
+EStateTreeRunStatus FMyTask::EnterState(
+    FStateTreeExecutionContext& Context,
+    const FStateTreeTransitionResult& Transition) const
+{
+    FInstanceDataType& Data = Context.GetInstanceData(*this);
+    // Read inputs, write outputs via Data reference
+    return EStateTreeRunStatus::Running;
+}
+```
+
+**Always use `&` (reference) when reading or writing InstanceData — copying the struct prevents Output modifications from persisting back to the tree.**
+
+---
+
+## External Data (C++)
+
+Use `TStateTreeExternalDataHandle` to access objects that live outside the tree (actors, components, subsystems). Register them in `Link()` and retrieve them in lifecycle methods.
+
+```cpp
+USTRUCT(DisplayName="Use AI Controller Task")
+struct MYGAME_API FUseAIControllerTask : public FStateTreeTaskCommonBase
+{
+    GENERATED_BODY()
+
+    using FInstanceDataType = FUseAIControllerTaskInstanceData;
+
+    TStateTreeExternalDataHandle<AAIController> AIControllerHandle;
+    TStateTreeExternalDataHandle<UAbilitySystemComponent> ASCHandle;
+
+    virtual bool Link(FStateTreeLinker& Linker) override
+    {
+        Linker.LinkExternalData(AIControllerHandle);
+        Linker.LinkExternalData(ASCHandle);
+        return true;
+    }
+
+    virtual const UStruct* GetInstanceDataType() const override
+    {
+        return FInstanceDataType::StaticStruct();
+    }
+
+    virtual EStateTreeRunStatus EnterState(
         FStateTreeExecutionContext& Context,
-        const float DeltaTime) const override;
+        const FStateTreeTransitionResult& Transition) const override
+    {
+        AAIController& Controller = Context.GetExternalData(AIControllerHandle);
+        // Use Controller...
+        return EStateTreeRunStatus::Running;
+    }
+};
+```
 
+`GetExternalData()` crashes if the requested type is not available — ensure the Schema's **Context Actor Class** matches the actual runtime owner type.
+
+---
+
+## Evaluator Authoring (C++)
+
+Evaluators observe the world and expose computed values to the tree. They **never trigger transitions** and have no inputs beyond the context. Keep them as pure, side-effect-free observers.
+
+```cpp
+USTRUCT(DisplayName="Health Evaluator")
+struct MYGAME_API FHealthEvaluator : public FStateTreeEvaluatorCommonBase
+{
+    GENERATED_BODY()
+
+    using FInstanceDataType = FHealthEvaluatorInstanceData;
+
+    virtual const UStruct* GetInstanceDataType() const override
+    {
+        return FInstanceDataType::StaticStruct();
+    }
+
+    // Called once when the tree starts — bind delegates, cache references
     virtual void TreeStart(FStateTreeExecutionContext& Context) const override;
+
+    // Called each frame (or at TickInterval) — update Output properties
+    virtual void Tick(FStateTreeExecutionContext& Context, float DeltaTime) const override;
+
+    // Called when the tree stops — unbind delegates, clean up
     virtual void TreeStop(FStateTreeExecutionContext& Context) const override;
 };
 ```
 
-### Instance Data
+Set `TickInterval > 0` in the evaluator for logic that doesn't need per-frame precision (e.g., 0.1–0.25 s).
 
-Separate struct holding per-instance runtime state. Bindable in the editor.
+---
+
+## Condition Authoring (C++)
 
 ```cpp
-USTRUCT()
-struct FMyTaskInstanceData
+USTRUCT(DisplayName="Is Target Valid")
+struct MYGAME_API FIsTargetValidCondition : public FStateTreeConditionCommonBase
 {
     GENERATED_BODY()
 
-    // Input — bindable from other nodes
-    UPROPERTY(EditAnywhere, Category = Input)
-    AActor* TargetActor = nullptr;
+    using FInstanceDataType = FIsTargetValidConditionInstanceData;
 
-    // Output — available for other nodes to bind to
-    UPROPERTY(EditAnywhere, Category = Output)
-    FVector ResultLocation = FVector::ZeroVector;
+    virtual const UStruct* GetInstanceDataType() const override
+    {
+        return FInstanceDataType::StaticStruct();
+    }
+
+    virtual bool TestCondition(FStateTreeExecutionContext& Context) const override;
 };
 ```
 
-**Key distinction:**
-- Properties on the **task struct** → editable in editor only, not bindable
-- Properties in **InstanceData** → changeable at runtime, bindable to other nodes
+---
 
-### Return Status
+## Schema Setup
 
-| Status | Meaning |
-|--------|---------|
-| `EStateTreeRunStatus::Running` | Task remains active, continues ticking |
-| `EStateTreeRunStatus::Succeeded` | Task completed successfully |
-| `EStateTreeRunStatus::Failed` | Task failed |
-| `EStateTreeRunStatus::Stopped` | Halts entire StateTree execution |
-
-**Pre-5.6 behavior:** Returning `Succeeded` immediately triggered state completion regardless of other active tasks. In UE 5.6+ this is configurable.
-
-**Rule:** Data-retrieval tasks should return `Running` even when finished to prevent premature state transitions. Only action tasks should return completion status.
-
-### External Data Access
+Subclass `UStateTreeSchema` to declare the context types your tree requires:
 
 ```cpp
-// Header
-TStateTreeExternalDataHandle<AAIController> AIControllerHandle;
-
-// Link function
-virtual bool Link(FStateTreeLinker& Linker) override
+UCLASS()
+class MYGAME_API UMyAIStateTreeSchema : public UStateTreeSchema
 {
-    Linker.LinkExternalData(AIControllerHandle);
-    return true;
-}
+    GENERATED_BODY()
 
-// Usage in EnterState/Tick
-virtual EStateTreeRunStatus EnterState(
-    FStateTreeExecutionContext& Context,
-    const FStateTreeTransitionResult& Transition) const override
-{
-    AAIController* Controller = Context.GetExternalData(AIControllerHandle);
-    if (!Controller) return EStateTreeRunStatus::Failed;
-
-    // Use controller...
-    return EStateTreeRunStatus::Running;
-}
+protected:
+    virtual bool IsExternalItemAllowed(const UStruct& ExternalItemType) const override;
+};
 ```
 
-### Getting Instance Data
+Set the **Context Actor Class** in the Schema asset to match the actual owner at runtime (e.g., `APawn` when driven by an `AAIController` over a pawn). A mismatch silently freezes the tree.
 
-```cpp
-virtual EStateTreeRunStatus Tick(
-    FStateTreeExecutionContext& Context,
-    const float DeltaTime) const override
-{
-    FMyTaskInstanceData& Data = Context.GetInstanceData<FMyTaskInstanceData>(*this);
-    // Use Data.TargetActor, set Data.ResultLocation, etc.
-    return EStateTreeRunStatus::Running;
-}
-```
+---
 
-## Evaluators
+## Selectors
 
-Evaluators provide data to the tree but **do not trigger transitions**. They run outside the state hierarchy.
+Three built-in selector modes determine how child states are chosen:
 
-- Set data that tasks and conditions can bind to
-- No inputs beyond context data
-- Tick independently of state activation
-- Use for: sensor data, computed values, interface casts
+| Selector | Behavior |
+|----------|---------|
+| **Ordered** | Try child states in order; pick the first whose enter conditions pass |
+| **Random** | Pick randomly from children whose enter conditions pass |
+| **Utility** | Pick the child with the highest evaluated utility score |
 
-**Pattern:** Create evaluators that output interfaces to avoid repeated casting in tasks.
+Transitions are evaluated **leaf-to-root** — the first valid transition wins.
 
-**Caveat:** Evaluators may cache values — for event-driven data, use tick-based updates or external event refresh.
-
-## Conditions
-
-Conditions gate state entry and drive transitions. Evaluated before `EnterState`.
-
-- **Enter Conditions** — must pass for a state to be entered
-- **Transition Conditions** — must pass for a transition to fire
-
-Can be written in C++ (`FStateTreeConditionBase`) or Blueprint (`UStateTreeConditionBlueprintBase`).
+---
 
 ## Transitions
 
-### Transition Triggers
+- Defined per-state; trigger options: Task Completed, On Tick, StateTree Event, or external
+- Can target **any** state in the tree, not just immediate children
+- **On State Completed** fires when **any** task finishes by default (completion mode = "Any")
+  - Change to **"All"** to wait for every task in the state to finish before transitioning
 
-| Trigger | When |
-|---------|------|
-| On State Completed | Any task returns Succeeded/Failed |
-| On Task Succeeded | Specific task succeeds |
-| On Task Failed | Specific task fails |
-| On Event | Manual trigger from code or task |
-| On Tick | Evaluated every tick while state is active |
+---
 
-### Transition Types
+## StateTreeComponent vs External StateTree
 
-| Type | Behavior |
-|------|----------|
-| **Changed** | Fires when state selection actually changes |
-| **Sustained** | Fires for active state persistence — triggers Enter/Exit repeatedly |
+**StateTreeComponent** (standard — use by default):
+- Add as a component to any Actor
+- Use `UStateTreeAIComponent` when the owner is an `AAIController`; use `UStateTreeComponent` for all other actors
+- Cannot modify or swap the tree asset at runtime
 
-**Critical:** Check `Transition.ChangeType` in `EnterState`/`ExitState` to distinguish between initial entry and sustained re-entry.
+**External StateTree** (advanced — use when embedding StateTree in custom C++ frameworks):
+- Drive execution directly without a component
+- Useful in custom AI pipelines or animation systems
 
-### Transition Priority
+```cpp
+FStateTreeInstanceData InstanceData;
+StateTreeAsset->InitInstanceData(InstanceData);
 
-`EStateTreeTransitionPriority` resolves conflicts when multiple transitions fire simultaneously.
+FStateTreeExecutionContext Context(*OwnerActor, *StateTreeAsset, InstanceData);
+// Register external data...
+Context.Start();
+```
 
-## Schemas
+---
 
-`UStateTreeSchema` constrains what a StateTree can contain:
-- Valid task types
-- Valid condition types
-- Available context data
-- Prevents authoring errors at edit time
+## Execution Lifecycle
 
-Schemas are set on the StateTree asset and determine the execution environment.
+```
+Tree starts
+  → Evaluators: TreeStart()
+  → Root state selected
+    → Tasks: EnterState()     (all active states root→leaf)
+    [per frame]
+    → Evaluators: Tick()
+    → Tasks: Tick()           (if bShouldCallTick == true)
+    → Transition check (leaf→root; first valid fires)
+    → Tasks: ExitState()      (exiting states leaf→root)
+    → New state Tasks: EnterState()
+  → Evaluators: TreeStop()
+Tree stops
+```
 
-## Linked Trees (Subtrees)
+**Parent state tasks receive `EnterState`/`ExitState` on every child transition.** Guard against repeated initialization with:
 
-Set a state's type to **Linked Asset** to reference another StateTree:
-- Splits logic into manageable chunks
-- Shares behavior groups between AI types
-- Parameters can be passed to subtrees
+```cpp
+if (Transition.ChangeType == EStateTreeStateChangeType::Sustained)
+{
+    return EStateTreeRunStatus::Running; // already running, skip re-init
+}
+```
 
-**Limitations:**
-- Global tasks in subtrees with parameters can crash — avoid this combination
-- "Should State Change on Reselect" may be ignored in subtrees until manual recompilation
+---
 
-## Data Binding
+## AI Controller Integration
 
-StateTree uses property binding to pass data between nodes:
-- Bindings pass **values, not references** (copies)
-- Struct bindings copy the entire struct
-- Blueprint property getters are bypassed in C++ — won't update dynamically
+- Use `UStateTreeAIComponent` (not `UStateTreeComponent`) when the tree runs on an `AAIController`
+- Ensure **Start Logic** is called only after both `BeginPlay` and `OnPossess` have completed — their order differs between editor-placed and dynamically spawned pawns
+- Store critical AI state (acquired targets, perception data) on the `AAIController`, not inside the tree — external systems need direct access to it
+- Use evaluators to perform interface casts once at `TreeStart()` rather than casting inside every task tick
 
-**Workaround for stale bindings:** Add a 0-second delay task before relying on initial binding values.
-
-## Global Tasks
-
-Tasks placed at the tree root that run across all states:
-- Use for cross-cutting concerns (value watchers, tag sync)
-- **Warning:** If a global task calls `FinishTask` / returns Succeeded, the entire StateTree stops immediately with no warning log
-
-## Smart Object Integration
-
-StateTrees can drive Smart Object behaviors:
-- StateTree tasks find, claim, and use Smart Objects
-- Smart Object slots can trigger StateTree-based behaviors
-- Data binding passes context between states and SO interactions
-
-## Mass Entity Integration
-
-StateTrees can control Mass entities in crowd simulations:
-- Mass processors tick StateTrees for entity-level AI
-- StateTree schemas for Mass define entity-specific context data
-
-## Debugging
-
-| Tool | How |
-|------|-----|
-| Built-in StateTree Debugger | Shows execution flow, active states, transition history |
-| Unreal Insights | Measure StateTree tick cost |
-| Linked tree debugging | Access debugger via parent tree |
-
-For linked assets, the debugger must be accessed from the **parent tree**.
-
-## Performance
-
-- **C++ tasks significantly outperform Blueprint tasks** — use C++ for frequently ticking tasks
-- Tasks are **not ticked every frame by default** — they tick once active after `EnterState`, then on subsequent ticks while `Running`
-- StateTrees **cannot be modified at runtime** when run through `UStateTreeComponent`
-- UE 5.5+ introduced utility-based state selection for more sophisticated decision-making
+---
 
 ## Best Practices
 
-- **Write tasks in C++** for performance-critical AI — Blueprint tasks have measurable overhead
-- **Use InstanceData for bindable properties**, task struct properties for editor-only configuration
-- **Return `Running` from data-retrieval tasks** — returning `Succeeded` prematurely triggers state completion (pre-5.6)
-- **Check `Transition.ChangeType`** in Enter/ExitState — distinguish `Changed` from `Sustained` to avoid unexpected re-initialization
-- **Use evaluators for data, tasks for actions** — evaluators set data without triggering transitions
-- **Create root-level watcher tasks** for cross-cutting concerns (tag sync, value monitoring)
-- **Use Linked Assets** to split complex trees — but avoid global tasks with parameters in subtrees
-- **Use soft references** in task parameters — hard references to Blueprint widgets inflate memory footprint
-- **Create actor components for Gameplay Tag management** — with event dispatchers; global task syncs into tree
-- **Use schemas** to constrain valid node types — catches authoring errors at edit time
+- Prefer C++ tasks over Blueprint tasks — Blueprint has significant per-tick overhead; use C++ for any task that runs frequently
+- Keep Evaluators as pure observers — no transitions, no side effects; only collect and transform data
+- Set a custom `TickInterval` on Evaluators for logic that doesn't need frame-perfect updates
+- Always include a fallback **Idle** state at the root so the tree always has a valid state to enter
+- Use Evaluators to centralize repeated queries (distance to player, current health, etc.) rather than duplicating them across tasks
+- Use the built-in **StateTree Debugger** (editor Debug menu) and **Visual Logger** during development
+
+---
 
 ## Anti-patterns
 
-- **Global task completing** — a global task returning `Succeeded`/`Failed` silently stops the entire tree
-- **Blueprint tasks in hot paths** — significantly slower than C++ equivalents
-- **Ignoring transition types** — not checking `Changed` vs `Sustained` causes repeated Enter/Exit logic
-- **Hard references in task parameters** — pointing at Blueprint widgets bloats StateTree memory
-- **Binding to primitives instead of objects** — values are copied, not referenced; stale data results
-- **FinishTask in cosmetic subtasks** — premature state completion; cosmetic tasks (sounds, particles) should never call FinishTask
-- **Global tasks + parameters in subtrees** — causes hard crashes
-- **Accessing nonexistent external data** — using `GetExternalData` for data not in context (e.g., AIController on a pawn without one) crashes
-- **Assuming bindings are references** — struct bindings copy entire structs; changes to source don't propagate automatically
-- **Modifying tree at runtime** — StateTrees run via component cannot be changed at runtime
+- **Global Tasks that return `EStateTreeRunStatus::Succeeded` immediately** — silently terminate the entire tree with no log or error output; global tasks must return `Running` or serve only as persistent side effects
+- **Missing `GetInstanceDataType()` override** — any call to `Context.GetInstanceData(*this)` or `Context.GetInstanceDataPtr()` will crash
+- **Writing to a copied InstanceData struct** — always use `&` reference; a copied struct discards all writes
+- **Context Actor Class mismatch in Schema** — `GetExternalData()` crashes at runtime with no diagnostic output; verify the Schema class matches the actual owner
+- **Blueprint-based tasks in performance-critical paths** — Blueprint tasks run significantly slower than equivalent C++ structs
+- **Assuming struct bindings are references** — bindings are copied by value; mutating a bound input struct in a task does not propagate the change back to the source
+- **Accessing external data at `TreeStart`/`TreeStop` without confirming availability** — external data may not be registered yet
+- **Ignoring repeated Enter/Exit events on parent states** — every child state transition re-fires `EnterState`/`ExitState` on all ancestor tasks; failure to guard with `EStateTreeStateChangeType::Sustained` causes double-initialization bugs
+- **Combining global tasks in linked assets with tree parameters (≤ UE 5.4)** — causes hard crashes; move global tasks to the subtree's root state instead
+
+---
+
+## Debugging
+
+- Enable **StateTree Debugger** via the editor Debug menu during PIE to inspect active states and data values
+- Use **Visual Logger** to observe state selections and transitions over time
+- For **subtrees** (linked StateTree assets), enable debugging in the parent tree, not the subtree asset
+- If the tree starts but shows **no activity** in Visual Logger: check `BeginPlay`/`OnPossess` ordering and whether external data is registered correctly
+- If a transition never fires despite conditions appearing true: add a 0-second delay task before the transition to ensure evaluator values have propagated

@@ -2,199 +2,236 @@
 version: 1.0.0
 ---
 
-# Nanite Virtualized Geometry
+# Nanite
 
-> **Scope**: Nanite mesh settings, enabling/disabling, material compatibility, console variables, cluster optimization, profiling, C++ API, performance guidelines, limitations
-> **Load when**: enabling or troubleshooting Nanite on static meshes — adjusting cluster/raster settings, diagnosing material incompatibility, tuning r.Nanite cvars, profiling virtualized geometry performance
+> **Scope**: UE5 Nanite virtualized geometry system — enabling Nanite on assets, supported mesh and component types, material restrictions, World Position Offset clamping, fallback mesh configuration, C++ support APIs, console variables, visualization modes, and performance budgeting.
+> **Load when**: enabling or disabling Nanite on static meshes or geometry collections, authoring Nanite-compatible materials, configuring WPO displacement clamping, profiling Nanite rendering passes, debugging Nanite culling or cluster artifacts, choosing between Nanite and traditional LODs, setting up Nanite for foliage or landscapes, integrating Nanite with Lumen or Virtual Shadow Maps.
 
 ---
 
 ## Core Concepts
 
-Nanite is UE5's virtualized micropolygon geometry system. It automatically manages level-of-detail by splitting meshes into **128-triangle clusters** and streaming only the detail visible at a given pixel resolution. No manual LOD setup required.
+Nanite is a **virtualized geometry system** — a separate rasterization path inside UE5 that runs alongside the legacy path. It divides meshes into fixed **128-triangle clusters** organized in hierarchical multi-level cluster trees, enabling smooth, pop-free LOD transitions without manual LOD authoring.
 
-**Key classes and functions:**
+**Rendering pipeline:**
+1. **GPU culling** — frustum culling, hierarchical Z-buffer occlusion, backface, and small-feature rejection.
+2. **Visibility Buffer pass** — records triangle ID, material ID, and barycentric coordinates for each visible pixel.
+3. **Deferred material pass** — shades only visible pixels; material is evaluated once per pixel, not per triangle.
+4. **Streaming** — cluster pages are streamed between system RAM and VRAM based on screen contribution.
 
-| Symbol | Header / Module | Purpose |
-|--------|----------------|---------|
-| `FMeshNaniteSettings` | Engine | Struct holding per-mesh Nanite configuration |
-| `UStaticMeshEditorSubsystem::SetNaniteSettings()` | StaticMeshEditor | Apply Nanite settings to a `UStaticMesh` in C++ |
-| `UStaticMeshEditorSubsystem::GetNaniteSettings()` | StaticMeshEditor | Retrieve current Nanite settings from a mesh |
-| `NaniteAtomicsSupported()` | RenderCore / RenderUtils.h | Check platform support for Nanite atomics |
-| `NaniteSkinnedMeshesSupported()` | RenderCore / RenderUtils.h | Check if skinned Nanite meshes are supported |
-| `NaniteSplineMeshesSupported()` | RenderCore / RenderUtils.h | Check if spline Nanite meshes are supported |
-| `UseNaniteTessellation()` | RenderCore / RenderUtils.h | Check if Nanite tessellation is enabled |
+**Two rasterization paths:**
+- **Software rasterizer** (compute-driven) — handles triangles with screen-space edges under ~32 pixels. Should dominate a healthy scene.
+- **Hardware rasterizer** — handles larger triangles near the camera. Expensive for sub-pixel geometry.
 
-## C++ API
+In Nanite visualization, software raster shows as **blue**, hardware raster as **red**. Optimization goal: maximize blue.
 
-### Setting Nanite Settings Programmatically
+---
 
+## Supported Asset Types & Components
+
+**Assets that can have Nanite enabled:**
+- `UStaticMesh`
+- `UGeometryCollection` (Chaos fracture meshes)
+- `USkeletalMesh` (UE 5.5+, stable)
+
+**Component types that work with Nanite-enabled assets:**
+- `UStaticMeshComponent`
+- `USkeletalMeshComponent`
+- `UInstancedStaticMeshComponent`
+- `UHierarchicalInstancedStaticMeshComponent`
+- `USplineMeshComponent`
+- `UGeometryCollectionComponent`
+- Foliage painter
+- Landscape grass
+
+**Not suitable for Nanite:**
+- VR applications — streaming latency causes motion sickness.
+- Small objects requiring precise collision data — use traditional meshes.
+- Transparent/translucent geometry — unsupported blend mode.
+
+---
+
+## Enabling Nanite on Assets
+
+**Individual mesh (editor):**
+- Static Mesh Editor → Details → **Nanite Settings** → check **Enable Nanite Support**.
+- Geometry Collections Editor → Details → **Nanite** → check **Enable Nanite**.
+
+**Batch enable (Content Browser):**
+Select multiple Static or Skeletal Mesh assets → right-click → **Nanite > Enable**.
+
+**Disable Nanite per component (C++/Blueprint):**
+Use the `SetForceDisableNanite` Blueprint node (available in UE 5.7+) or set the **Disallow Nanite** option on the `UStaticMeshComponent`.
+
+**Runtime feature detection (from `RenderUtils.h`):**
 ```cpp
-#include "StaticMeshEditorSubsystem.h"
-
-void EnableNaniteOnMesh(UStaticMesh* Mesh)
-{
-    if (!Mesh) return;
-
-    FMeshNaniteSettings Settings = UStaticMeshEditorSubsystem::GetNaniteSettings(Mesh);
-    Settings.bEnabled = true;
-    UStaticMeshEditorSubsystem::SetNaniteSettings(Mesh, Settings, /*bApplyChanges=*/ true);
-}
+bool NaniteAtomicsSupported();          // atomics support (required for Nanite)
+bool NaniteSkinnedMeshesSupported();    // skinned mesh Nanite support
+bool NaniteSplineMeshesSupported();     // spline mesh Nanite support
+bool NaniteWorkGraphMaterialsSupported(); // Work Graph materials support
 ```
 
-### Checking Feature Support at Runtime
+Always call these before enabling Nanite-specific code paths on console or older hardware.
 
+---
+
+## Material Restrictions
+
+Nanite supports only **Opaque** and **Masked** blend modes.
+
+| Feature | Supported |
+|---------|-----------|
+| Opaque blend mode | Yes |
+| Masked blend mode | Yes (use sparingly — see Anti-patterns) |
+| Translucent blend mode | **No** — default material assigned, warning in Output Log |
+| Mesh Decals (Translucent) | **No** |
+| Decals projected onto surface | Yes |
+| Wireframe checkbox | **No** |
+| Vertex Interpolator node | Yes — evaluated **3× per pixel** (expensive) |
+| Custom UVs | Yes — evaluated **3× per pixel** (expensive) |
+
+When an unsupported material is detected, Nanite assigns a default material and logs a warning. Audit the Output Log after adding materials to Nanite meshes.
+
+---
+
+## World Position Offset & Displacement
+
+WPO is supported on Nanite meshes but has important implications:
+
+- Nanite meshes are split into small clusters, each with **individual GPU-side bounds**. WPO that moves geometry outside a cluster's bounds causes **culling artifacts** (geometry disappears).
+- Each WPO material creates its **own raster bin** — multiple WPO materials multiply rendering pass overhead.
+
+**Always clamp WPO displacement:**
+In the material or material instance, set **Max World Position Offset Displacement** (under Details → World Position Offset or Material Property Overrides). This caps how far WPO can shift geometry and prevents culling artifacts.
+
+**Displacement priority (best → worst performance):**
+1. Opaque, no offsets
+2. Opaque with minimal WPO
+3. Masked materials
+4. Heavy WPO / Pixel Depth Offset / displacement — worst, separate raster bin per material
+
+**Bake static deformation into geometry** instead of computing it in shaders wherever possible.
+
+---
+
+## Fallback Mesh
+
+Nanite automatically generates a **fallback mesh** used when Nanite rendering is unavailable (unsupported hardware, fallback rendering modes, ray tracing shadow geometry).
+
+**Fallback build settings (`FRayTracingFallbackBuildSettings` from `NaniteBuilder.h`):**
 ```cpp
-#include "RenderUtils.h"
-
-if (NaniteAtomicsSupported())
+struct FRayTracingFallbackBuildSettings
 {
-    // Platform supports Nanite
-}
+    float FallbackPercentTriangles;  // target triangle reduction percentage
+    float FallbackRelativeError;     // relative error tolerance
+    float FoliageOverOcclusionBias;  // bias for foliage occlusion
 
-if (NaniteSkinnedMeshesSupported())
-{
-    // UE 5.5+: skinned meshes supported
-}
+    bool IsFallbackReduced();
+};
 ```
 
-## Supported Features
+**Recommended fallback triangle count:** ~10,000 triangles for typical static meshes.
 
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Static Meshes | Supported | Primary use case |
-| Skinned Meshes | Supported (UE 5.5+) | GPU skinning before Nanite culling/rasterization |
-| Spline Meshes | Supported | Check with `NaniteSplineMeshesSupported()` |
-| Opaque materials | Supported | Best performance — batched into single raster bin |
-| Masked materials | Supported | Use sparingly — more expensive than opaque |
-| Tessellation | Supported | Requires `r.Nanite.AllowTessellation=1` in config |
-| Virtual Shadow Maps | Supported | Works automatically |
-| Lumen GI | Supported | Manually flag meshes for illumination contribution |
-| Decals (projected) | Supported | Standard decal projection onto Nanite surfaces |
-| World Partition | Supported | Adjust culling distance scale |
+Use **Custom Fallback Mesh LODs** for assets where auto-generated fallback is inadequate (e.g., assets with complex silhouettes critical to gameplay collisions).
 
-## Limitations
-
-| Feature | Status | Notes |
-|---------|--------|-------|
-| Translucent materials | Not supported | Default material assigned; warning in Output Log |
-| Mesh Decals | Not supported | Requires Translucent Blend Mode |
-| Wireframe checkbox | Not supported | — |
-| Morph Targets | Not supported | — |
-| Cloth simulation | Not supported | Use non-Nanite meshes for cloth |
-| Dynamic water tessellation | Not supported | Incompatible with Nanite surfaces |
-| VR | Problematic | Micro-stutters cause motion sickness |
-| Mobile | Limited | Only simple scenes; not production-ready |
-| Vertex Interpolator / Custom UVs | Supported but expensive | Evaluated 3x per pixel |
+---
 
 ## Console Variables
 
-### Core Settings
+| CVar | Purpose |
+|------|---------|
+| `r.Nanite 0` | Globally disable Nanite (must re-run each editor launch) |
+| `r.Nanite.VirtualTexturePoolSize` | VRAM budget for Nanite streaming pool (default: 4 GB; limit to ~2.5 GB on mid-range GPUs) |
+| `r.Nanite.Streaming.PreloadAll` | Force pre-load all clusters (reduces streaming benefits, increases memory usage) |
+| `r.Nanite.Visualize.Advanced 1` | Enable advanced visualization options for low-level debugging |
+| `r.nanite.showmeshdrawevents 1` | Show which materials consume GPU time |
 
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `r.Nanite.AllowTessellation` | 0 | Enable tessellation support (read-only, set in config) |
-| `r.Nanite.Tessellation` | 0 | Toggle tessellation at runtime (requires AllowTessellation=1) |
-| `r.Nanite.MaxPixelsPerEdge` | 1 | Controls LOD selection; higher = simpler geometry. Values >4 reduce quality significantly |
-| `r.Nanite.VirtualTexturePoolSize` | — | VRAM budget cap in MB. Start at 2500 for mid-range GPU, up to 8000 for high-end |
-| `r.Nanite.Streaming.PreloadAll` | 0 | Force preloading all data (loses streaming benefits) |
-| `r.Nanite.ShowMeshDrawEvents` | 0 | Identify per-material costs |
-| `r.Nanite.Visualize.Advanced` | 0 | View rasterization mode breakdown |
+**Global disable (Project Settings):** Edit → Project Settings → Engine → Rendering → Nanite → uncheck.
 
-### Profiling Commands
-
+**Resize streaming pool at runtime:**
 ```
-stat nanite              // Nanite-specific stats (visible/culled triangles)
-stat gpu                 // GPU process timing (target <16.66ms for 60 FPS)
-stat scenerendering      // Scene rendering statistics
-stat unitgraph           // Frame time visualization
-nanite.visualize         // Debug view for culling/streaming
+r.Nanite.VirtualTexturePoolSize <MB>
 ```
 
-**Two main GPU passes to monitor:**
-- **Nanite VisBuffer** — visibility and culling
-- **Nanite BasePass** — material rendering
+---
 
-## Mesh Preparation
+## Visualization & Debugging
 
-### Triangle Budget
+**Nanite visualization mode** (Viewport → View Mode → Nanite Visualization, or `nanite.visualize`):
+- **Clusters** — cluster LOD heatmap; look for evenly-sized blocks. Oversized = fill-rate waste; fragmented = VRAM inflation.
+- **Rasterization mode** — red = hardware raster (expensive near camera), blue = software raster (target state).
+- **VSM static cache** — identifies objects incorrectly invalidating Virtual Shadow Maps static cache.
 
-| Asset Type | Target Triangle Count |
-|------------|----------------------|
-| Hero assets (close inspection) | 1M-10M+ |
-| Background / mid-ground | 100K-2M |
-| Distant terrain | 10K-25K per m² |
-| Fallback LOD | ~10,000 (safety threshold) |
+```cpp
+// Change visualization mode from C++ (Editor only)
+FNaniteVisualizationMenuCommands::ChangeNaniteVisualizationMode(WeakViewportClient, ModeName);
 
-### Geometry Guidelines
+// Check current mode
+FNaniteVisualizationMenuCommands::IsNaniteVisualizationModeSelected(WeakViewportClient, ModeName);
+```
 
-- Keep triangle count under 1-2M per mesh for manageable UV workflows
-- UV-continuous meshes are better — UV splits increase vertex count; aim for ~half the vertex count relative to triangle count
-- Remove hidden / occluded faces before import
-- Avoid long thin triangles — they cluster poorly
-- Merge unnecessary micro-detail
-- Convert instanced static meshes with unique vertex data to regular static meshes
+**Profiling commands:**
+```
+stat gpu              // GPU pass timing in milliseconds
+stat scenerendering   // scene rendering statistics
+stat unitgraph        // frame time visualization
+Nanite.Stats          // Nanite-specific draw call and cluster counts
+```
 
-### Cluster Optimization
+**Key GPU passes to profile:**
+- `Nanite VisBuffer` — visibility and culling (HZB, primitives, instances, clusters)
+- `Nanite BasePass` — material shading of visible pixels
+- `Material Classification` — material binning overhead
 
-- Nanite splits geometry into exactly **128-triangle clusters**
-- Visualize clusters: **Nanite Visualization > Clusters** — target evenly-sized blocks
-- Adjust `Target Triangles per Cluster` import parameter
-- Ensure logical mesh splits for smooth LOD transitions
+---
 
-## Material Performance
+## Performance Guidelines
 
-Materials ranked from best to worst performance:
+**Material binning:** Nanite groups non-deformed opaque materials into a single raster bin. Deformed materials (WPO, PDO, displacement, masked) each require a **separate raster bin**, multiplying rendering passes. Batch deformed materials spatially to reduce bin switching.
 
-1. **Opaque, no offsets** — fastest; all batch into a single raster bin
-2. **Opaque with minimal WPO** — good performance
-3. **Masked materials** — acceptable; use sparingly
-4. **Complex deformation (heavy WPO/PDO)** — slowest; each deformed material gets its own raster bin
+**Instance count vs. triangle count:** Reducing instance count saves more VRAM than reducing triangle detail. Root clusters remain resident regardless of distance. Thousands of off-screen Nanite instances still drain resources.
 
-### Rasterization Paths
+**Memory budgeting per platform:**
+- Always set `r.Nanite.VirtualTexturePoolSize` explicitly per target platform.
+- Mid-range GPU (RTX 4070 class): limit pool to ~2.5 GB.
+- SSD speed matters for open worlds — NVMe required; SATA drives cause streaming stutters.
 
-| Mode | Color in Visualization | Best For | Notes |
-|------|----------------------|----------|-------|
-| Software Raster | Blue | Triangles < 1 pixel | Fast (compute-optimized) |
-| Hardware Raster | Red | Triangles > 1 pixel | Slower for small-scale triangles |
+**Cluster optimization workflow:**
+1. Profile with `stat gpu` and `stat scenerendering`; record VisBuffer and BasePass costs.
+2. Enable Rasterization Mode visualization; identify red zones near camera.
+3. Audit deformation materials; merge similar effects; replace masked with opaque where possible.
+4. Batch spatially similar deformed materials.
+5. Validate with `stat unitgraph`; confirm <16.66 ms at 60 FPS target.
 
-Target: most geometry should render in software raster (blue). Red regions indicate expensive fallback.
+**Foliage:** Material bin overhead and overdraw make foliage expensive with Nanite. Monitor closely.
 
-### Material Optimization
+**Niagara particles:** Particle collisions fail against Nanite geometry — provide separate simplified collision meshes alongside Nanite assets.
 
-- Minimize deformation materials — they cannot batch, each creating separate raster bin passes
-- Group similar deformed materials spatially to reduce bin switching
-- Bake static deformations into geometry instead of using WPO
-- Merge similar deformation materials where possible
-- Replace opacity masks with fully opaque materials when visual difference is negligible
+**Virtual Shadow Maps:** Use simplified collision meshes for stable VSM shadow casting.
 
-## Memory Management
-
-| GPU Tier | Recommended Pool Size |
-|----------|----------------------|
-| Mid-range (RTX 4070 level) | 2048-2560 MB |
-| High-end (RTX 4080+) | 4096-8192 MB |
-| Large detail-heavy scenes | Start at 1024 MB, increase to 2048+ |
-
-- NVMe SSD is mandatory — SATA SSDs cause visible pop-in artifacts
-- Thousands of small Nanite meshes consume resources even when off-screen
+---
 
 ## Best Practices
 
-- Use Nanite selectively — mid-ground static geometry benefits most; foreground can use regular meshes, distant can use impostors
-- Profile early and continuously with `stat nanite` and `stat gpu` — do not defer to end of project
-- Test in full production levels, not just small test maps — assets that work in isolation may break at scale
-- Manually adjust World Partition culling distances — default loading can pull in distant meshes unnecessarily
-- Manually flag meshes for Lumen illumination contribution vs. receive-only
-- Keep material instruction counts reasonable — complex shader layering negates geometry optimization
+- **Use Nanite for:** high-poly static architecture, photogrammetry, scan data, terrain, environmental props with 100K+ triangles.
+- **Hybrid workflow:** Nanite handles static/rigid environmental assets; traditional LOD meshes handle dynamic, deformable, or VR content.
+- **Foreground objects with collision:** keep as traditional meshes — Nanite doesn't simplify collision generation.
+- **Disable lightmap UV generation** for Nanite assets when using Lumen + Virtual Shadow Maps (lightmaps not needed; reduces import time).
+- **Clamp WPO displacement** via Max World Position Offset Displacement on every material applied to Nanite meshes.
+- **Test on mid-range hardware** — Nanite's benefits vary significantly across GPU tiers.
+- **Import setting:** check Build Nanite during import for new high-poly assets; enable for new projects by default.
+- **Nanite Pass Switch node:** use in materials to provide alternate logic for the Nanite rasterization path vs. legacy path.
+
+---
 
 ## Anti-patterns
 
-- **All-or-nothing approach** — enabling Nanite on every mesh universally instead of strategic per-zone deployment
-- **Ignoring raster bins** — using many unique deformation materials without checking bin count overhead
-- **Skipping profiling** — relying on editor preview without `stat nanite` / `stat gpu` verification
-- **Excessive small objects** — thousands of tiny Nanite meshes still consume tracking resources
-- **Mixing old lighting with Nanite** — shadows become inconsistent when combining legacy shadow methods with Nanite-heavy scenes
-- **Over-reliance for animation** — attempting character deformation or cloth with Nanite produces artifacts
-- **Ignoring memory budgets** — not setting `r.Nanite.VirtualTexturePoolSize` leads to VRAM spikes
-- **Late-stage testing** — importing assets without checking draw calls; discovering performance issues only in full levels
+- **Masked materials on everything** — each masked material gets its own raster bin; costs explode with many unique masked meshes.
+- **Nanite on insignificant details** — door handles, screws, bolts rarely benefit; they're rarely the bottleneck and add instance overhead.
+- **No WPO clamping** — causes visible cluster culling artifacts (geometry popping in and out) on animated or wind-affected Nanite meshes.
+- **Over-triangulating flat surfaces** — kills cluster efficiency; flat faces collapse poorly in Nanite's LOD hierarchy.
+- **Messy topology / random edge flow** — inconsistent triangle density creates fragmented clusters and inflates VRAM.
+- **Using Nanite for VR** — latency from cluster streaming is incompatible with VR comfort requirements.
+- **Assuming infinite detail = zero optimization** — Nanite reduces *geometry* cost, not material/shader cost. Expensive materials still tank framerate.
+- **Neglecting SSD speed in open worlds** — SATA drives cause streaming stutters that cannot be solved by reducing polygon counts.
+- **Enabling Nanite on translucent meshes** — silently falls back to default material; always check Output Log after enabling.

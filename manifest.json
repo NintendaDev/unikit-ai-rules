@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-13T06:24:03.289Z",
+  "generated": "2026-04-16T04:01:15.148Z",
   "engines": {
     "unity": {
       "core": [
@@ -181,78 +181,165 @@
       ],
       "stack": [
         {
-          "id": "asset-manager",
-          "description": "UAssetManager, Primary/Secondary Assets, FPrimaryAssetId, Asset Bundles, FStreamableManager, async/sync loading, TSoftObjectPtr, TSoftClassPtr, soft/hard references, asset discovery, chunking, cooking rules",
+          "id": "actor-component-model",
+          "description": "Unreal Engine 5 Actor/Component architecture — component hierarchy, ownership model, Actor and Component lifecycle hooks, component declaration patterns, component communication, and runtime composition",
           "version": "1.0.0"
         },
         {
-          "id": "behavior-trees",
-          "description": "Behavior Tree AI system — composites, tasks, decorators, services, blackboard, C++ node authoring, execution flow, observer aborts, AI Controller integration",
+          "id": "audio-modulation",
+          "description": "UE5 Audio Modulation plugin — Control Bus and Bus Mix authoring, runtime modulation parameter control via `UAudioModulationStatics`, Modulation Generator setup, Patch wiring, and integration with MetaSound, Sound Wave, and Submix destinations",
           "version": "1.0.0"
         },
         {
-          "id": "blueprint",
-          "description": "Blueprint visual scripting conventions, C++/Blueprint integration patterns, UFUNCTION specifiers, communication patterns, performance, organization",
+          "id": "behavior-tree",
+          "description": "Unreal Engine's event-driven Behavior Tree system — authoring Tasks, Decorators, and Services in C++, wiring AIController and Blackboard, managing NodeMemory, configuring Observer Aborts, and structuring AI decision trees",
+          "version": "1.0.0",
+          "references": [
+            "behavior-tree-nodes.md"
+          ]
+        },
+        {
+          "id": "blueprints",
+          "description": "Blueprint visual scripting patterns in UE5 — when to use Blueprint vs C++, exposing C++ systems via UPROPERTY/UFUNCTION specifiers, communication patterns (interfaces, delegates, casting, function libraries), and Blueprint graph organization",
           "version": "1.0.0"
         },
         {
-          "id": "eqs",
-          "description": "EQS — generators, tests, contexts, query execution from C++, custom nodes, scoring/filtering, Behavior Tree integration, debugging",
+          "id": "common-ui",
+          "description": "Common UI plugin patterns for UE5 — activatable widget lifecycle, layered widget stack architecture, input routing, platform-agnostic gamepad/keyboard/mouse support, focus management, and multi-platform HUD setup in C++",
+          "version": "1.0.0"
+        },
+        {
+          "id": "data-assets",
+          "description": "Unreal Engine's data asset system — `UDataAsset` and `UPrimaryDataAsset` class usage, Asset Manager integration, async loading patterns, Asset Bundle configuration, `TSoftObjectPtr`/`TSoftClassPtr` soft references, and data-driven architecture design in UE5",
+          "version": "1.0.0"
+        },
+        {
+          "id": "enhanced-input-system",
+          "description": "Enhanced Input plugin patterns in UE5 — InputAction and InputMappingContext setup, Modifiers and Triggers, UEnhancedInputLocalPlayerSubsystem context management, C++ binding via UEnhancedInputComponent, value extraction from FInputActionValue, runtime context switching, asset organization, and naming conventions",
+          "version": "1.0.0"
+        },
+        {
+          "id": "environment-query-system",
+          "description": "Unreal Engine's Environment Query System — architecture (Generators, Tests, Contexts), running queries from C++, custom node authoring in C++, Behavior Tree integration, debugging with EQSTestingPawn, and performance tuning",
+          "version": "1.0.0",
+          "references": [
+            "eqs-generators.md",
+            "eqs-tests.md"
+          ]
+        },
+        {
+          "id": "epic-online-services",
+          "description": "Integration of Epic Online Services into UE5 via the Online Subsystem EOS plugin — SDK initialization, authentication flows, sessions, lobbies, voice chat, player data, achievements, leaderboards, and cross-platform account identity",
+          "version": "1.0.0"
+        },
+        {
+          "id": "functional-testing",
+          "description": "UE5 Functional Testing plugin — level-based integration testing using `AFunctionalTest` actors, test lifecycle (PrepareTest → IsReady → StartTest → Tick → FinishTest), step-based test flows, telemetry, and command-line execution",
+          "version": "1.0.0"
+        },
+        {
+          "id": "game-framework",
+          "description": "UE5 Gameplay Framework class roles, responsibilities, and inter-class relationships — covering GameMode, GameState, PlayerController, PlayerState, Pawn, Character, HUD, and GameInstance; their replication rules, access patterns, and data ownership decisions",
+          "version": "1.0.0"
+        },
+        {
+          "id": "gameplay-ability-system",
+          "description": "GAS runtime patterns in UE5 — AbilitySystemComponent initialization and ownership setup, Gameplay Ability authoring and lifecycle, Gameplay Effect types and application, AttributeSet definition and clamping, Ability Tasks, Gameplay Cues, network prediction limits, and naming conventions",
+          "version": "1.0.0"
+        },
+        {
+          "id": "gameplay-message-router",
+          "description": "UE5 Gameplay Message Router plugin — broadcasting and receiving typed USTRUCT messages via Gameplay Tag channels using `UGameplayMessageSubsystem`, listener handle lifecycle, tag channel design, `EGameplayMessageMatch` matching modes, module setup, and integration patterns",
           "version": "1.0.0"
         },
         {
           "id": "gameplay-tags",
-          "description": "FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, native tag declaration, hierarchy design, matching operations, replication, UPROPERTY meta specifiers, tag count container, C++ API patterns",
+          "description": "Unreal Engine's hierarchical tag system — defining and registering tags, `FGameplayTag` and `FGameplayTagContainer` API, tag hierarchy matching, native C++ tag macros, `FGameplayTagQuery` construction, `IGameplayTagAssetInterface`, replication configuration, and tag dictionary design patterns",
           "version": "1.0.0"
         },
         {
-          "id": "gas",
-          "description": "GAS architecture, AbilitySystemComponent, GameplayAbility, GameplayEffect, AttributeSet, GameplayTag, GameplayCue, ability activation, effect stacking, multiplayer replication, C++ setup patterns",
+          "id": "gauntlet",
+          "description": "Gauntlet — UE5's framework for automated functional and performance testing of cooked game builds. Covers UGauntletTestController authoring in C++, C# test node setup via DefaultTest, the RunUnreal execution pipeline, performance profiling via CSV/FCsvProfiler, and CI/CD integration patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "iris-replication",
+          "description": "Iris — UE5's next-generation, data-driven replication system — covering project setup, Push Model integration, subobject replication, spatial filtering, prioritization, memory/buffer configuration, and migration from the legacy replication system",
           "version": "1.0.0"
         },
         {
           "id": "lumen",
-          "description": "Lumen GI and reflections system — software/hardware ray tracing, surface cache, mesh cards, distance fields, console variables, Post Process Volume settings, scalability, material compatibility, performance optimization",
+          "description": "Lumen global illumination and reflections system in UE5 — hardware and software ray tracing modes, scene and material requirements, Post Process Volume configuration, performance tuning, scalability tiers, and platform compatibility",
           "version": "1.0.0"
         },
         {
-          "id": "mass-ai",
-          "description": "AI layer built on Mass Entity — navigation (ZoneGraph, NavMesh), steering, avoidance, StateTree integration, signal system, SmartObject interaction, MassCrowd (lanes, density, obstacles), AI-specific processors and fragments, entity config setup for AI agents",
+          "id": "lyra-starter-game",
+          "description": "Patterns, conventions, and extension rules for projects built on the Lyra Starter Game sample — covering the Experience system, Game Feature Plugin structure, modular gameplay initialization, PawnData configuration, GAS integration, and asset loading strategy",
           "version": "1.0.0"
         },
         {
           "id": "mass-entity",
-          "description": "Mass ECS architecture — fragments, processors, traits, observers, tags, archetypes, queries, spawning, LOD, entity manager, C++ API patterns, module dependencies, debugging",
+          "description": "UE5 Mass Entity framework — authoring Fragments, Processors, Traits, and Tags; spawning entities; modifying entity composition via deferred commands; configuring observer processors; integrating Mass Avoidance and Navigation; debugging with the Mass Debugger",
+          "version": "1.0.0"
+        },
+        {
+          "id": "material-system",
+          "description": "Unreal Engine 5 material authoring and runtime material management — choosing between UMaterialInstanceDynamic, UMaterialInstanceConstant, Material Parameter Collections, and Custom Primitive Data; C++ parameter API; parent material architecture; shader permutation management",
+          "version": "1.0.0"
+        },
+        {
+          "id": "metasounds",
+          "description": "MetaSounds plugin authoring in UE5 — DSP graph architecture, asset types (Source, Patch, Preset), runtime parameter control from C++ and Blueprint, custom C++ node creation, execution model (render blocks, constructor pins, triggers), performance tuning, and integration with UAudioComponent",
           "version": "1.0.0"
         },
         {
           "id": "nanite",
-          "description": "Nanite mesh settings, enabling/disabling, material compatibility, console variables, cluster optimization, profiling, C++ API, performance guidelines, limitations",
+          "description": "UE5 Nanite virtualized geometry system — enabling Nanite on assets, supported mesh and component types, material restrictions, World Position Offset clamping, fallback mesh configuration, C++ support APIs, console variables, visualization modes, and performance budgeting",
+          "version": "1.0.0"
+        },
+        {
+          "id": "online-subsystem",
+          "description": "Unreal Engine's Online Subsystem (OSSv1) and Online Services (OSSv2) — session creation and lifecycle, asynchronous delegate patterns, multi-OSS configuration, platform identity and friends interfaces, and the architectural trade-offs between the two API generations",
+          "version": "1.0.0"
+        },
+        {
+          "id": "python-editor-scripting",
+          "description": "Python Editor Scripting plugin for UE5 — editor-only automation workflows, asset batch processing, actor manipulation, Blueprint type exposure via Python decorators, Editor Utility Widget authoring, and multi-mode script execution",
+          "version": "1.0.0"
+        },
+        {
+          "id": "replication",
+          "description": "UE5 network replication — property replication setup, RPC authoring and routing rules, RepNotify patterns, stateful vs event-based decisions, network roles and modes, relevancy and bandwidth management, push model, replicated subobjects, Fast TArray, atomic replication, and debugging",
+          "version": "1.0.0"
+        },
+        {
+          "id": "save-game",
+          "description": "Unreal Engine 5 built-in save/load system — `USaveGame` subclass authoring, slot-based I/O via `UGameplayStatics`, sync vs. async API, actor world-state serialization, save data versioning, and corruption protection patterns",
           "version": "1.0.0"
         },
         {
           "id": "smart-objects",
-          "description": "Smart Object system — definitions, slots, behaviors, claiming/releasing workflow, spatial queries, filtering, tags, conditions, StateTree integration, Mass integration, C++ API patterns",
+          "description": "Smart Objects plugin for UE5 — data-driven, slot-based AI interaction system including USmartObjectComponent registration and lifecycle, spatial slot querying, claim/occupy/release workflow, USmartObjectDefinition asset authoring, GameplayInteractions StateTree integration, and Behavior Tree / Mass Entity bindings",
           "version": "1.0.0"
         },
         {
           "id": "state-tree",
-          "description": "StateTree system — states, tasks, evaluators, conditions, transitions, data binding, schemas, contexts, external data, linked trees, C++ task authoring, Smart Object/Mass integration",
+          "description": "StateTree plugin usage in UE5 — authoring Tasks, Evaluators, and Conditions in C++, configuring Schemas and context data, managing InstanceData, setting up transitions and selectors, integrating with AI controllers, and running External StateTrees",
           "version": "1.0.0"
         },
         {
-          "id": "uat",
-          "description": "Unreal Automation Tool — RunUAT, BuildCookRun pipeline, cooking, packaging, staging, deploying, custom C# automation commands, BuildGraph scripting, CI/CD integration",
+          "id": "subsystems",
+          "description": "UE5 Subsystem framework — choosing the right subsystem type, lifecycle hooks, C++ access patterns, tick support, dependency ordering, Blueprint exposure, and loose coupling between subsystems",
           "version": "1.0.0"
         },
         {
-          "id": "ubt",
-          "description": "Unreal Build Tool — Build.cs module rules, Target.cs target configuration, module dependencies, PCH/IWYU, module types, loading phases, plugin descriptors, build environments, link types",
+          "id": "unreal-build-system",
+          "description": "UnrealBuildTool (UBT) configuration — Build.cs module rules, Target.cs target setup, module types and loading phases, IWYU include discipline, conditional compilation, and third-party library integration for UE5 C++ projects",
           "version": "1.0.0"
         },
         {
-          "id": "uht",
-          "description": "Unreal Header Tool — reflection macros (UCLASS, UPROPERTY, UFUNCTION, USTRUCT, UENUM), specifiers, metadata, GENERATED_BODY, .generated.h code generation, UINTERFACE, delegates, UHT limitations",
+          "id": "unreal-insights",
+          "description": "Profiling and telemetry analysis in UE5 — capturing CPU/GPU timing, memory allocations, asset loading, and network traffic via the Trace system, and analyzing recorded sessions in the Unreal Insights viewer",
           "version": "1.0.0"
         }
       ]

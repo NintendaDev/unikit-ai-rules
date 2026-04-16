@@ -1,341 +1,293 @@
----
 version: 1.0.0
----
 
 # Gameplay Tags
 
-> **Scope**: FGameplayTag, FGameplayTagContainer, FGameplayTagQuery, native tag declaration, hierarchy design, matching operations, replication, UPROPERTY meta specifiers, tag count container, C++ API patterns
-> **Load when**: working with FGameplayTag-based state and queries — declaring native tags via UE_DEFINE_GAMEPLAY_TAG, designing dot-separated tag hierarchies, matching with HasTag/HasAny/HasAll on FGameplayTagContainer, building FGameplayTagQuery expressions, using FGameplayTagCountContainer for stacking, and configuring fast replication
+> **Scope**: Unreal Engine's hierarchical tag system — defining and registering tags, `FGameplayTag` and `FGameplayTagContainer` API, tag hierarchy matching, native C++ tag macros, `FGameplayTagQuery` construction, `IGameplayTagAssetInterface`, replication configuration, and tag dictionary design patterns.
+> **Load when**: defining or querying gameplay tags, creating `FGameplayTag` or `FGameplayTagContainer` properties, writing native C++ tags, implementing `IGameplayTagAssetInterface`, configuring tag replication, designing tag hierarchies, debugging tag matching behavior.
 
 ---
 
-## Core Concepts
+## Setup
 
-Gameplay Tags are hierarchical, centrally-managed FName-based identifiers registered in `UGameplayTagsManager` at startup. They replace raw strings, booleans, and enums with a type-safe, editor-friendly tagging system.
-
-**Key types:**
-
-| Type | Purpose |
-|------|---------|
-| `FGameplayTag` | Single hierarchical tag (wraps FName) |
-| `FGameplayTagContainer` | Collection of tags with matching operations |
-| `FGameplayTagQuery` | Logical query run against containers |
-| `FGameplayTagCountContainer` | Container with tag reference counting |
-| `FGameplayTagQueryExpression` | Builder for complex query expressions |
-
-**Hierarchy:** Tags use dot-separated levels — `Damage.DoT.Fire`, `State.Debuff.Stun`, `Ability.Skill.Fireball`. Matching can test exact tag or any parent in the hierarchy.
-
-## Module Setup
-
-```csharp
-// MyProject.Build.cs
-PublicDependencyModuleNames.Add("GameplayTags");
-```
+Add the `"GameplayTags"` module to `YourProject.Build.cs`:
 
 ```cpp
-#include "GameplayTagContainer.h"
-// For native tag macros:
-#include "NativeGameplayTags.h"
+PublicDependencyModuleNames.AddRange(new string[] {
+    "GameplayTags"
+});
 ```
 
-## Declaring Tags
+Define tags via **Project Settings → Project → GameplayTags → Manage Gameplay Tags** or in dedicated C++ files (preferred for code-defined tags).
 
-### Native C++ Tags (Preferred)
+---
 
-Registered at module startup. No dictionary lookup at runtime — safest and fastest approach.
+## Native C++ Tags
+
+Prefer native C++ tags over `RequestGameplayTag()` calls at runtime. Native tags are registered once at startup, avoid repeated FName lookups, and provide type safety.
+
+**Three macros (UE 4.27+):**
 
 ```cpp
-// Header — shared across modules
+// GameplayTags.h — expose tag across modules
 UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Damage_Fire);
+UE_DECLARE_GAMEPLAY_TAG_EXTERN(TAG_Status_Stunned);
 
-// CPP — definition
+// GameplayTags.cpp — define and register
 UE_DEFINE_GAMEPLAY_TAG(TAG_Damage_Fire, "Damage.Fire");
+UE_DEFINE_GAMEPLAY_TAG(TAG_Status_Stunned, "Status.Stunned");
 
-// With comment (appears in tag manager)
-UE_DEFINE_GAMEPLAY_TAG_COMMENT(TAG_Damage_Physical, "Damage.Physical",
-    "Physical damage from melee and projectile hits");
+// .cpp only — file-local scope (no paired declaration needed)
+UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Internal_Only, "Internal.Only");
 
-// CPP-only (not shared across modules)
-UE_DEFINE_GAMEPLAY_TAG_STATIC(TAG_Internal_State, "Internal.Processing.State");
+// With documentation comment
+UE_DEFINE_GAMEPLAY_TAG_COMMENT(TAG_Damage_Fire, "Damage.Fire", "Applied by fire damage sources");
 ```
 
-Usage — direct variable access, no lookup:
+**File organization:** Maintain a dedicated `GameplayTags.h` / `GameplayTags.cpp` pair for all exposed native tags rather than scattering declarations across class files.
+
+**Naming convention:** Prefix C++ tag variables with `TAG_`, using underscores to mirror the dot hierarchy: `TAG_Damage_DoT_Fire` → `"Damage.DoT.Fire"`.
+
+---
+
+## FGameplayTag API
+
+Always use `FGameplayTag` for a single tag — never store a tag as `FName` or `FString`.
 
 ```cpp
-if (DamageTag.MatchesTag(TAG_Damage_Fire))
-{
-    // Handle fire damage
-}
-```
-
-### INI / Project Settings Tags
-
-Defined in Project Settings > GameplayTags > Manage Gameplay Tags. Stored in `DefaultGameplayTags.ini`. Convenient for designers but less reliable in edge cases (config load ordering).
-
-### DataTable Tags
-
-Import from CSV/JSON via `FGameplayTagTableRow`. Useful for bulk tag definitions from external tools.
-
-### RequestGameplayTag (Runtime Lookup)
-
-```cpp
+// Retrieve from registry (use only when native tags are not applicable)
 FGameplayTag Tag = FGameplayTag::RequestGameplayTag(FName("Damage.Fire"));
+
+// Validation
+bool bValid = Tag.IsValid();
+
+// Name access
+FName Name = Tag.GetTagName(); // returns "Damage.Fire"
+
+// Hierarchy-aware matching (parent matches its children)
+bool bMatch = Tag.MatchesTag(OtherTag);         // true if OtherTag == Tag or is a child
+bool bExact = Tag.MatchesTagExact(OtherTag);    // true only if identical
+
+// Match against a set
+bool bAny  = Tag.MatchesAny(Container);         // hierarchical, any match
+bool bAnyE = Tag.MatchesAnyExact(Container);    // exact, any match
 ```
 
-Performs dictionary lookup — use sparingly. Prefer native tags for frequently-accessed tags. Avoid in constructors (dictionary may not be initialized yet).
+---
 
-## FGameplayTag Operations
+## FGameplayTagContainer API
 
-### Matching
+Always use `FGameplayTagContainer` for multiple tags. Never use `TArray<FGameplayTag>` — the container caches parent tags internally for O(1) hierarchy checks.
+
+### Querying
 
 ```cpp
-FGameplayTag FireTag = TAG_Damage_Fire;          // "Damage.Fire"
-FGameplayTag DamageTag = TAG_Damage;              // "Damage"
+FGameplayTagContainer Container;
 
-// Exact match — same tag only
-FireTag == DamageTag;                              // false
-FireTag.MatchesTagExact(DamageTag);               // false
+// Hierarchical matching — true if Container has the tag OR any of its ancestors
+bool bHas   = Container.HasTag(TAG_Damage_Fire);
 
-// Hierarchical match — checks if tag is child of (or equal to) other tag
-FireTag.MatchesTag(DamageTag);                    // true ("Damage.Fire" is child of "Damage")
-DamageTag.MatchesTag(FireTag);                    // false ("Damage" is NOT child of "Damage.Fire")
+// Exact matching — true only if Container has the exact tag
+bool bExact = Container.HasTagExact(TAG_Damage_Fire);
+
+// Any / All variants (both hierarchical and exact)
+bool bAny   = Container.HasAny(OtherContainer);        // true if any tag matches (hierarchical)
+bool bAnyE  = Container.HasAnyExact(OtherContainer);   // true if any tag matches (exact)
+bool bAll   = Container.HasAll(OtherContainer);        // true if all tags present (hierarchical)
+bool bAllE  = Container.HasAllExact(OtherContainer);   // true if all tags present (exact)
+
+// Filter — returns new container with only matching tags
+FGameplayTagContainer Filtered      = Container.Filter(FilterSet);       // hierarchical
+FGameplayTagContainer FilteredExact = Container.FilterExact(FilterSet);  // exact
 ```
 
-### Validity
+**Hierarchy example:**
+```cpp
+// Container has "Weapon.AR.AK47"
+Container.HasTag(TAG_Weapon);         // true  (parent match)
+Container.HasTagExact(TAG_Weapon);    // false (no exact "Weapon" tag present)
+```
+
+### Modification
 
 ```cpp
-if (Tag.IsValid())
-{
-    // Tag is registered in the dictionary
-}
+Container.AddTag(TAG_Damage_Fire);
+Container.RemoveTag(TAG_Damage_Fire);
+Container.AppendTags(OtherContainer);   // prefer over multiple AddTag calls
+Container.Reset();                       // clear all
 ```
 
-## FGameplayTagContainer Operations
-
-Always prefer `FGameplayTagContainer` over `TArray<FGameplayTag>` — it provides optimized matching and automatic parent tag tracking.
-
-### Adding / Removing
+### Utility
 
 ```cpp
-FGameplayTagContainer Tags;
-Tags.AddTag(TAG_State_Burning);
-Tags.AddTag(TAG_State_Stunned);
-Tags.AppendTags(OtherContainer);
-Tags.RemoveTag(TAG_State_Burning);
-Tags.Reset();  // Clear all
+int32 Count = Container.Num();
+bool bEmpty = Container.IsEmpty();
+bool bValid = Container.IsValid();      // all tags exist in registry
 ```
 
-### Matching Methods
+---
+
+## UPROPERTY Integration
 
 ```cpp
-FGameplayTagContainer RequiredTags;
-RequiredTags.AddTag(TAG_State_Burning);
-RequiredTags.AddTag(TAG_State_Poisoned);
+// Single tag — shows full tag picker in editor
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
+FGameplayTag DamageType;
 
-// Has specific tag (hierarchical match)
-bool bBurning = Tags.HasTag(TAG_State_Burning);
+// Container — shows multi-tag picker
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
+FGameplayTagContainer BlockedTags;
 
-// Has ANY of the specified tags
-bool bHasAny = Tags.HasAny(RequiredTags);
-
-// Has ALL of the specified tags
-bool bHasAll = Tags.HasAll(RequiredTags);
-
-// Exact match variants (no hierarchy)
-bool bExact = Tags.HasTagExact(TAG_State_Burning);
+// Restrict the editor picker to a specific subtree
+UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags", meta = (Categories = "Damage"))
+FGameplayTag DamageCategory;  // dropdown shows only Damage.* tags
 ```
 
-### Iteration
-
-```cpp
-for (const FGameplayTag& Tag : Tags)
-{
-    UE_LOG(LogTemp, Log, TEXT("Tag: %s"), *Tag.ToString());
-}
-```
-
-## FGameplayTagCountContainer
-
-Maintains reference counts per tag — multiple systems can add/remove the same tag independently without conflicts. Essential for stacking mechanics.
-
-```cpp
-FGameplayTagCountContainer TagCounts;
-TagCounts.UpdateTagCount(TAG_State_Burning, 1);   // Add
-TagCounts.UpdateTagCount(TAG_State_Burning, 1);   // Count = 2
-TagCounts.UpdateTagCount(TAG_State_Burning, -1);  // Count = 1, tag still present
-TagCounts.UpdateTagCount(TAG_State_Burning, -1);  // Count = 0, tag removed
-```
-
-Register delegates for tag changes:
-
-```cpp
-TagCounts.RegisterGameplayTagEvent(TAG_State_Burning,
-    EGameplayTagEventType::NewOrRemoved)
-    .AddUObject(this, &AMyActor::OnBurningTagChanged);
-```
+---
 
 ## FGameplayTagQuery
 
-Complex logical queries evaluated against containers.
-
-### Building Queries
+Use `FGameplayTagQuery` for complex boolean conditions (AND/OR/NOT combinations). Prefer it over chaining multiple `HasTag` calls.
 
 ```cpp
-// Simple: has any of these tags
-FGameplayTagQuery Query = FGameplayTagQuery::MakeQuery_MatchAnyTags(
-    FGameplayTagContainer::CreateFromArray(
-        TArray<FGameplayTag>{TAG_State_Burning, TAG_State_Poisoned}));
-
-// Complex expression-based query
-FGameplayTagQuery ComplexQuery;
-ComplexQuery.Build(
-    FGameplayTagQueryExpression()
-        .AllExprMatch()
-        .AddExpr(FGameplayTagQueryExpression()
-            .AnyTagsMatch()
-            .AddTag(TAG_State_Burning)
-            .AddTag(TAG_State_Poisoned))
-        .AddExpr(FGameplayTagQueryExpression()
-            .NoTagsMatch()
-            .AddTag(TAG_State_Immune))
-);
+// Simple factory methods
+FGameplayTagQuery Q1 = FGameplayTagQuery::MakeQuery_MatchAllTags(RequiredContainer);
+FGameplayTagQuery Q2 = FGameplayTagQuery::MakeQuery_MatchAnyTags(AnyContainer);
+FGameplayTagQuery Q3 = FGameplayTagQuery::MakeQuery_MatchNoTags(BlockedContainer);
 
 // Evaluate
-bool bMatches = ComplexQuery.Matches(EntityTags);
+bool bPasses = Q1.Matches(ActorTagContainer);
 ```
 
-### Query Expression Types
-
-| Method | Meaning |
-|--------|---------|
-| `AllTagsMatch()` | Container must have ALL listed tags |
-| `AnyTagsMatch()` | Container must have ANY listed tag |
-| `NoTagsMatch()` | Container must have NONE of listed tags |
-| `AllExprMatch()` | All sub-expressions must be true |
-| `AnyExprMatch()` | Any sub-expression must be true |
-| `NoExprMatch()` | No sub-expression may be true |
-
-## UPROPERTY Meta Specifiers
-
-### Category Filtering
-
-Restrict which tags appear in the editor dropdown:
+**Complex query construction** — for logic like `(A && B) || (C && !D)`:
 
 ```cpp
-// Only show tags under "Damage" hierarchy
-UPROPERTY(EditAnywhere, meta = (Categories = "Damage"))
-FGameplayTag DamageType;
+// ALL( ANY( ALL(A,B), ALL(C) ), NONE(D) )
+FGameplayTagQuery Query;
+Query.Build(FGameplayTagQueryExpression()
+    .AllExprMatch()
+    .AddExpr(FGameplayTagQueryExpression()
+        .AnyExprMatch()
+        .AddExpr(FGameplayTagQueryExpression().AllTagsMatch().AddTag(TAG_A).AddTag(TAG_B))
+        .AddExpr(FGameplayTagQueryExpression().AllTagsMatch().AddTag(TAG_C)))
+    .AddExpr(FGameplayTagQueryExpression().NoTagsMatch().AddTag(TAG_D)));
 
-// Multiple categories
-UPROPERTY(EditAnywhere, meta = (Categories = "Weapon.AR,Weapon.SMG"))
-FGameplayTag WeaponType;
-
-// Filter containers too
-UPROPERTY(EditAnywhere, meta = (Categories = "State"))
-FGameplayTagContainer ActiveStates;
+bool bMatch = Query.Matches(Container);
 ```
 
-### Common UPROPERTY Patterns
+`FGameplayTagQueryExpression` match types:
+- `AllTagsMatch()` / `AnyTagsMatch()` / `NoTagsMatch()` — operate on a set of tags
+- `AllExprMatch()` / `AnyExprMatch()` / `NoExprMatch()` — operate on nested sub-expressions
+
+---
+
+## IGameplayTagAssetInterface
+
+Implement `IGameplayTagAssetInterface` on any actor or object that owns tags to enable standardized querying without casting.
 
 ```cpp
-// Editable tag with Blueprint access
-UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
-FGameplayTagContainer OwnedTags;
+// MyCharacter.h
+#include "GameplayTagAssetInterface.h"
 
-// Tag query for requirements
-UPROPERTY(EditAnywhere, Category = "Requirements")
-FGameplayTagQuery ActivationRequirements;
+class AMyCharacter : public ACharacter, public IGameplayTagAssetInterface
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Tags")
+    FGameplayTagContainer OwnedTags;
+
+    virtual void GetOwnedGameplayTags(FGameplayTagContainer& TagContainer) const override
+    {
+        TagContainer.AppendTags(OwnedTags);
+    }
+};
 ```
 
-## Hierarchy Design
+**Query any tagged object without casting:**
 
-### Naming Conventions
+```cpp
+if (IGameplayTagAssetInterface* TagInterface = Cast<IGameplayTagAssetInterface>(Actor))
+{
+    FGameplayTagContainer Tags;
+    TagInterface->GetOwnedGameplayTags(Tags);
+    if (Tags.HasTag(TAG_Status_Stunned)) { /* ... */ }
+}
+```
 
-| Pattern | Example | Use |
-|---------|---------|-----|
-| `Category.Subcategory.Specific` | `Damage.DoT.Fire` | Standard hierarchy |
-| `System.Action` | `Ability.Cast`, `Input.Move` | System-action pairing |
-| `State.Condition` | `State.Debuff.Stun` | Entity state flags |
+---
 
-### Structure Principles
+## Tag Hierarchy Design
 
-- Structure tags by **category first**: `Item.Heal.Apple` not `Item.Apple.Heal`
-- Keep top-level categories broad and stable — they define the matching tree
-- Avoid breaking existing hierarchies when expanding
-- Use separate tag hierarchies for orthogonal concerns (State vs Ability vs Damage)
-- Design for `MatchesTag()` parent queries — `HasTag(TAG_Damage)` matching all damage subtypes
+- **Structure by function-first, then specifics:** `Ability.Attack.Melee` not `Ability.Melee.Attack`
+- **Recommended depth:** 3–4 levels maximum. `Damage.DoT.Fire` is good; `Damage.DoT.Fire.Ground.Area` is too deep.
+- **Common root categories:** `Ability.`, `Status.`, `Damage.`, `State.`, `Event.`, `UI.`, `Item.`
+- **Plan the dictionary upfront** — restructuring tags after Blueprint and C++ usage is widespread is expensive.
+- **No duplicate semantics:** do not create both `State.Stunned` and `Status.Stunned` — pick one root.
+
+---
 
 ## Replication
 
-### Fast Replication (Recommended)
+`FGameplayTag` and `FGameplayTagContainer` replicate natively over the network.
 
-Enable in Project Settings > GameplayTags > Fast Replication. Tags replicated by index instead of full FName — requires identical tag lists on client and server.
+**Fast Replication** (Project Settings → GameplayTags → Fast Replication):
+- Replicates tags by integer index instead of full name string — significantly reduces bandwidth.
+- **Requirement:** server and all clients must have an identical tag list. Adding tags at runtime after connection is not supported.
+- Key settings:
+  - `NumBitsForContainerSize` — bits for container size (default 6 bits → max 63 tags per container per RPC)
+  - `NetIndexFirstBitSegment` — minimum bits always sent per tag
+  - `CommonlyReplicatedTags` — list tags replicated most frequently to assign them low indices (fewer bits)
 
-**Tuning:**
+**Loose tags via GAS:**
 
-| Setting | Purpose | Default |
-|---------|---------|---------|
-| `NetIndexFirstBitSegment` | Minimum bits always sent | 16 |
-| `NumBitsForContainerSize` | Bits for container element count | 6 (max 63 tags) |
-| `CommonlyReplicatedTags` | Array of tags assigned lowest indices | — |
+```cpp
+AbilitySystemComponent->AddReplicatedLooseGameplayTag(TAG_Status_Stunned);
+AbilitySystemComponent->RemoveReplicatedLooseGameplayTag(TAG_Status_Stunned);
+```
 
-Use `GameplayTags.PrintReplicationFrequencyReport` console command to identify commonly replicated tags for the `CommonlyReplicatedTags` array.
+**Diagnostic console command:**
+```
+GameplayTags.PrintReplicationFrequencyReport
+```
 
-### Dynamic Replication
-
-Uses IRIS system. Experimental — not production-ready. Cannot be used simultaneously with Fast Replication.
-
-## Performance Characteristics
-
-| Operation | Cost | Notes |
-|-----------|------|-------|
-| Native tag access | Zero | Direct variable, no lookup |
-| `RequestGameplayTag()` | Moderate | Dictionary hash lookup |
-| FGameplayTag equality (`==`) | Extremely cheap | Two uint32 comparisons (FName internals) |
-| `MatchesTag()` (hierarchical) | Cheap | Parent chain traversal, still fast |
-| FGameplayTag copy | Minimal | 8-12 bytes |
-| `HasAny()` / `HasAll()` | Cheap | Optimized container operations |
-| Network replication (fast) | Optimized | Index-based bit packing |
-
-### Limits
-
-- Maximum **65,535 tags** per project
-- FName max size: **1,024 characters**
-- Tag hierarchy depth: no hard limit, but keep practical (3-5 levels)
+---
 
 ## GAS Integration
 
-Gameplay Tags are central to the Gameplay Ability System:
+Within the Gameplay Ability System, tags control ability lifecycle automatically:
 
-| GAS Concept | Tag Usage |
-|-------------|-----------|
-| Ability activation | Tags grant/block ability activation |
-| GameplayEffects | Tags applied/required/blocked by effects |
-| GameplayCues | Tag-triggered visual/audio feedback (`GameplayCue.Damage.Fire`) |
-| Attribute modifiers | Tag-conditioned modifiers |
-| Ability blocking | `ActivationBlockedTags`, `ActivationRequiredTags` |
-| Ability granting | Tag-based ability queries |
+| Property | Effect |
+|---|---|
+| `AbilityTags` | Tags that identify the ability itself |
+| `BlockAbilitiesWithTag` | Prevents other abilities with these tags from activating |
+| `CancelAbilitiesWithTag` | Cancels running abilities with these tags on activation |
+| `ActivationRequiredTags` | Owner must have all these tags for the ability to activate |
+| `ActivationBlockedTags` | Owner must NOT have any of these tags to activate |
+| `SourceRequiredTags` | Source actor must have all these tags |
+| `TargetRequiredTags` | Target actor must have all these tags |
+
+For stacking behavior (counting multiple sources of the same tag), GAS provides `FGameplayTagCountContainer`. Standard `FGameplayTagContainer` has no count — adding the same tag twice does not increase a counter.
+
+---
 
 ## Best Practices
 
-- **Always use native tags** (`UE_DEFINE_GAMEPLAY_TAG`) for tags accessed in C++ — eliminates runtime lookup and prevents dictionary timing issues
-- **Use `FGameplayTagContainer`** instead of `TArray<FGameplayTag>` — optimized matching, automatic parent tracking
-- **Use `meta = (Categories = "...")`** on UPROPERTY to filter editor dropdowns — prevents tag misuse by designers
-- **Design hierarchy for `MatchesTag()`** — put the broadest category first so parent matching works logically
-- **Enable Fast Replication** for multiplayer — configure `CommonlyReplicatedTags` based on frequency reports
-- **Use `FGameplayTagCountContainer`** for stacking effects — prevents tag loss when multiple sources add the same tag
-- **Centralize tag declarations** in dedicated header files (e.g., `MyProjectTags.h`) — one authoritative source per module
-- **Avoid `RequestGameplayTag()` in hot paths** — cache the result or use native tags
-- **Never access tags in constructors** — the tag dictionary may not be initialized yet
+- **Prefer native C++ tags** for any tag accessed in code — declare once in `GameplayTags.h`, define in `GameplayTags.cpp`.
+- **Use `FGameplayTagContainer` over `TArray<FGameplayTag>`** — richer API, internal parent-tag cache, replication support.
+- **Use `meta = (Categories = "Parent.Sub")`** on `UPROPERTY` to limit editor dropdowns to relevant subtrees.
+- **Implement `IGameplayTagAssetInterface`** on all actors that own tags — avoids cast-heavy querying code.
+- **Use `FGameplayTagQuery`** instead of multiple chained `HasTag` calls for compound conditions.
+- **Use `AppendTags`** instead of looping `AddTag` calls when bulk-adding.
+- **Scope file-local tags with `UE_DEFINE_GAMEPLAY_TAG_STATIC`** — no header pollution, no external exposure.
+
+---
 
 ## Anti-patterns
 
-- **Raw string comparisons** — using `FName` or `FString` for tag-like behavior instead of `FGameplayTag`; loses hierarchy, editor UI, and type safety
-- **`TArray<FGameplayTag>` instead of `FGameplayTagContainer`** — loses optimized matching and parent tag tracking
-- **Boolean fields instead of tags** — `bIsStunned`, `bIsBurning` don't compose, scale, or integrate with GAS; use tags
-- **`RequestGameplayTag()` in tight loops** — repeated dictionary lookups; use native tags or cache the result
-- **Constructor tag access** — `UGameplayTagsManager` may not be initialized; use native macros instead
-- **Flat tag hierarchies** — tags like `Stun`, `Fire`, `Heal` without hierarchy lose parent matching capability
-- **Overly deep hierarchies** — `Game.Combat.Damage.Type.Element.Fire.DoT.Tick.Small` is unwieldy; keep 3-5 levels
-- **INI tag deletion without redirects** — removing tags from config silently breaks serialized references; use `FGameplayTagRedirect` to remap
-- **Ignoring replication settings** — default replication sends full FName strings; enable Fast Replication for multiplayer
+- **`TArray<FGameplayTag>` instead of `FGameplayTagContainer`** — loses query helpers, parent cache, and replication optimizations.
+- **Calling `FGameplayTag::RequestGameplayTag()` in hot paths** — cache the result as a native tag or member variable.
+- **Hard-coded tag strings scattered across classes** — all tags must go through a central `GameplayTags.h` file to prevent typos and enable refactoring.
+- **Unplanned tag dictionary** — adding tags ad-hoc creates naming collisions and semantic duplicates that are expensive to untangle.
+- **Hierarchies deeper than 4 levels** — impractical for designers and hard to query coherently.
+- **Using `HasTag` where exact matching is semantically required** — checking if an actor is `Status.Stunned` (exact state) should use `HasTagExact`, not `HasTag` (which would also match `Status` alone).
+- **Mixing Actor `Tags` (FName-based) with Gameplay Tags** — pick one system per project; using both creates confusion and double-maintenance.
+- **Modifying `FGameplayTagContainer` during iteration** — cache the container or collect tags to modify into a temporary list first.
