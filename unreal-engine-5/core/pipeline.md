@@ -17,6 +17,7 @@ version: 1.0.0
 1. **Architecture-first pipeline selection** — examine the project's architecture (Actor/Component, GAS, Mass Entity, or hybrid) and select the matching pipeline section from this guide. All plan phases and task ordering MUST align with the chosen pipeline.
 2. **Minimize compilations and editor restarts** — structure the plan to batch all structural changes (`.h` edits, new classes, new fragments) into the fewest possible sessions. Reorder tasks so that all header-level work happens together, followed by iteration-only work.
 3. **Mark restart points explicitly** — every point in the plan where an editor restart or full rebuild is required MUST be marked with a visible label (e.g., `⚠️ RESTART REQUIRED`). During plan execution, ALWAYS stop at these points and notify the user that a rebuild and editor restart is needed before proceeding further.
+4. **Mandatory post-restart verification phase** — whenever the plan includes a point requiring an editor restart or full recompilation, the plan MUST include a dedicated verification phase immediately after that restart point. This phase checks the correctness of ALL new scripts and functionality implemented in the preceding phase. No further implementation work may begin until this verification phase passes.
 
 ---
 
@@ -53,6 +54,22 @@ version: 1.0.0
 - **Batch structural changes** — accumulate all `.h` changes and apply in one session, not one at a time
 - **Review headers before build** — before compiling, review all `.h` files: is everything declared? Will you need to add more in an hour?
 - **Verify in Blueprint immediately** — after restart, immediately check in Blueprint that new properties/functions are accessible
+
+### Post-Restart Verification Phase (mandatory after every restart)
+
+Whenever a restart or recompilation is required, the plan MUST include a dedicated verification phase immediately after that restart point. This phase is **non-skippable** — no implementation work may proceed until all applicable checks pass.
+
+**Verification checklist:**
+- [ ] Compilation completes with no errors and no warnings about missing or broken declarations
+- [ ] All new `UPROPERTY` / `UFUNCTION` declarations are visible in Blueprint Details Panel and node menus
+- [ ] New component classes appear in the **Add Component** menu
+- [ ] New `UINTERFACE` implementations are accessible from Blueprint
+- [ ] Any Blueprint or script that uses new C++ functions compiles and runs without errors
+- [ ] New `UDataAsset` / `UDataTable` fields are editable in-editor
+- [ ] *(GAS)* New `AttributeSet` attributes are visible in GameplayEffect magnitude fields
+- [ ] *(Mass Entity)* New `FMassFragment` types are picked up with no archetype errors in the log
+
+Only after all applicable checks pass may the plan advance to the next phase.
 
 ---
 
