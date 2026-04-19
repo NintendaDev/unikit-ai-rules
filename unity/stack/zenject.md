@@ -69,6 +69,17 @@ Container.Bind(typeof(IFoo), typeof(IBar)).To<FooBar>().AsSingle();
 
 Default when no lifetime is specified is `AsSingle()`. For `BindFactory` / `BindMemoryPool`, the default is `AsCached()`.
 
+## Binding Conventions
+
+**Use `NonLazy()` for controllers and presenters.** Controllers (GRASP pattern) and presenters (MVP Passive View) drive behaviour on their own — nothing requests them as dependencies. Without `NonLazy()` the container never instantiates them and their logic silently never runs.
+
+```csharp
+Container.BindInterfacesAndSelfTo<GameFlowController>().AsSingle().NonLazy();
+Container.BindInterfacesTo<HudPresenter>().AsSingle().NonLazy();
+```
+
+Apply the same pattern to any class whose sole purpose is to observe/react (entry points that are not reached via `IInitializable`/`ITickable` interfaces).
+
 ## Injection Methods
 
 Only two forms of injection are allowed. Every other form (field injection, property injection, method named anything other than `Construct`, non-public `Construct`) is an **anti-pattern** — see the "Anti-patterns" section.
@@ -96,9 +107,11 @@ public class ScoreCalculator
 
 Mark injected fields `readonly`. Never place `[Inject]` on fields or properties of plain C# classes.
 
+**A plain C# class used by Zenject MUST have exactly one constructor.** Multiple overloads cause ambiguous resolution; refactor to a single canonical constructor with optional parameters or factory methods.
+
 ### Method injection (MonoBehaviours only)
 
-The injection method MUST be named `Construct`, MUST be `public`, and MUST carry `[Inject]`:
+The injection method MUST be named `Construct`, MUST be `public`, MUST carry `[Inject]`, and MUST be the **first method declared in the class** (above Unity lifecycle methods and any other members):
 
 ```csharp
 public class Ship : MonoBehaviour
@@ -110,6 +123,9 @@ public class Ship : MonoBehaviour
     {
         _stateFactory = stateFactory;
     }
+
+    void Awake() { /* ... */ }
+    void Start() { /* ... */ }
 }
 ```
 
@@ -179,6 +195,39 @@ public class AudioInstaller : Installer<AudioInstaller>
 AudioInstaller.Install(Container);
 ```
 
+## Installer Organization
+
+Structure installers by scope and concern:
+
+- **One central project installer** mounts on the `ProjectContext` prefab and composes feature installers for global, app-lifetime services.
+- **Feature installers** — author each cross-cutting concern (audio, remote config, localization, persistence) as its own `ScriptableObjectInstaller<T>` (when it exposes serialized configuration) or `Installer<T>` (pure C#). The project installer calls them via `Installer<T>.Install(Container)` or references the ScriptableObject asset directly.
+- **Global services** (anything needed across scenes) MUST be registered from the project installer, not from a scene installer.
+- **Scene installers** live next to their scenes and register scene-scoped dependencies only.
+- **UI installers are separate from service installers.** Never mix view/presenter bindings with domain-service bindings in one installer — split so the UI layer can change without touching service wiring.
+
+```csharp
+// ✅ Project installer composes feature installers — no inline domain bindings
+public sealed class GameProjectInstaller : MonoInstaller
+{
+    public override void InstallBindings()
+    {
+        RemoteConfigInstaller.Install(Container);
+        LocalizationInstaller.Install(Container);
+        AudioInstaller.Install(Container);
+    }
+}
+
+// ✅ Feature installer encapsulates a single concern
+public sealed class RemoteConfigInstaller : Installer<RemoteConfigInstaller>
+{
+    public override void InstallBindings()
+    {
+        Container.BindInterfacesAndSelfTo<GameRemoteConfig>().AsSingle();
+        // feature-specific bindings only
+    }
+}
+```
+
 ## Entry Points
 
 Implement these interfaces on services to receive automatic lifecycle callbacks. Bind with `BindInterfacesAndSelfTo<T>()` to register all interfaces at once.
@@ -244,8 +293,12 @@ Do NOT guess — always open the relevant reference file before writing factory,
 - **Never name the MonoBehaviour injection method anything but `Construct`.** Zenject accepts any `[Inject]` method name, but the project convention is `Construct` for discoverability and consistency across installers and reviews.
 - **Never make `Construct` non-public.** Must be `public void Construct(...)`.
 - **Never put logic in `Construct`.** Only assign fields. Any setup that depends on injected state belongs in `Awake`/`Start`.
+- **`Construct` must be the first method declared in the class.** Placing it below Unity lifecycle methods or other members hides the dependency contract at the top of the file.
+- **Plain C# classes used by Zenject must have exactly one constructor.** Multiple constructors create ambiguity in resolution; refactor to a single canonical constructor.
 - **Never call `Container.Resolve<T>()` outside installers or factories.** Resolve only at the composition root.
+- **Never register a controller or presenter without `NonLazy()`.** They have no consumers — without `NonLazy()` the container never instantiates them and their logic never runs.
 - **Don't bind the same type twice without `WithId()`.** Later bindings silently override earlier ones.
 - **Don't use `AsTransient()` for MonoBehaviours** unless you manage their `Destroy` lifecycle explicitly.
+- **Don't mix UI bindings and service bindings in the same installer.** Split UI installers from service installers so either layer can change independently.
 - **Don't skip `SignalBusInstaller.Install(Container)`** before declaring signals — it causes a runtime exception.
 - **Don't call `Spawn()` without a matching `Despawn()`** when using memory pools — causes unbounded pool growth.
