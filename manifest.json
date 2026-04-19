@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "generated": "2026-04-16T12:46:50.273Z",
+  "generated": "2026-04-19T05:05:12.356Z",
   "engines": {
     "unity": {
       "core": [
@@ -32,6 +32,26 @@
       ],
       "stack": [
         {
+          "id": "addressables",
+          "description": "Unity Addressable Asset System — async asset loading and releasing, memory management via reference counting, AssetBundle lifecycle, groups and labels organization, profiles, content builds, and remote content delivery",
+          "version": "1.0.0"
+        },
+        {
+          "id": "admob",
+          "description": "Google Mobile Ads Unity plugin — SDK initialization, UMP consent flow, banner/interstitial/rewarded/app-open ad loading and lifecycle management, ad event callbacks, test ad unit IDs, and mobile ad monetization patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "animancer",
+          "description": "Animancer animation framework — playing clips and transitions, cross-fading, layer management, mixer blending, animation events, and Animancer FSM state machines",
+          "version": "1.0.0"
+        },
+        {
+          "id": "applovin-max",
+          "description": "AppLovin MAX ad mediation SDK for Unity — SDK initialization and consent flow, all ad format lifecycles (Interstitial, Rewarded, Banner, MREC), impression-level revenue tracking, and mediation debugging",
+          "version": "1.0.0"
+        },
+        {
           "id": "aspid-mvvm",
           "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
           "version": "1.0.0",
@@ -42,8 +62,104 @@
           ]
         },
         {
+          "id": "astar-pathfinding",
+          "description": "A* Pathfinding Project (by Aron Granberg) — graph setup and selection, movement script usage, path requesting via Seeker, runtime graph updates, local avoidance (RVO), and performance optimization for Unity",
+          "version": "1.0.0"
+        },
+        {
+          "id": "behavior-designer",
+          "description": "Behavior Designer (Opsive) behavior tree authoring — custom Action and Conditional task classes, task lifecycle, SharedVariable communication, Conditional Aborts, BehaviorTree component scripting API, external behavior trees, and composite node patterns",
+          "version": "1.0.0"
+        },
+        {
+          "id": "cinemachine",
+          "description": "Unity Cinemachine camera system — Virtual Camera authoring, CinemachineBrain setup, body and aim algorithms, noise and impulse effects, camera blending and priority, State-Driven cameras, Timeline integration, and scripting via extensions",
+          "version": "1.0.0"
+        },
+        {
+          "id": "dotween",
+          "description": "DOTween Pro tweening library for Unity — tween creation and chaining, Sequence composition, tween lifecycle and control, global configuration, safe mode, recycling, callbacks, ease types, and DOTween Pro visual components (DOTweenAnimation, DOTweenPath, DOTweenVisualManager)",
+          "version": "1.0.0",
+          "references": [
+            "dotween-shortcuts.md"
+          ]
+        },
+        {
+          "id": "easy-save-3",
+          "description": "Easy Save 3 (ES3) data persistence system — save and load operations, ES3Settings configuration, serialization control, caching, reference management, encryption, backup, and save slot patterns for Unity projects",
+          "version": "1.0.0"
+        },
+        {
+          "id": "entitas",
+          "description": "Entitas Entity Component System framework — component definition, entity lifecycle, context and group management, system types and pipeline setup, reactive systems, entity indices, code generation workflow, and Unity integration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "feel",
+          "description": "MoreMountains Feel library for adding game feel in Unity — MMF_Player setup and scripting, feedback sequencing, timing configuration, event system, runtime modification, and custom feedback authoring",
+          "version": "1.0.0"
+        },
+        {
+          "id": "firebase",
+          "description": "Firebase Unity SDK integration — project setup, initialization, Authentication, Realtime Database, Crashlytics, and Remote Config service patterns for Unity games on iOS, Android, and desktop",
+          "version": "1.0.0"
+        },
+        {
+          "id": "fmod",
+          "description": "FMOD Studio Unity integration — event playback patterns, EventInstance lifecycle management, bank loading, parameter control, mixer (Bus/VCA), 3D audio setup, and project configuration",
+          "version": "1.0.0"
+        },
+        {
           "id": "imgui-editor-tools",
           "description": "Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred",
+          "version": "1.0.0"
+        },
+        {
+          "id": "input-system",
+          "description": "Unity Input System package (com.unity.inputsystem) — action setup and lifecycle, callback patterns, InputActionAsset and generated wrappers, PlayerInput component, control schemes, runtime rebinding, and update mode configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "ironsource",
+          "description": "IronSource LevelPlay ad monetization SDK for Unity — initialization lifecycle, rewarded/interstitial/banner ad patterns, mediation setup, privacy compliance, and revenue optimization",
+          "version": "1.0.0",
+          "references": [
+            "ironsource-api.md"
+          ]
+        },
+        {
+          "id": "leantween",
+          "description": "LeanTween tweening library for Unity — tween creation and chaining, sequence composition via LTSeq, tween lifecycle control, easing types, callbacks, value animation, and event system",
+          "version": "1.0.0"
+        },
+        {
+          "id": "localization",
+          "description": "Unity Localization Package (com.unity.localization) — StringTable and AssetTable setup, LocalizedString usage and events, locale selection and switching, async initialization, and Smart Strings",
+          "version": "1.0.0"
+        },
+        {
+          "id": "manualdi",
+          "description": "ManualDI dependency injection framework for Unity/C# — binding and resolving dependencies via `DiContainerBindings`, container lifecycle management, Unity3D integration via `MonoBehaviourInstaller`, `MonoBehaviourRootEntryPoint`, and `MonoBehaviourSubordinateEntryPoint`",
+          "version": "1.0.0"
+        },
+        {
+          "id": "mirror",
+          "description": "Mirror multiplayer networking for Unity — NetworkBehaviour authoring, SyncVar/SyncList synchronization, Commands and RPCs, authority model, object spawning, NetworkManager configuration, transport setup, and interest management",
+          "version": "1.0.0"
+        },
+        {
+          "id": "naughty-attributes",
+          "description": "NaughtyAttributes Unity Inspector extension — drawer, meta, and validator attributes for customizing serialized fields, methods, and non-serialized properties without writing custom editors or property drawers",
+          "version": "1.0.0"
+        },
+        {
+          "id": "netcode-gameobjects",
+          "description": "Unity Netcode for GameObjects (NGO) v2.x — client-server and distributed authority multiplayer networking, covering NetworkObject spawning and lifecycle, NetworkBehaviour callbacks, NetworkVariable state synchronization, RPC invocation patterns, ownership and authority management, and NetworkManager configuration",
+          "version": "1.0.0"
+        },
+        {
+          "id": "newtonsoft-json",
+          "description": "JSON serialization and deserialization in Unity using Newtonsoft.Json — configuring JsonSerializerSettings, applying serialization attributes, writing custom converters, LINQ to JSON for dynamic data, and Unity-specific setup (IL2CPP, AOT, Unity type handling)",
           "version": "1.0.0"
         },
         {
@@ -70,8 +186,23 @@
           "version": "1.0.0"
         },
         {
+          "id": "photon-pun2",
+          "description": "Photon Unity Networking 2 — room-based multiplayer networking for Unity using Photon Cloud, covering networked object synchronization via PhotonView, RPC communication, state serialization with IPunObservable, matchmaking, custom room/player properties, and ownership management",
+          "version": "1.0.0"
+        },
+        {
+          "id": "playfab",
+          "description": "PlayFab Unity SDK — player authentication, player data storage (classic UserData and Entity Objects), statistics, leaderboards, CloudScript via Azure Functions, title data, economy integration, and concurrency patterns for Unity games",
+          "version": "1.0.0"
+        },
+        {
           "id": "r3",
           "description": "R3 reactive programming — observables, subscriptions, disposal, ReactiveProperty, EveryUpdate",
+          "version": "1.0.0"
+        },
+        {
+          "id": "reflex",
+          "description": "Reflex dependency injection framework for Unity — container hierarchy, registration and resolution API, injection patterns (constructor / attribute / source-generated), scope lifecycle, installer authoring, runtime injection utilities, and IL2CPP considerations",
           "version": "1.0.0"
         },
         {
@@ -80,9 +211,50 @@
           "version": "1.0.0"
         },
         {
+          "id": "spine",
+          "description": "Spine skeletal animation runtime for Unity — component selection, animation state management, multi-track blending, skin combining, event handling, shader and render pipeline setup, and performance tuning",
+          "version": "1.0.0"
+        },
+        {
+          "id": "ui-toolkit",
+          "description": "Unity UI Toolkit — runtime and editor UI development using VisualElement hierarchy, UXML layout files, USS stylesheets, event system, data binding, and performance tuning via usage hints and texture atlasing",
+          "version": "1.0.0"
+        },
+        {
+          "id": "unirx",
+          "description": "UniRx reactive programming for Unity — observables, subscriptions, ReactiveProperty, Subject types, operators, Unity lifecycle integration, subscription disposal, MVVM/MVP patterns, and MessageBroker pub/sub",
+          "version": "1.0.0"
+        },
+        {
           "id": "unitask",
           "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
           "version": "1.0.0"
+        },
+        {
+          "id": "vcontainer",
+          "description": "VContainer dependency injection framework for Unity — LifetimeScope composition roots, injection methods (constructor/method/property), scope hierarchy, entry point interfaces, UniTask/UniRx/ECS integrations, and performance optimizations",
+          "version": "1.0.0",
+          "references": [
+            "vcontainer-registration.md"
+          ]
+        },
+        {
+          "id": "wwise",
+          "description": "Wwise audio middleware integration for Unity — posting events, managing SoundBanks, controlling States, Switches, and RTPCs via C# scripts, using Unity components (AkGameObj, AkEvent, AkAmbient, AkBank, AkInitializer), and spatial audio setup",
+          "version": "1.0.0"
+        },
+        {
+          "id": "zenject",
+          "description": "Zenject dependency injection framework for Unity — binding API, container hierarchy, injection methods, installer types, entry points, execution order, and composition root patterns",
+          "version": "1.0.0",
+          "references": [
+            "zenject-factories.md",
+            "zenject-memorypools.md",
+            "zenject-signals.md",
+            "zenject-subcontainers.md",
+            "zenject-automocking.md",
+            "zenject-async.md"
+          ]
         }
       ]
     },
