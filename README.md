@@ -1,6 +1,6 @@
 # UniKit Rules
 
-Community-maintained knowledge base rules for [UniKit AI](https://github.com/NintendaDev/unikit-ai) game development toolkit.
+Official rules registry for the [UniKit AI](https://github.com/NintendaDev/unikit-ai) game development toolkit.
 
 ## Structure
 
@@ -15,14 +15,22 @@ Community-maintained knowledge base rules for [UniKit AI](https://github.com/Nin
 
 | Engine | Core | Stack |
 |--------|------|-------|
-| Unity | 5 rules | 8 rules |
-| Godot 4 | 5 rules | - |
-| Godot 4 .NET | 5 rules | - |
-| Unreal Engine 5 | 6 rules | 15 rules |
+| Unity | 5 rules | 39 rules |
+| Godot 4 | 5 rules | 21 rules |
+| Godot 4 .NET | 5 rules | 39 rules |
+| Unreal Engine 5 | 6 rules | 31 rules |
+
+For the full per-engine rule list with links, versions, and descriptions, see the [Rules Catalog](docs/rules-catalog.md).
 
 ## How It Works
 
-UniKit CLI fetches rules from this repository via `raw.githubusercontent.com`. The `manifest.json` file is the entry point - it lists all available rules with their metadata.
+This registry is the default source of rules for UniKit AI skills and the `unikit-ai` CLI:
+
+- **`/unikit`** — during project initialization the skill detects installed and required frameworks/modules in your project and offers matching rules from this registry **before** generating anything from scratch.
+- **`/unikit-memory`** — when you add a new framework or module to the knowledge base, the skill consults this registry via `unikit-ai rules list`. If a matching rule exists it is downloaded and installed directly; otherwise the skill generates the rule from scratch by interviewing you and reading existing code.
+- **`/unikit-rules-registry`** — scaffolds a team-local / private registry with the same layout, letting you override official core rules and ship proprietary stack rules.
+
+Under the hood, the `unikit-ai` CLI fetches rule files from `raw.githubusercontent.com`, using `manifest.json` as the catalog entry point. Resolution follows a three-level fallback: **custom registry → official (this repo) → npm-bundled snapshot**, so installation succeeds even when a custom registry is offline.
 
 ```bash
 # Install a rule from this registry
@@ -31,9 +39,11 @@ unikit-ai rules install dotween
 # List all available rules
 unikit-ai rules list
 
-# Use a custom/forked registry
-unikit-ai rules registry https://raw.githubusercontent.com/your-org/your-rules/main
+# Point the CLI at a custom / forked registry
+unikit-ai rules registry set https://raw.githubusercontent.com/your-org/your-rules/main
 ```
+
+For the full integration spec — transport chain, custom registry workflow, CLI reference, and `.unikit.json` schema — see the [Rules Registry guide](https://github.com/NintendaDev/unikit-ai/blob/main/docs/rules-registry.md) in the UniKit AI repository.
 
 ## Rule File Format
 
