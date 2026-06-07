@@ -1,829 +1,990 @@
 {
-  "schema": 1,
-  "generated": "2026-04-19T05:17:54.084Z",
-  "engines": {
-    "unity": {
-      "core": [
-        {
-          "id": "code-style",
-          "description": "Universal C#/Unity code style conventions — naming, access modifiers, member ordering, class structure, formatting, component approach, documentation",
-          "version": "1.0.0"
+  "schema": 2,
+  "generated": "2026-06-07T11:20:03.450Z",
+  "modules": {
+    "code": {
+      "engines": {
+        "unity": {
+          "core": [
+            {
+              "id": "code-style",
+              "description": "Universal C#/Unity code style conventions — naming, access modifiers, member ordering, class structure, formatting, component approach, documentation",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "design-principles",
+              "description": "Universal software design principles — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "folders-structure",
+              "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "performance",
+              "description": "Rules for performance optimization — memory/GC, caching, ZLinq, strings, object pooling, delegates, math, physics, UI optimization, mobile specifics",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "testing",
+              "description": "Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests",
+              "version": "1.0.0",
+              "always": true
+            }
+          ],
+          "stack": [
+            {
+              "id": "addressables",
+              "description": "Unity Addressable Asset System — async asset loading and releasing, memory management via reference counting, AssetBundle lifecycle, groups and labels organization, profiles, content builds, and remote content delivery",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "admob",
+              "description": "Google Mobile Ads Unity plugin — SDK initialization, UMP consent flow, banner/interstitial/rewarded/app-open ad loading and lifecycle management, ad event callbacks, test ad unit IDs, and mobile ad monetization patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "animancer",
+              "description": "Animancer animation framework — playing clips and transitions, cross-fading, layer management, mixer blending, animation events, and Animancer FSM state machines",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "applovin-max",
+              "description": "AppLovin MAX ad mediation SDK for Unity — SDK initialization and consent flow, all ad format lifecycles (Interstitial, Rewarded, Banner, MREC), impression-level revenue tracking, and mediation debugging",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "aspid-mvvm",
+              "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "aspid-mvvm-binders-quickref.md",
+                "aspid-mvvm-binders-full.md",
+                "aspid-mvvm-converters.md"
+              ]
+            },
+            {
+              "id": "astar-pathfinding",
+              "description": "A* Pathfinding Project (by Aron Granberg) — graph setup and selection, movement script usage, path requesting via Seeker, runtime graph updates, local avoidance (RVO), and performance optimization for Unity",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "behavior-designer",
+              "description": "Behavior Designer (Opsive) behavior tree authoring — custom Action and Conditional task classes, task lifecycle, SharedVariable communication, Conditional Aborts, BehaviorTree component scripting API, external behavior trees, and composite node patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "cinemachine",
+              "description": "Unity Cinemachine camera system — Virtual Camera authoring, CinemachineBrain setup, body and aim algorithms, noise and impulse effects, camera blending and priority, State-Driven cameras, Timeline integration, and scripting via extensions",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "dotween",
+              "description": "DOTween Pro tweening library for Unity — tween creation and chaining, Sequence composition, tween lifecycle and control, global configuration, safe mode, recycling, callbacks, ease types, and DOTween Pro visual components (DOTweenAnimation, DOTweenPath, DOTweenVisualManager)",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "dotween-shortcuts.md"
+              ]
+            },
+            {
+              "id": "easy-save-3",
+              "description": "Easy Save 3 (ES3) data persistence system — save and load operations, ES3Settings configuration, serialization control, caching, reference management, encryption, backup, and save slot patterns for Unity projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "entitas",
+              "description": "Entitas Entity Component System framework — component definition, entity lifecycle, context and group management, system types and pipeline setup, reactive systems, entity indices, code generation workflow, and Unity integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "feel",
+              "description": "MoreMountains Feel library for adding game feel in Unity — MMF_Player setup and scripting, feedback sequencing, timing configuration, event system, runtime modification, and custom feedback authoring",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "firebase",
+              "description": "Firebase Unity SDK integration — project setup, initialization, Authentication, Realtime Database, Crashlytics, and Remote Config service patterns for Unity games on iOS, Android, and desktop",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "fmod",
+              "description": "FMOD Studio Unity integration — event playback patterns, EventInstance lifecycle management, bank loading, parameter control, mixer (Bus/VCA), 3D audio setup, and project configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "imgui-editor-tools",
+              "description": "Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "input-system",
+              "description": "Unity Input System package (com.unity.inputsystem) — action setup and lifecycle, callback patterns, InputActionAsset and generated wrappers, PlayerInput component, control schemes, runtime rebinding, and update mode configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "ironsource",
+              "description": "IronSource LevelPlay ad monetization SDK for Unity — initialization lifecycle, rewarded/interstitial/banner ad patterns, mediation setup, privacy compliance, and revenue optimization",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "ironsource-api.md"
+              ]
+            },
+            {
+              "id": "leantween",
+              "description": "LeanTween tweening library for Unity — tween creation and chaining, sequence composition via LTSeq, tween lifecycle control, easing types, callbacks, value animation, and event system",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "localization",
+              "description": "Unity Localization Package (com.unity.localization) — StringTable and AssetTable setup, LocalizedString usage and events, locale selection and switching, async initialization, and Smart Strings",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "manualdi",
+              "description": "ManualDI dependency injection framework for Unity/C# — binding and resolving dependencies via `DiContainerBindings`, container lifecycle management, Unity3D integration via `MonoBehaviourInstaller`, `MonoBehaviourRootEntryPoint`, and `MonoBehaviourSubordinateEntryPoint`",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "mirror",
+              "description": "Mirror multiplayer networking for Unity — NetworkBehaviour authoring, SyncVar/SyncList synchronization, Commands and RPCs, authority model, object spawning, NetworkManager configuration, transport setup, and interest management",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "naughty-attributes",
+              "description": "NaughtyAttributes Unity Inspector extension — drawer, meta, and validator attributes for customizing serialized fields, methods, and non-serialized properties without writing custom editors or property drawers",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "netcode-gameobjects",
+              "description": "Unity Netcode for GameObjects (NGO) v2.x — client-server and distributed authority multiplayer networking, covering NetworkObject spawning and lifecycle, NetworkBehaviour callbacks, NetworkVariable state synchronization, RPC invocation patterns, ownership and authority management, and NetworkManager configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "newtonsoft-json",
+              "description": "JSON serialization and deserialization in Unity using Newtonsoft.Json — configuring JsonSerializerSettings, applying serialization attributes, writing custom converters, LINQ to JSON for dynamic data, and Unity-specific setup (IL2CPP, AOT, Unity type handling)",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "node-canvas",
+              "description": "Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "node-canvas-bt-nodes-quickref.md",
+                "node-canvas-bt-nodes-full.md",
+                "node-canvas-tasks-quickref.md",
+                "node-canvas-tasks-full.md",
+                "node-canvas-conditions-quickref.md",
+                "node-canvas-conditions-full.md"
+              ]
+            },
+            {
+              "id": "odin-editor-tools",
+              "description": "Rules for creating editor windows and tools using OdinEditorWindow, OdinMenuEditorWindow, PropertyTree, Proxy ScriptableObject pattern, split layouts, EditorPrefs persistence",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "odin",
+              "description": "Rules for Odin Inspector attributes (grouping, validation, conditional visibility) and Odin Validator (ISelfValidator, SceneValidator, RootObjectValidator, WithFix)",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "photon-pun2",
+              "description": "Photon Unity Networking 2 — room-based multiplayer networking for Unity using Photon Cloud, covering networked object synchronization via PhotonView, RPC communication, state serialization with IPunObservable, matchmaking, custom room/player properties, and ownership management",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "playfab",
+              "description": "PlayFab Unity SDK — player authentication, player data storage (classic UserData and Entity Objects), statistics, leaderboards, CloudScript via Azure Functions, title data, economy integration, and concurrency patterns for Unity games",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "r3",
+              "description": "R3 reactive programming — observables, subscriptions, disposal, ReactiveProperty, EveryUpdate",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "reflex",
+              "description": "Reflex dependency injection framework for Unity — container hierarchy, registration and resolution API, injection patterns (constructor / attribute / source-generated), scope lifecycle, installer authoring, runtime injection utilities, and IL2CPP considerations",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "rngneeds",
+              "description": "Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "spine",
+              "description": "Spine skeletal animation runtime for Unity — component selection, animation state management, multi-track blending, skin combining, event handling, shader and render pipeline setup, and performance tuning",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "ui-toolkit",
+              "description": "Unity UI Toolkit — runtime and editor UI development using VisualElement hierarchy, UXML layout files, USS stylesheets, event system, data binding, and performance tuning via usage hints and texture atlasing",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "unirx",
+              "description": "UniRx reactive programming for Unity — observables, subscriptions, ReactiveProperty, Subject types, operators, Unity lifecycle integration, subscription disposal, MVVM/MVP patterns, and MessageBroker pub/sub",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "unitask",
+              "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "vcontainer",
+              "description": "VContainer dependency injection framework for Unity — LifetimeScope composition roots, injection methods (constructor/method/property), scope hierarchy, entry point interfaces, UniTask/UniRx/ECS integrations, and performance optimizations",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "vcontainer-registration.md"
+              ]
+            },
+            {
+              "id": "wwise",
+              "description": "Wwise audio middleware integration for Unity — posting events, managing SoundBanks, controlling States, Switches, and RTPCs via C# scripts, using Unity components (AkGameObj, AkEvent, AkAmbient, AkBank, AkInitializer), and spatial audio setup",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "zenject",
+              "description": "Zenject dependency injection framework for Unity — binding API, container hierarchy, injection methods, installer types, entry points, execution order, and composition root patterns",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "zenject-factories.md",
+                "zenject-memorypools.md",
+                "zenject-signals.md",
+                "zenject-subcontainers.md",
+                "zenject-automocking.md",
+                "zenject-async.md"
+              ]
+            }
+          ]
         },
-        {
-          "id": "design-principles",
-          "description": "Universal software design principles — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
-          "version": "1.0.0"
+        "godot": {
+          "core": [
+            {
+              "id": "code-style",
+              "description": "Universal GDScript/Godot code style conventions — naming, type hints, member ordering, class structure, formatting, node approach, documentation",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "design-principles",
+              "description": "Universal software design principles adapted for Godot — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "folders-structure",
+              "description": "Project folder organization, module structure, file conventions, external asset boundaries",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "performance",
+              "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, signals, math, physics, UI optimization, process management, mobile specifics",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "testing",
+              "description": "Rules for GUT (Godot Unit Test) framework — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests",
+              "version": "1.0.0",
+              "always": true
+            }
+          ],
+          "stack": [
+            {
+              "id": "animation-tree",
+              "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace, OneShot, Transition, Blend2), and root motion integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "beehave",
+              "description": "Beehave behavior tree addon authoring — custom ActionLeaf/ConditionLeaf implementation, composite node selection (Selector vs Sequence and their reactive/star variants), decorator wrapping, Blackboard data sharing, and BeehaveTree configuration for Godot 4",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "dialogic",
+              "description": "Dialogic 2 plugin for Godot 4 — timeline authoring, dialogue flow control, subsystem API, character/portrait management, variable integration, save/load patterns, and game-code integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "dialogue-manager",
+              "description": "Nathan Hoad's Dialogue Manager addon for Godot 4 — authoring `.dialogue` files, integrating the runtime via GDScript, managing dialogue balloon UI, writing mutations and conditions, and communicating with game state",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "editor-plugin",
+              "description": "Godot 4 editor extension authoring — EditorPlugin lifecycle, plugin structure, adding docks/controls/menu items, custom types, autoload registration, inspector plugins, main screen plugins, and EditorScript for one-off editor tasks",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "enet",
+              "description": "ENet transport layer in Godot 4 — ENetMultiplayerPeer server/client lifecycle, low-level ENetConnection event service loop, ENetPacketPeer direct packet control, transfer channel isolation, timeout and bandwidth tuning, DTLS encryption, and mesh networking setup",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "fmod",
+              "description": "FMOD Studio GDExtension (utopia-rise/fmod-gdextension) for Godot 4 — bank lifecycle management, event playback tiers (one-shot / node / manual), parameter control, 3D spatial audio, Bus/VCA mixer control, timeline callbacks, and project export with banks",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gdextension",
+              "description": "Patterns, conventions, and rules for building Godot 4 extensions in C++ using the GDExtension system and godot-cpp bindings — class registration, method binding, memory management, initialization lifecycle, and `.gdextension` file configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godot-jolt",
+              "description": "Godot Jolt Physics integration — enabling Jolt as the 3D physics backend, behavioral differences from Godot Physics, configuration guidance, and GDScript usage patterns",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "godot-jolt-settings.md"
+              ]
+            },
+            {
+              "id": "godot-sqlite",
+              "description": "godot-sqlite (2shady4u) GDExtension plugin — database connection lifecycle, query execution with parameter binding, CRUD helpers, transaction management, BLOB handling, schema definition, and save/load patterns for Godot 4 GDScript projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godot-state-charts",
+              "description": "Godot State Charts plugin (derkork/godot-statecharts) — node hierarchy setup, StateChart API, event-driven transitions, guard types, signal wiring, and integration patterns for Godot 4",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godotsteam",
+              "description": "GodotSteam GDExtension integration for Godot 4 — installation, initialization lifecycle, callback management, achievements and stats, lobby and matchmaking, cloud save, export/shipping, and common error patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "limbo-ai",
+              "description": "LimboAI behavior tree and hierarchical state machine authoring — custom BTTask/BTAction/BTCondition/BTDecorator implementation, Blackboard variable management, BTPlayer setup, LimboHSM/LimboState/BTState patterns, and event-driven AI composition for Godot 4",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "multiplayer",
+              "description": "Godot 4 built-in multiplayer system — MultiplayerAPI, MultiplayerSynchronizer, MultiplayerSpawner, RPC annotation system, authority model, peer management, and scene replication patterns for networked games",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "navigation-server3d",
+              "description": "Godot 4 navigation system — NavigationAgent3D usage patterns, initialization timing, RVO avoidance setup, direct NavigationServer3D API, path query objects, NavigationObstacle3D behavior, and navigation layer filtering",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "phantom-camera",
+              "description": "Phantom Camera addon for Godot 4 — priority-based camera management, PhantomCameraHost wiring, follow modes, look-at modes, tween transitions, noise/shake, and 2D boundary setup for Camera2D and Camera3D nodes",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "rivet",
+              "description": "Integration of the Rivet/OpenGameBackend multiplayer backend into Godot 4 — plugin setup, matchmaker and lobby flow, game server lifecycle, actor-based backend design, and GDScript client patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "soft-body-3d",
+              "description": "Godot 4 SoftBody3D simulation — configuring deformable physics meshes, tuning simulation parameters, pinning vertices to anchor nodes, integrating with skeletons, and handling known engine limitations",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "tilemap",
+              "description": "Godot 4 tile-based map authoring — TileMapLayer node usage, TileSet resource configuration, tile manipulation at runtime via GDScript, physics/navigation/custom data layer setup, terrain autotiling, and performance tuning",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "tween",
+              "description": "Godot 4 Tween and Tweener system — creating, configuring, and controlling property/method/callback animations via script, including lifecycle management, sequential and parallel sequencing, transition and ease curves",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "wwise",
+              "description": "Integration of Audiokinetic Wwise audio middleware into Godot 4 via the `alessandrofama/wwise-godot-integration` GDExtension — event posting, SoundBank management, RTPC control, state/switch management, spatial audio nodes, and the Wwise Types inspector workflow",
+              "version": "1.0.0",
+              "always": false
+            }
+          ]
         },
-        {
-          "id": "folders-structure",
-          "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
-          "version": "1.0.0"
+        "godot-net": {
+          "core": [
+            {
+              "id": "code-style",
+              "description": "Universal C#/Godot .NET code style conventions — naming, access modifiers, member ordering, class structure, formatting, node approach, documentation",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "design-principles",
+              "description": "Universal software design principles adapted for Godot .NET — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "folders-structure",
+              "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "performance",
+              "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, process management, mobile specifics",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "testing",
+              "description": "Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests",
+              "version": "1.0.0",
+              "always": true
+            }
+          ],
+          "stack": [
+            {
+              "id": "animation-tree",
+              "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace1D/2D, OneShot, Blend2, Transition), and root motion integration in Godot 4 .NET C# projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-auto-inject",
+              "description": "Reflection-free, node-based dependency injection for Godot 4 C# — Provider/Dependent patterns, automatic node binding with `[Node]`, lifecycle hooks, and test-friendly initialization via source-generated metadata (no reflection)",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-collections",
+              "description": "Chickensoft.Collections library usage — specialized data structures for insertion-order-preserving collections, type-keyed storage, struct-safe queuing, and object pooling in Godot 4 .NET projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-editor-config",
+              "description": "Setup and conventions for the Chickensoft `.editorconfig` used in Godot 4 C# projects — formatting defaults per file type, C# code style rules (var, expression-bodied members, pattern matching, braces, namespaces), the Chickensoft naming convention system, and Roslyn diagnostic overrides",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-game-tools",
+              "description": "Utilities from the Chickensoft.GameTools package — background resource loading via the Loader class, strongly-typed runtime environment detection via the Features API, and DPI-aware window scaling via display extension methods",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-godot-node-interfaces",
+              "description": "Patterns and rules for using GodotNodeInterfaces to make Godot node scripts unit-testable — generated interfaces for node types, `IFakeNodeTreeEnabled` adoption, `Ex` extension methods, fake scene tree setup, and integration with the Chickensoft testing ecosystem",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-godot-test-driver",
+              "description": "Integration testing for Godot 4 C# projects using the Chickensoft.GodotTestDriver library — scene loading via the Fixture class, the test-driver pattern for abstracting node interactions, input simulation (keyboard, mouse, controller, actions), and async waiting utilities",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-godot-test",
+              "description": "Chickensoft's C# test runner for Godot 4 — test class authoring with `TestClass`, lifecycle attributes, async test support, `TestEnvironment` configuration, code coverage via coverlet, and VS Code debug launch integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-godotenv",
+              "description": "Environment management for Godot 4 .NET projects — installing and switching Godot versions, managing asset library addons via `addons.json`, configuring the `GODOT` environment variable symlink, and integrating GodotEnv into CI/CD pipelines",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-introspection",
+              "description": "Build-time type metadata generation for AOT-compatible reflection in Godot 4 C# — `[Meta]`, `[Id]`, `[Version]`, `[Mixin]` attributes, type registry, type graph queries, and the mixin system",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-log",
+              "description": "Logging in Godot 4 C# projects using the Chickensoft.Log and Chickensoft.Log.Godot packages — creating loggers, choosing writers, configuring formatters, and testing logging behavior without mocking",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-logicblocks",
+              "description": "Hierarchical, serializable state machine authoring with LogicBlocks — defining logic blocks, states, inputs, outputs, blackboard dependencies, lifecycle hooks, the binding system, and integrating state machines into Godot .NET nodes",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-palette-painter",
+              "description": "PalettePainter is a .NET CLI tool for generating color-ramp palette PNG files following the Slynyrd pixel art methodology — covers installation, CLI usage, parameter tuning, Godot asset workflow, and CI/CD integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-platform",
+              "description": "Low-level, cross-platform native display detection for Godot 4 C# — querying true native pixel resolution and DPI scale factor directly from the OS when GameTools' `LookGood()` is too high-level",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-save-file-builder",
+              "description": "Composing game save data from loosely coupled chunks distributed across the scene tree — defining `SaveFile<T>`, authoring `SaveChunk<T>` nodes, wiring chunks through AutoInject, and integrating with Chickensoft.Serialization for AOT-compatible persistence",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-serialization",
+              "description": "AOT-compatible, polymorphic serialization for Godot 4 C# game models — covers the [Meta]/[Id]/[Save]/[Version] attribute system, JsonSerializerOptions setup, versioning with IOutdated, custom hooks via ICustomSerializable, Godot-type converters, and the SaveFileBuilder/SaveChunk save-file composition pattern",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-sync",
+              "description": "Synchronous, single-threaded reactive programming primitives for Godot 4 .NET — observable values and collections (`AutoValue`, `AutoList`, `AutoSet`, `AutoMap`), broadcast channels (`AutoChannel`, `AutoCache`), fluent binding subscriptions, reentrancy-safe deferred mutations, and the ownership pattern for exposing reactive state",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "chickensoft-uml-generator",
+              "description": "Build-time PlantUML diagram generation from C# class declarations and Godot `.tscn` scene files — the `[ClassDiagram]` attribute, csproj configuration, generated `.g.puml` file placement, and IDE rendering setup",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "editor-plugin",
+              "description": "Godot 4 editor extension authoring — creating persistent editor plugins with custom docks, inspector overrides, and custom node types via `EditorPlugin`, and running one-off editor automation scripts via `EditorScript`",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "enet",
+              "description": "ENet transport layer usage in Godot 4 — ENetMultiplayerPeer lifecycle for server/client/mesh topologies, low-level ENetConnection event service loop, per-peer packet control via ENetPacketPeer, channel isolation strategies, bandwidth and timeout tuning, DTLS encryption setup, and mesh network configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "fmod-for-godot",
+              "description": "FMOD Studio audio middleware integration in Godot 4 .NET projects — installing the GDExtension plugin, loading banks, playing events and controlling instances, managing parameters and adaptive audio, mixing via VCAs and buses, spatial audio setup, and accessing FMOD from C# using the FMOD Sharp wrapper or the official FMOD C# SDK",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gdextension",
+              "description": "Authoring Godot 4 native extensions in C++ using godot-cpp — class declaration and registration, method and property binding, signal system, memory management, initialization lifecycle, error handling, build system setup, and `.gdextension` manifest configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godot-epic-online-services",
+              "description": "Integration of Epic Online Services (EOS) into Godot 4.2+ via the EOSG GDExtension plugin — platform initialization, authentication flows, lobby management, P2P networking, and accessing GDScript singletons from C#",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godot-jolt",
+              "description": "Jolt Physics integration in Godot 4 .NET — enabling the 3D physics backend, behavioral differences from Godot Physics, project settings, joint configuration, and migration guidance for Godot 4.4+",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "godotsteam",
+              "description": "Steam platform integration in Godot 4 .NET C# projects — choosing between GodotSteam and Steamworks.NET, installing and initializing the Steam API, implementing the SteamManager autoload singleton, running callbacks every frame, using Callback<T> and CallResult<T> patterns, and integrating achievements, stats, leaderboards, lobbies, and the Steam overlay",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "google-play-games-plugin",
+              "description": "Integration of Google Play Game Services (achievements, leaderboards, sign-in, cloud saves) into Godot 4 Android projects using the `godot-play-game-services` plugin — covers installation, credential configuration, C# wrapper patterns, node lifecycle, and troubleshooting authentication errors",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "leoecs",
+              "description": "LeoECS Lite (Leopotam.EcsLite) entity-component-system framework usage — defining components and systems, world and filter management, entity lifecycle, event patterns, system groups, and Godot 4 node integration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "limbo-ai",
+              "description": "Behavior tree and hierarchical state machine authoring with LimboAI — custom task creation, BTPlayer setup, Blackboard variable management, LimboHSM state transitions, BTState integration, and C# usage patterns in Godot 4 .NET projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "litenetlib",
+              "description": "LiteNetLib reliable UDP networking library usage in Godot 4 .NET — NetManager initialization, connection lifecycle, delivery method selection, NetPacketProcessor for typed packets, raw binary serialization with NetDataWriter/NetDataReader, NetManager configuration, and Godot-specific integration patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "memorypack",
+              "description": "MemoryPack binary serialization — type annotation with attributes, constructor selection rules, versioning strategies, union types for polymorphism, custom formatters, Brotli compression, and performance-oriented serialization patterns in Godot 4 .NET projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "mirage-godot",
+              "description": "High-level C# networking for Godot 4 — NetworkBehaviour authoring, SyncVar field synchronization, ServerRpc/ClientRpc remote calls, networked object spawning, server/client lifecycle events, and UDP transport configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "nakama",
+              "description": "Nakama .NET SDK integration for Godot 4 C# — client setup, authentication, session lifecycle, real-time socket connection, error handling, retry configuration, and data serialization",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "nakama-social.md",
+                "nakama-gameplay.md"
+              ]
+            },
+            {
+              "id": "navigation-server3d",
+              "description": "Godot 4 built-in navigation system — NavigationAgent3D path following and lifecycle, RVO avoidance setup, direct NavigationServer3D API for map/region management and path queries, NavigationObstacle3D behavior, and navigation layer filtering",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "newtonsoft-json",
+              "description": "JSON serialization and deserialization in Godot 4 .NET — strongly-typed and dynamic JSON handling, custom converters for Godot types, game save/load patterns, serialization settings configuration, and safe polymorphic type handling",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "r3",
+              "description": "Reactive programming with R3 (Cysharp) in Godot 4 .NET — Observable/Observer patterns, ReactiveProperty, Subject types, subscription disposal, Godot-specific frame providers, signal integration, async operators, and testing with FakeTimeProvider/FakeFrameProvider",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "soft-body-3d",
+              "description": "Soft body physics simulation in Godot 4 — deformable mesh setup, simulation parameter tuning, vertex pinning to anchors and skeletons, collision configuration, and known engine limitations",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "tilemap",
+              "description": "Godot 4 tile-based map authoring using TileMapLayer nodes and TileSet resources — node setup, runtime cell manipulation, terrain autotiling, physics/navigation/custom data layer configuration, coordinate conversion, and performance tuning",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "tween",
+              "description": "Godot 4 Tween and Tweener system — creating and controlling property/method/callback animations via script, managing lifecycle, sequential and parallel sequencing, transition and ease configuration",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "wwise-godot",
+              "description": "Audiokinetic Wwise audio middleware integration in Godot 4 .NET C# projects — event posting, bank management, 3D spatial audio, RTPC/state/switch control, game object registration lifecycle, and Godot node integration patterns",
+              "version": "1.0.0",
+              "always": false
+            }
+          ]
         },
-        {
-          "id": "performance",
-          "description": "Rules for performance optimization — memory/GC, caching, ZLinq, strings, object pooling, delegates, math, physics, UI optimization, mobile specifics",
-          "version": "1.0.0"
-        },
-        {
-          "id": "testing",
-          "description": "Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests",
-          "version": "1.0.0"
+        "unreal-engine-5": {
+          "core": [
+            {
+              "id": "code-style",
+              "description": "Universal C++/UE5 code style conventions — naming, type prefixes, member ordering, class structure, formatting, UObject approach, macros, documentation",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "design-principles",
+              "description": "Universal software design principles adapted for UE5 — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "folders-structure",
+              "description": "Project folder organization, module structure, namespace conventions, plugin boundaries, Build.cs patterns",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "performance",
+              "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, Tick management, cooking/packaging, mobile specifics",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "pipeline",
+              "description": "UE5 development pipeline — C++ scaffolding strategy, Blueprint iteration, Live Coding boundaries, structural change batching, data-driven configuration. Architecture-specific sections: Actor/Component, GAS, Mass Entity",
+              "version": "1.0.0",
+              "always": true
+            },
+            {
+              "id": "testing",
+              "description": "Rules for UE5 Automation Framework tests — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands",
+              "version": "1.0.0",
+              "always": true
+            }
+          ],
+          "stack": [
+            {
+              "id": "actor-component-model",
+              "description": "Unreal Engine 5 Actor/Component architecture — component hierarchy, ownership model, Actor and Component lifecycle hooks, component declaration patterns, component communication, and runtime composition",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "audio-modulation",
+              "description": "UE5 Audio Modulation plugin — Control Bus and Bus Mix authoring, runtime modulation parameter control via `UAudioModulationStatics`, Modulation Generator setup, Patch wiring, and integration with MetaSound, Sound Wave, and Submix destinations",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "behavior-tree",
+              "description": "Unreal Engine's event-driven Behavior Tree system — authoring Tasks, Decorators, and Services in C++, wiring AIController and Blackboard, managing NodeMemory, configuring Observer Aborts, and structuring AI decision trees",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "behavior-tree-nodes.md"
+              ]
+            },
+            {
+              "id": "blueprints",
+              "description": "Blueprint visual scripting patterns in UE5 — when to use Blueprint vs C++, exposing C++ systems via UPROPERTY/UFUNCTION specifiers, communication patterns (interfaces, delegates, casting, function libraries), and Blueprint graph organization",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "common-ui",
+              "description": "Common UI plugin patterns for UE5 — activatable widget lifecycle, layered widget stack architecture, input routing, platform-agnostic gamepad/keyboard/mouse support, focus management, and multi-platform HUD setup in C++",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "data-assets",
+              "description": "Unreal Engine's data asset system — `UDataAsset` and `UPrimaryDataAsset` class usage, Asset Manager integration, async loading patterns, Asset Bundle configuration, `TSoftObjectPtr`/`TSoftClassPtr` soft references, and data-driven architecture design in UE5",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "enhanced-input-system",
+              "description": "Enhanced Input plugin patterns in UE5 — InputAction and InputMappingContext setup, Modifiers and Triggers, UEnhancedInputLocalPlayerSubsystem context management, C++ binding via UEnhancedInputComponent, value extraction from FInputActionValue, runtime context switching, asset organization, and naming conventions",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "environment-query-system",
+              "description": "Unreal Engine's Environment Query System — architecture (Generators, Tests, Contexts), running queries from C++, custom node authoring in C++, Behavior Tree integration, debugging with EQSTestingPawn, and performance tuning",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "eqs-generators.md",
+                "eqs-tests.md"
+              ]
+            },
+            {
+              "id": "epic-online-services",
+              "description": "Integration of Epic Online Services into UE5 via the Online Subsystem EOS plugin — SDK initialization, authentication flows, sessions, lobbies, voice chat, player data, achievements, leaderboards, and cross-platform account identity",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "functional-testing",
+              "description": "UE5 Functional Testing plugin — level-based integration testing using `AFunctionalTest` actors, test lifecycle (PrepareTest → IsReady → StartTest → Tick → FinishTest), step-based test flows, telemetry, and command-line execution",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "game-framework",
+              "description": "UE5 Gameplay Framework class roles, responsibilities, and inter-class relationships — covering GameMode, GameState, PlayerController, PlayerState, Pawn, Character, HUD, and GameInstance; their replication rules, access patterns, and data ownership decisions",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gameplay-ability-system",
+              "description": "GAS runtime patterns in UE5 — AbilitySystemComponent initialization and ownership setup, Gameplay Ability authoring and lifecycle, Gameplay Effect types and application, AttributeSet definition and clamping, Ability Tasks, Gameplay Cues, network prediction limits, and naming conventions",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gameplay-message-router",
+              "description": "UE5 Gameplay Message Router plugin — broadcasting and receiving typed USTRUCT messages via Gameplay Tag channels using `UGameplayMessageSubsystem`, listener handle lifecycle, tag channel design, `EGameplayMessageMatch` matching modes, module setup, and integration patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gameplay-tags",
+              "description": "Unreal Engine's hierarchical tag system — defining and registering tags, `FGameplayTag` and `FGameplayTagContainer` API, tag hierarchy matching, native C++ tag macros, `FGameplayTagQuery` construction, `IGameplayTagAssetInterface`, replication configuration, and tag dictionary design patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "gauntlet",
+              "description": "Gauntlet — UE5's framework for automated functional and performance testing of cooked game builds. Covers UGauntletTestController authoring in C++, C# test node setup via DefaultTest, the RunUnreal execution pipeline, performance profiling via CSV/FCsvProfiler, and CI/CD integration patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "iris-replication",
+              "description": "Iris — UE5's next-generation, data-driven replication system — covering project setup, Push Model integration, subobject replication, spatial filtering, prioritization, memory/buffer configuration, and migration from the legacy replication system",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "lumen",
+              "description": "Lumen global illumination and reflections system in UE5 — hardware and software ray tracing modes, scene and material requirements, Post Process Volume configuration, performance tuning, scalability tiers, and platform compatibility",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "lyra-starter-game",
+              "description": "Patterns, conventions, and extension rules for projects built on the Lyra Starter Game sample — covering the Experience system, Game Feature Plugin structure, modular gameplay initialization, PawnData configuration, GAS integration, and asset loading strategy",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "mass-entity",
+              "description": "UE5 Mass Entity framework — authoring Fragments, Processors, Traits, and Tags; spawning entities; modifying entity composition via deferred commands; configuring observer processors; integrating Mass Avoidance and Navigation; debugging with the Mass Debugger",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "material-system",
+              "description": "Unreal Engine 5 material authoring and runtime material management — choosing between UMaterialInstanceDynamic, UMaterialInstanceConstant, Material Parameter Collections, and Custom Primitive Data; C++ parameter API; parent material architecture; shader permutation management",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "metasounds",
+              "description": "MetaSounds plugin authoring in UE5 — DSP graph architecture, asset types (Source, Patch, Preset), runtime parameter control from C++ and Blueprint, custom C++ node creation, execution model (render blocks, constructor pins, triggers), performance tuning, and integration with UAudioComponent",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "nanite",
+              "description": "UE5 Nanite virtualized geometry system — enabling Nanite on assets, supported mesh and component types, material restrictions, World Position Offset clamping, fallback mesh configuration, C++ support APIs, console variables, visualization modes, and performance budgeting",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "online-subsystem",
+              "description": "Unreal Engine's Online Subsystem (OSSv1) and Online Services (OSSv2) — session creation and lifecycle, asynchronous delegate patterns, multi-OSS configuration, platform identity and friends interfaces, and the architectural trade-offs between the two API generations",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "python-editor-scripting",
+              "description": "Python Editor Scripting plugin for UE5 — editor-only automation workflows, asset batch processing, actor manipulation, Blueprint type exposure via Python decorators, Editor Utility Widget authoring, and multi-mode script execution",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "replication",
+              "description": "UE5 network replication — property replication setup, RPC authoring and routing rules, RepNotify patterns, stateful vs event-based decisions, network roles and modes, relevancy and bandwidth management, push model, replicated subobjects, Fast TArray, atomic replication, and debugging",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "save-game",
+              "description": "Unreal Engine 5 built-in save/load system — `USaveGame` subclass authoring, slot-based I/O via `UGameplayStatics`, sync vs. async API, actor world-state serialization, save data versioning, and corruption protection patterns",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "smart-objects",
+              "description": "Smart Objects plugin for UE5 — data-driven, slot-based AI interaction system including USmartObjectComponent registration and lifecycle, spatial slot querying, claim/occupy/release workflow, USmartObjectDefinition asset authoring, GameplayInteractions StateTree integration, and Behavior Tree / Mass Entity bindings",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "state-tree",
+              "description": "StateTree plugin usage in UE5 — authoring Tasks, Evaluators, and Conditions in C++, configuring Schemas and context data, managing InstanceData, setting up transitions and selectors, integrating with AI controllers, and running External StateTrees",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "subsystems",
+              "description": "UE5 Subsystem framework — choosing the right subsystem type, lifecycle hooks, C++ access patterns, tick support, dependency ordering, Blueprint exposure, and loose coupling between subsystems",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "unreal-build-system",
+              "description": "UnrealBuildTool (UBT) configuration — Build.cs module rules, Target.cs target setup, module types and loading phases, IWYU include discipline, conditional compilation, and third-party library integration for UE5 C++ projects",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "unreal-insights",
+              "description": "Profiling and telemetry analysis in UE5 — capturing CPU/GPU timing, memory allocations, asset loading, and network traffic via the Trace system, and analyzing recorded sessions in the Unreal Insights viewer",
+              "version": "1.0.0",
+              "always": false
+            }
+          ]
         }
-      ],
-      "stack": [
-        {
-          "id": "addressables",
-          "description": "Unity Addressable Asset System — async asset loading and releasing, memory management via reference counting, AssetBundle lifecycle, groups and labels organization, profiles, content builds, and remote content delivery",
-          "version": "1.0.0"
-        },
-        {
-          "id": "admob",
-          "description": "Google Mobile Ads Unity plugin — SDK initialization, UMP consent flow, banner/interstitial/rewarded/app-open ad loading and lifecycle management, ad event callbacks, test ad unit IDs, and mobile ad monetization patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "animancer",
-          "description": "Animancer animation framework — playing clips and transitions, cross-fading, layer management, mixer blending, animation events, and Animancer FSM state machines",
-          "version": "1.0.0"
-        },
-        {
-          "id": "applovin-max",
-          "description": "AppLovin MAX ad mediation SDK for Unity — SDK initialization and consent flow, all ad format lifecycles (Interstitial, Rewarded, Banner, MREC), impression-level revenue tracking, and mediation debugging",
-          "version": "1.0.0"
-        },
-        {
-          "id": "aspid-mvvm",
-          "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
-          "version": "1.0.0",
-          "references": [
-            "aspid-mvvm-binders-quickref.md",
-            "aspid-mvvm-binders-full.md",
-            "aspid-mvvm-converters.md"
-          ]
-        },
-        {
-          "id": "astar-pathfinding",
-          "description": "A* Pathfinding Project (by Aron Granberg) — graph setup and selection, movement script usage, path requesting via Seeker, runtime graph updates, local avoidance (RVO), and performance optimization for Unity",
-          "version": "1.0.0"
-        },
-        {
-          "id": "behavior-designer",
-          "description": "Behavior Designer (Opsive) behavior tree authoring — custom Action and Conditional task classes, task lifecycle, SharedVariable communication, Conditional Aborts, BehaviorTree component scripting API, external behavior trees, and composite node patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "cinemachine",
-          "description": "Unity Cinemachine camera system — Virtual Camera authoring, CinemachineBrain setup, body and aim algorithms, noise and impulse effects, camera blending and priority, State-Driven cameras, Timeline integration, and scripting via extensions",
-          "version": "1.0.0"
-        },
-        {
-          "id": "dotween",
-          "description": "DOTween Pro tweening library for Unity — tween creation and chaining, Sequence composition, tween lifecycle and control, global configuration, safe mode, recycling, callbacks, ease types, and DOTween Pro visual components (DOTweenAnimation, DOTweenPath, DOTweenVisualManager)",
-          "version": "1.0.0",
-          "references": [
-            "dotween-shortcuts.md"
-          ]
-        },
-        {
-          "id": "easy-save-3",
-          "description": "Easy Save 3 (ES3) data persistence system — save and load operations, ES3Settings configuration, serialization control, caching, reference management, encryption, backup, and save slot patterns for Unity projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "entitas",
-          "description": "Entitas Entity Component System framework — component definition, entity lifecycle, context and group management, system types and pipeline setup, reactive systems, entity indices, code generation workflow, and Unity integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "feel",
-          "description": "MoreMountains Feel library for adding game feel in Unity — MMF_Player setup and scripting, feedback sequencing, timing configuration, event system, runtime modification, and custom feedback authoring",
-          "version": "1.0.0"
-        },
-        {
-          "id": "firebase",
-          "description": "Firebase Unity SDK integration — project setup, initialization, Authentication, Realtime Database, Crashlytics, and Remote Config service patterns for Unity games on iOS, Android, and desktop",
-          "version": "1.0.0"
-        },
-        {
-          "id": "fmod",
-          "description": "FMOD Studio Unity integration — event playback patterns, EventInstance lifecycle management, bank loading, parameter control, mixer (Bus/VCA), 3D audio setup, and project configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "imgui-editor-tools",
-          "description": "Rules for creating Unity Editor utility windows using built-in IMGUI system (EditorWindow, EditorGUILayout, GUILayout). Use when Odin Inspector is not available or when a lightweight IMGUI-only solution is preferred",
-          "version": "1.0.0"
-        },
-        {
-          "id": "input-system",
-          "description": "Unity Input System package (com.unity.inputsystem) — action setup and lifecycle, callback patterns, InputActionAsset and generated wrappers, PlayerInput component, control schemes, runtime rebinding, and update mode configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "ironsource",
-          "description": "IronSource LevelPlay ad monetization SDK for Unity — initialization lifecycle, rewarded/interstitial/banner ad patterns, mediation setup, privacy compliance, and revenue optimization",
-          "version": "1.0.0",
-          "references": [
-            "ironsource-api.md"
-          ]
-        },
-        {
-          "id": "leantween",
-          "description": "LeanTween tweening library for Unity — tween creation and chaining, sequence composition via LTSeq, tween lifecycle control, easing types, callbacks, value animation, and event system",
-          "version": "1.0.0"
-        },
-        {
-          "id": "localization",
-          "description": "Unity Localization Package (com.unity.localization) — StringTable and AssetTable setup, LocalizedString usage and events, locale selection and switching, async initialization, and Smart Strings",
-          "version": "1.0.0"
-        },
-        {
-          "id": "manualdi",
-          "description": "ManualDI dependency injection framework for Unity/C# — binding and resolving dependencies via `DiContainerBindings`, container lifecycle management, Unity3D integration via `MonoBehaviourInstaller`, `MonoBehaviourRootEntryPoint`, and `MonoBehaviourSubordinateEntryPoint`",
-          "version": "1.0.0"
-        },
-        {
-          "id": "mirror",
-          "description": "Mirror multiplayer networking for Unity — NetworkBehaviour authoring, SyncVar/SyncList synchronization, Commands and RPCs, authority model, object spawning, NetworkManager configuration, transport setup, and interest management",
-          "version": "1.0.0"
-        },
-        {
-          "id": "naughty-attributes",
-          "description": "NaughtyAttributes Unity Inspector extension — drawer, meta, and validator attributes for customizing serialized fields, methods, and non-serialized properties without writing custom editors or property drawers",
-          "version": "1.0.0"
-        },
-        {
-          "id": "netcode-gameobjects",
-          "description": "Unity Netcode for GameObjects (NGO) v2.x — client-server and distributed authority multiplayer networking, covering NetworkObject spawning and lifecycle, NetworkBehaviour callbacks, NetworkVariable state synchronization, RPC invocation patterns, ownership and authority management, and NetworkManager configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "newtonsoft-json",
-          "description": "JSON serialization and deserialization in Unity using Newtonsoft.Json — configuring JsonSerializerSettings, applying serialization attributes, writing custom converters, LINQ to JSON for dynamic data, and Unity-specific setup (IL2CPP, AOT, Unity type handling)",
-          "version": "1.0.0"
-        },
-        {
-          "id": "node-canvas",
-          "description": "Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes",
-          "version": "1.0.0",
-          "references": [
-            "node-canvas-bt-nodes-quickref.md",
-            "node-canvas-bt-nodes-full.md",
-            "node-canvas-tasks-quickref.md",
-            "node-canvas-tasks-full.md",
-            "node-canvas-conditions-quickref.md",
-            "node-canvas-conditions-full.md"
-          ]
-        },
-        {
-          "id": "odin-editor-tools",
-          "description": "Rules for creating editor windows and tools using OdinEditorWindow, OdinMenuEditorWindow, PropertyTree, Proxy ScriptableObject pattern, split layouts, EditorPrefs persistence",
-          "version": "1.0.0"
-        },
-        {
-          "id": "odin",
-          "description": "Rules for Odin Inspector attributes (grouping, validation, conditional visibility) and Odin Validator (ISelfValidator, SceneValidator, RootObjectValidator, WithFix)",
-          "version": "1.0.0"
-        },
-        {
-          "id": "photon-pun2",
-          "description": "Photon Unity Networking 2 — room-based multiplayer networking for Unity using Photon Cloud, covering networked object synchronization via PhotonView, RPC communication, state serialization with IPunObservable, matchmaking, custom room/player properties, and ownership management",
-          "version": "1.0.0"
-        },
-        {
-          "id": "playfab",
-          "description": "PlayFab Unity SDK — player authentication, player data storage (classic UserData and Entity Objects), statistics, leaderboards, CloudScript via Azure Functions, title data, economy integration, and concurrency patterns for Unity games",
-          "version": "1.0.0"
-        },
-        {
-          "id": "r3",
-          "description": "R3 reactive programming — observables, subscriptions, disposal, ReactiveProperty, EveryUpdate",
-          "version": "1.0.0"
-        },
-        {
-          "id": "reflex",
-          "description": "Reflex dependency injection framework for Unity — container hierarchy, registration and resolution API, injection patterns (constructor / attribute / source-generated), scope lifecycle, installer authoring, runtime injection utilities, and IL2CPP considerations",
-          "version": "1.0.0"
-        },
-        {
-          "id": "rngneeds",
-          "description": "Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding",
-          "version": "1.0.0"
-        },
-        {
-          "id": "spine",
-          "description": "Spine skeletal animation runtime for Unity — component selection, animation state management, multi-track blending, skin combining, event handling, shader and render pipeline setup, and performance tuning",
-          "version": "1.0.0"
-        },
-        {
-          "id": "ui-toolkit",
-          "description": "Unity UI Toolkit — runtime and editor UI development using VisualElement hierarchy, UXML layout files, USS stylesheets, event system, data binding, and performance tuning via usage hints and texture atlasing",
-          "version": "1.0.0"
-        },
-        {
-          "id": "unirx",
-          "description": "UniRx reactive programming for Unity — observables, subscriptions, ReactiveProperty, Subject types, operators, Unity lifecycle integration, subscription disposal, MVVM/MVP patterns, and MessageBroker pub/sub",
-          "version": "1.0.0"
-        },
-        {
-          "id": "unitask",
-          "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
-          "version": "1.0.0"
-        },
-        {
-          "id": "vcontainer",
-          "description": "VContainer dependency injection framework for Unity — LifetimeScope composition roots, injection methods (constructor/method/property), scope hierarchy, entry point interfaces, UniTask/UniRx/ECS integrations, and performance optimizations",
-          "version": "1.0.0",
-          "references": [
-            "vcontainer-registration.md"
-          ]
-        },
-        {
-          "id": "wwise",
-          "description": "Wwise audio middleware integration for Unity — posting events, managing SoundBanks, controlling States, Switches, and RTPCs via C# scripts, using Unity components (AkGameObj, AkEvent, AkAmbient, AkBank, AkInitializer), and spatial audio setup",
-          "version": "1.0.0"
-        },
-        {
-          "id": "zenject",
-          "description": "Zenject dependency injection framework for Unity — binding API, container hierarchy, injection methods, installer types, entry points, execution order, and composition root patterns",
-          "version": "1.0.0",
-          "references": [
-            "zenject-factories.md",
-            "zenject-memorypools.md",
-            "zenject-signals.md",
-            "zenject-subcontainers.md",
-            "zenject-automocking.md",
-            "zenject-async.md"
-          ]
-        }
-      ]
+      }
     },
-    "godot": {
-      "core": [
-        {
-          "id": "code-style",
-          "description": "Universal GDScript/Godot code style conventions — naming, type hints, member ordering, class structure, formatting, node approach, documentation",
-          "version": "1.0.0"
-        },
-        {
-          "id": "design-principles",
-          "description": "Universal software design principles adapted for Godot — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
-          "version": "1.0.0"
-        },
-        {
-          "id": "folders-structure",
-          "description": "Project folder organization, module structure, file conventions, external asset boundaries",
-          "version": "1.0.0"
-        },
-        {
-          "id": "performance",
-          "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, signals, math, physics, UI optimization, process management, mobile specifics",
-          "version": "1.0.0"
-        },
-        {
-          "id": "testing",
-          "description": "Rules for GUT (Godot Unit Test) framework — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests",
-          "version": "1.0.0"
-        }
-      ],
-      "stack": [
-        {
-          "id": "animation-tree",
-          "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace, OneShot, Transition, Blend2), and root motion integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "beehave",
-          "description": "Beehave behavior tree addon authoring — custom ActionLeaf/ConditionLeaf implementation, composite node selection (Selector vs Sequence and their reactive/star variants), decorator wrapping, Blackboard data sharing, and BeehaveTree configuration for Godot 4",
-          "version": "1.0.0"
-        },
-        {
-          "id": "dialogic",
-          "description": "Dialogic 2 plugin for Godot 4 — timeline authoring, dialogue flow control, subsystem API, character/portrait management, variable integration, save/load patterns, and game-code integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "dialogue-manager",
-          "description": "Nathan Hoad's Dialogue Manager addon for Godot 4 — authoring `.dialogue` files, integrating the runtime via GDScript, managing dialogue balloon UI, writing mutations and conditions, and communicating with game state",
-          "version": "1.0.0"
-        },
-        {
-          "id": "editor-plugin",
-          "description": "Godot 4 editor extension authoring — EditorPlugin lifecycle, plugin structure, adding docks/controls/menu items, custom types, autoload registration, inspector plugins, main screen plugins, and EditorScript for one-off editor tasks",
-          "version": "1.0.0"
-        },
-        {
-          "id": "enet",
-          "description": "ENet transport layer in Godot 4 — ENetMultiplayerPeer server/client lifecycle, low-level ENetConnection event service loop, ENetPacketPeer direct packet control, transfer channel isolation, timeout and bandwidth tuning, DTLS encryption, and mesh networking setup",
-          "version": "1.0.0"
-        },
-        {
-          "id": "fmod",
-          "description": "FMOD Studio GDExtension (utopia-rise/fmod-gdextension) for Godot 4 — bank lifecycle management, event playback tiers (one-shot / node / manual), parameter control, 3D spatial audio, Bus/VCA mixer control, timeline callbacks, and project export with banks",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gdextension",
-          "description": "Patterns, conventions, and rules for building Godot 4 extensions in C++ using the GDExtension system and godot-cpp bindings — class registration, method binding, memory management, initialization lifecycle, and `.gdextension` file configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godot-jolt",
-          "description": "Godot Jolt Physics integration — enabling Jolt as the 3D physics backend, behavioral differences from Godot Physics, configuration guidance, and GDScript usage patterns",
-          "version": "1.0.0",
-          "references": [
-            "godot-jolt-settings.md"
-          ]
-        },
-        {
-          "id": "godot-sqlite",
-          "description": "godot-sqlite (2shady4u) GDExtension plugin — database connection lifecycle, query execution with parameter binding, CRUD helpers, transaction management, BLOB handling, schema definition, and save/load patterns for Godot 4 GDScript projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godot-state-charts",
-          "description": "Godot State Charts plugin (derkork/godot-statecharts) — node hierarchy setup, StateChart API, event-driven transitions, guard types, signal wiring, and integration patterns for Godot 4",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godotsteam",
-          "description": "GodotSteam GDExtension integration for Godot 4 — installation, initialization lifecycle, callback management, achievements and stats, lobby and matchmaking, cloud save, export/shipping, and common error patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "limbo-ai",
-          "description": "LimboAI behavior tree and hierarchical state machine authoring — custom BTTask/BTAction/BTCondition/BTDecorator implementation, Blackboard variable management, BTPlayer setup, LimboHSM/LimboState/BTState patterns, and event-driven AI composition for Godot 4",
-          "version": "1.0.0"
-        },
-        {
-          "id": "multiplayer",
-          "description": "Godot 4 built-in multiplayer system — MultiplayerAPI, MultiplayerSynchronizer, MultiplayerSpawner, RPC annotation system, authority model, peer management, and scene replication patterns for networked games",
-          "version": "1.0.0"
-        },
-        {
-          "id": "navigation-server3d",
-          "description": "Godot 4 navigation system — NavigationAgent3D usage patterns, initialization timing, RVO avoidance setup, direct NavigationServer3D API, path query objects, NavigationObstacle3D behavior, and navigation layer filtering",
-          "version": "1.0.0"
-        },
-        {
-          "id": "phantom-camera",
-          "description": "Phantom Camera addon for Godot 4 — priority-based camera management, PhantomCameraHost wiring, follow modes, look-at modes, tween transitions, noise/shake, and 2D boundary setup for Camera2D and Camera3D nodes",
-          "version": "1.0.0"
-        },
-        {
-          "id": "rivet",
-          "description": "Integration of the Rivet/OpenGameBackend multiplayer backend into Godot 4 — plugin setup, matchmaker and lobby flow, game server lifecycle, actor-based backend design, and GDScript client patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "soft-body-3d",
-          "description": "Godot 4 SoftBody3D simulation — configuring deformable physics meshes, tuning simulation parameters, pinning vertices to anchor nodes, integrating with skeletons, and handling known engine limitations",
-          "version": "1.0.0"
-        },
-        {
-          "id": "tilemap",
-          "description": "Godot 4 tile-based map authoring — TileMapLayer node usage, TileSet resource configuration, tile manipulation at runtime via GDScript, physics/navigation/custom data layer setup, terrain autotiling, and performance tuning",
-          "version": "1.0.0"
-        },
-        {
-          "id": "tween",
-          "description": "Godot 4 Tween and Tweener system — creating, configuring, and controlling property/method/callback animations via script, including lifecycle management, sequential and parallel sequencing, transition and ease curves",
-          "version": "1.0.0"
-        },
-        {
-          "id": "wwise",
-          "description": "Integration of Audiokinetic Wwise audio middleware into Godot 4 via the `alessandrofama/wwise-godot-integration` GDExtension — event posting, SoundBank management, RTPC control, state/switch management, spatial audio nodes, and the Wwise Types inspector workflow",
-          "version": "1.0.0"
-        }
-      ]
-    },
-    "godot-net": {
-      "core": [
-        {
-          "id": "code-style",
-          "description": "Universal C#/Godot .NET code style conventions — naming, access modifiers, member ordering, class structure, formatting, node approach, documentation",
-          "version": "1.0.0"
-        },
-        {
-          "id": "design-principles",
-          "description": "Universal software design principles adapted for Godot .NET — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
-          "version": "1.0.0"
-        },
-        {
-          "id": "folders-structure",
-          "description": "Project folder organization, module structure, namespace conventions, external asset boundaries",
-          "version": "1.0.0"
-        },
-        {
-          "id": "performance",
-          "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, process management, mobile specifics",
-          "version": "1.0.0"
-        },
-        {
-          "id": "testing",
-          "description": "Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests",
-          "version": "1.0.0"
-        }
-      ],
-      "stack": [
-        {
-          "id": "animation-tree",
-          "description": "Godot 4 animation state machine and blend tree authoring — AnimationNodeStateMachine setup, state transitions via AnimationNodeStateMachinePlayback, parameter-driven blend nodes (BlendSpace1D/2D, OneShot, Blend2, Transition), and root motion integration in Godot 4 .NET C# projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-auto-inject",
-          "description": "Reflection-free, node-based dependency injection for Godot 4 C# — Provider/Dependent patterns, automatic node binding with `[Node]`, lifecycle hooks, and test-friendly initialization via source-generated metadata (no reflection)",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-collections",
-          "description": "Chickensoft.Collections library usage — specialized data structures for insertion-order-preserving collections, type-keyed storage, struct-safe queuing, and object pooling in Godot 4 .NET projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-editor-config",
-          "description": "Setup and conventions for the Chickensoft `.editorconfig` used in Godot 4 C# projects — formatting defaults per file type, C# code style rules (var, expression-bodied members, pattern matching, braces, namespaces), the Chickensoft naming convention system, and Roslyn diagnostic overrides",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-game-tools",
-          "description": "Utilities from the Chickensoft.GameTools package — background resource loading via the Loader class, strongly-typed runtime environment detection via the Features API, and DPI-aware window scaling via display extension methods",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-godot-node-interfaces",
-          "description": "Patterns and rules for using GodotNodeInterfaces to make Godot node scripts unit-testable — generated interfaces for node types, `IFakeNodeTreeEnabled` adoption, `Ex` extension methods, fake scene tree setup, and integration with the Chickensoft testing ecosystem",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-godot-test-driver",
-          "description": "Integration testing for Godot 4 C# projects using the Chickensoft.GodotTestDriver library — scene loading via the Fixture class, the test-driver pattern for abstracting node interactions, input simulation (keyboard, mouse, controller, actions), and async waiting utilities",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-godot-test",
-          "description": "Chickensoft's C# test runner for Godot 4 — test class authoring with `TestClass`, lifecycle attributes, async test support, `TestEnvironment` configuration, code coverage via coverlet, and VS Code debug launch integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-godotenv",
-          "description": "Environment management for Godot 4 .NET projects — installing and switching Godot versions, managing asset library addons via `addons.json`, configuring the `GODOT` environment variable symlink, and integrating GodotEnv into CI/CD pipelines",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-introspection",
-          "description": "Build-time type metadata generation for AOT-compatible reflection in Godot 4 C# — `[Meta]`, `[Id]`, `[Version]`, `[Mixin]` attributes, type registry, type graph queries, and the mixin system",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-log",
-          "description": "Logging in Godot 4 C# projects using the Chickensoft.Log and Chickensoft.Log.Godot packages — creating loggers, choosing writers, configuring formatters, and testing logging behavior without mocking",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-logicblocks",
-          "description": "Hierarchical, serializable state machine authoring with LogicBlocks — defining logic blocks, states, inputs, outputs, blackboard dependencies, lifecycle hooks, the binding system, and integrating state machines into Godot .NET nodes",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-palette-painter",
-          "description": "PalettePainter is a .NET CLI tool for generating color-ramp palette PNG files following the Slynyrd pixel art methodology — covers installation, CLI usage, parameter tuning, Godot asset workflow, and CI/CD integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-platform",
-          "description": "Low-level, cross-platform native display detection for Godot 4 C# — querying true native pixel resolution and DPI scale factor directly from the OS when GameTools' `LookGood()` is too high-level",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-save-file-builder",
-          "description": "Composing game save data from loosely coupled chunks distributed across the scene tree — defining `SaveFile<T>`, authoring `SaveChunk<T>` nodes, wiring chunks through AutoInject, and integrating with Chickensoft.Serialization for AOT-compatible persistence",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-serialization",
-          "description": "AOT-compatible, polymorphic serialization for Godot 4 C# game models — covers the [Meta]/[Id]/[Save]/[Version] attribute system, JsonSerializerOptions setup, versioning with IOutdated, custom hooks via ICustomSerializable, Godot-type converters, and the SaveFileBuilder/SaveChunk save-file composition pattern",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-sync",
-          "description": "Synchronous, single-threaded reactive programming primitives for Godot 4 .NET — observable values and collections (`AutoValue`, `AutoList`, `AutoSet`, `AutoMap`), broadcast channels (`AutoChannel`, `AutoCache`), fluent binding subscriptions, reentrancy-safe deferred mutations, and the ownership pattern for exposing reactive state",
-          "version": "1.0.0"
-        },
-        {
-          "id": "chickensoft-uml-generator",
-          "description": "Build-time PlantUML diagram generation from C# class declarations and Godot `.tscn` scene files — the `[ClassDiagram]` attribute, csproj configuration, generated `.g.puml` file placement, and IDE rendering setup",
-          "version": "1.0.0"
-        },
-        {
-          "id": "editor-plugin",
-          "description": "Godot 4 editor extension authoring — creating persistent editor plugins with custom docks, inspector overrides, and custom node types via `EditorPlugin`, and running one-off editor automation scripts via `EditorScript`",
-          "version": "1.0.0"
-        },
-        {
-          "id": "enet",
-          "description": "ENet transport layer usage in Godot 4 — ENetMultiplayerPeer lifecycle for server/client/mesh topologies, low-level ENetConnection event service loop, per-peer packet control via ENetPacketPeer, channel isolation strategies, bandwidth and timeout tuning, DTLS encryption setup, and mesh network configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "fmod-for-godot",
-          "description": "FMOD Studio audio middleware integration in Godot 4 .NET projects — installing the GDExtension plugin, loading banks, playing events and controlling instances, managing parameters and adaptive audio, mixing via VCAs and buses, spatial audio setup, and accessing FMOD from C# using the FMOD Sharp wrapper or the official FMOD C# SDK",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gdextension",
-          "description": "Authoring Godot 4 native extensions in C++ using godot-cpp — class declaration and registration, method and property binding, signal system, memory management, initialization lifecycle, error handling, build system setup, and `.gdextension` manifest configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godot-epic-online-services",
-          "description": "Integration of Epic Online Services (EOS) into Godot 4.2+ via the EOSG GDExtension plugin — platform initialization, authentication flows, lobby management, P2P networking, and accessing GDScript singletons from C#",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godot-jolt",
-          "description": "Jolt Physics integration in Godot 4 .NET — enabling the 3D physics backend, behavioral differences from Godot Physics, project settings, joint configuration, and migration guidance for Godot 4.4+",
-          "version": "1.0.0"
-        },
-        {
-          "id": "godotsteam",
-          "description": "Steam platform integration in Godot 4 .NET C# projects — choosing between GodotSteam and Steamworks.NET, installing and initializing the Steam API, implementing the SteamManager autoload singleton, running callbacks every frame, using Callback<T> and CallResult<T> patterns, and integrating achievements, stats, leaderboards, lobbies, and the Steam overlay",
-          "version": "1.0.0"
-        },
-        {
-          "id": "google-play-games-plugin",
-          "description": "Integration of Google Play Game Services (achievements, leaderboards, sign-in, cloud saves) into Godot 4 Android projects using the `godot-play-game-services` plugin — covers installation, credential configuration, C# wrapper patterns, node lifecycle, and troubleshooting authentication errors",
-          "version": "1.0.0"
-        },
-        {
-          "id": "leoecs",
-          "description": "LeoECS Lite (Leopotam.EcsLite) entity-component-system framework usage — defining components and systems, world and filter management, entity lifecycle, event patterns, system groups, and Godot 4 node integration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "limbo-ai",
-          "description": "Behavior tree and hierarchical state machine authoring with LimboAI — custom task creation, BTPlayer setup, Blackboard variable management, LimboHSM state transitions, BTState integration, and C# usage patterns in Godot 4 .NET projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "litenetlib",
-          "description": "LiteNetLib reliable UDP networking library usage in Godot 4 .NET — NetManager initialization, connection lifecycle, delivery method selection, NetPacketProcessor for typed packets, raw binary serialization with NetDataWriter/NetDataReader, NetManager configuration, and Godot-specific integration patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "memorypack",
-          "description": "MemoryPack binary serialization — type annotation with attributes, constructor selection rules, versioning strategies, union types for polymorphism, custom formatters, Brotli compression, and performance-oriented serialization patterns in Godot 4 .NET projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "mirage-godot",
-          "description": "High-level C# networking for Godot 4 — NetworkBehaviour authoring, SyncVar field synchronization, ServerRpc/ClientRpc remote calls, networked object spawning, server/client lifecycle events, and UDP transport configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "nakama",
-          "description": "Nakama .NET SDK integration for Godot 4 C# — client setup, authentication, session lifecycle, real-time socket connection, error handling, retry configuration, and data serialization",
-          "version": "1.0.0",
-          "references": [
-            "nakama-social.md",
-            "nakama-gameplay.md"
-          ]
-        },
-        {
-          "id": "navigation-server3d",
-          "description": "Godot 4 built-in navigation system — NavigationAgent3D path following and lifecycle, RVO avoidance setup, direct NavigationServer3D API for map/region management and path queries, NavigationObstacle3D behavior, and navigation layer filtering",
-          "version": "1.0.0"
-        },
-        {
-          "id": "newtonsoft-json",
-          "description": "JSON serialization and deserialization in Godot 4 .NET — strongly-typed and dynamic JSON handling, custom converters for Godot types, game save/load patterns, serialization settings configuration, and safe polymorphic type handling",
-          "version": "1.0.0"
-        },
-        {
-          "id": "r3",
-          "description": "Reactive programming with R3 (Cysharp) in Godot 4 .NET — Observable/Observer patterns, ReactiveProperty, Subject types, subscription disposal, Godot-specific frame providers, signal integration, async operators, and testing with FakeTimeProvider/FakeFrameProvider",
-          "version": "1.0.0"
-        },
-        {
-          "id": "soft-body-3d",
-          "description": "Soft body physics simulation in Godot 4 — deformable mesh setup, simulation parameter tuning, vertex pinning to anchors and skeletons, collision configuration, and known engine limitations",
-          "version": "1.0.0"
-        },
-        {
-          "id": "tilemap",
-          "description": "Godot 4 tile-based map authoring using TileMapLayer nodes and TileSet resources — node setup, runtime cell manipulation, terrain autotiling, physics/navigation/custom data layer configuration, coordinate conversion, and performance tuning",
-          "version": "1.0.0"
-        },
-        {
-          "id": "tween",
-          "description": "Godot 4 Tween and Tweener system — creating and controlling property/method/callback animations via script, managing lifecycle, sequential and parallel sequencing, transition and ease configuration",
-          "version": "1.0.0"
-        },
-        {
-          "id": "wwise-godot",
-          "description": "Audiokinetic Wwise audio middleware integration in Godot 4 .NET C# projects — event posting, bank management, 3D spatial audio, RTPC/state/switch control, game object registration lifecycle, and Godot node integration patterns",
-          "version": "1.0.0"
-        }
-      ]
-    },
-    "unreal-engine-5": {
-      "core": [
-        {
-          "id": "code-style",
-          "description": "Universal C++/UE5 code style conventions — naming, type prefixes, member ordering, class structure, formatting, UObject approach, macros, documentation",
-          "version": "1.0.0"
-        },
-        {
-          "id": "design-principles",
-          "description": "Universal software design principles adapted for UE5 — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming",
-          "version": "1.0.0"
-        },
-        {
-          "id": "folders-structure",
-          "description": "Project folder organization, module structure, namespace conventions, plugin boundaries, Build.cs patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "performance",
-          "description": "Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, Tick management, cooking/packaging, mobile specifics",
-          "version": "1.0.0"
-        },
-        {
-          "id": "pipeline",
-          "description": "UE5 development pipeline — C++ scaffolding strategy, Blueprint iteration, Live Coding boundaries, structural change batching, data-driven configuration. Architecture-specific sections: Actor/Component, GAS, Mass Entity",
-          "version": "1.0.0"
-        },
-        {
-          "id": "testing",
-          "description": "Rules for UE5 Automation Framework tests — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands",
-          "version": "1.0.0"
-        }
-      ],
-      "stack": [
-        {
-          "id": "actor-component-model",
-          "description": "Unreal Engine 5 Actor/Component architecture — component hierarchy, ownership model, Actor and Component lifecycle hooks, component declaration patterns, component communication, and runtime composition",
-          "version": "1.0.0"
-        },
-        {
-          "id": "audio-modulation",
-          "description": "UE5 Audio Modulation plugin — Control Bus and Bus Mix authoring, runtime modulation parameter control via `UAudioModulationStatics`, Modulation Generator setup, Patch wiring, and integration with MetaSound, Sound Wave, and Submix destinations",
-          "version": "1.0.0"
-        },
-        {
-          "id": "behavior-tree",
-          "description": "Unreal Engine's event-driven Behavior Tree system — authoring Tasks, Decorators, and Services in C++, wiring AIController and Blackboard, managing NodeMemory, configuring Observer Aborts, and structuring AI decision trees",
-          "version": "1.0.0",
-          "references": [
-            "behavior-tree-nodes.md"
-          ]
-        },
-        {
-          "id": "blueprints",
-          "description": "Blueprint visual scripting patterns in UE5 — when to use Blueprint vs C++, exposing C++ systems via UPROPERTY/UFUNCTION specifiers, communication patterns (interfaces, delegates, casting, function libraries), and Blueprint graph organization",
-          "version": "1.0.0"
-        },
-        {
-          "id": "common-ui",
-          "description": "Common UI plugin patterns for UE5 — activatable widget lifecycle, layered widget stack architecture, input routing, platform-agnostic gamepad/keyboard/mouse support, focus management, and multi-platform HUD setup in C++",
-          "version": "1.0.0"
-        },
-        {
-          "id": "data-assets",
-          "description": "Unreal Engine's data asset system — `UDataAsset` and `UPrimaryDataAsset` class usage, Asset Manager integration, async loading patterns, Asset Bundle configuration, `TSoftObjectPtr`/`TSoftClassPtr` soft references, and data-driven architecture design in UE5",
-          "version": "1.0.0"
-        },
-        {
-          "id": "enhanced-input-system",
-          "description": "Enhanced Input plugin patterns in UE5 — InputAction and InputMappingContext setup, Modifiers and Triggers, UEnhancedInputLocalPlayerSubsystem context management, C++ binding via UEnhancedInputComponent, value extraction from FInputActionValue, runtime context switching, asset organization, and naming conventions",
-          "version": "1.0.0"
-        },
-        {
-          "id": "environment-query-system",
-          "description": "Unreal Engine's Environment Query System — architecture (Generators, Tests, Contexts), running queries from C++, custom node authoring in C++, Behavior Tree integration, debugging with EQSTestingPawn, and performance tuning",
-          "version": "1.0.0",
-          "references": [
-            "eqs-generators.md",
-            "eqs-tests.md"
-          ]
-        },
-        {
-          "id": "epic-online-services",
-          "description": "Integration of Epic Online Services into UE5 via the Online Subsystem EOS plugin — SDK initialization, authentication flows, sessions, lobbies, voice chat, player data, achievements, leaderboards, and cross-platform account identity",
-          "version": "1.0.0"
-        },
-        {
-          "id": "functional-testing",
-          "description": "UE5 Functional Testing plugin — level-based integration testing using `AFunctionalTest` actors, test lifecycle (PrepareTest → IsReady → StartTest → Tick → FinishTest), step-based test flows, telemetry, and command-line execution",
-          "version": "1.0.0"
-        },
-        {
-          "id": "game-framework",
-          "description": "UE5 Gameplay Framework class roles, responsibilities, and inter-class relationships — covering GameMode, GameState, PlayerController, PlayerState, Pawn, Character, HUD, and GameInstance; their replication rules, access patterns, and data ownership decisions",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gameplay-ability-system",
-          "description": "GAS runtime patterns in UE5 — AbilitySystemComponent initialization and ownership setup, Gameplay Ability authoring and lifecycle, Gameplay Effect types and application, AttributeSet definition and clamping, Ability Tasks, Gameplay Cues, network prediction limits, and naming conventions",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gameplay-message-router",
-          "description": "UE5 Gameplay Message Router plugin — broadcasting and receiving typed USTRUCT messages via Gameplay Tag channels using `UGameplayMessageSubsystem`, listener handle lifecycle, tag channel design, `EGameplayMessageMatch` matching modes, module setup, and integration patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gameplay-tags",
-          "description": "Unreal Engine's hierarchical tag system — defining and registering tags, `FGameplayTag` and `FGameplayTagContainer` API, tag hierarchy matching, native C++ tag macros, `FGameplayTagQuery` construction, `IGameplayTagAssetInterface`, replication configuration, and tag dictionary design patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "gauntlet",
-          "description": "Gauntlet — UE5's framework for automated functional and performance testing of cooked game builds. Covers UGauntletTestController authoring in C++, C# test node setup via DefaultTest, the RunUnreal execution pipeline, performance profiling via CSV/FCsvProfiler, and CI/CD integration patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "iris-replication",
-          "description": "Iris — UE5's next-generation, data-driven replication system — covering project setup, Push Model integration, subobject replication, spatial filtering, prioritization, memory/buffer configuration, and migration from the legacy replication system",
-          "version": "1.0.0"
-        },
-        {
-          "id": "lumen",
-          "description": "Lumen global illumination and reflections system in UE5 — hardware and software ray tracing modes, scene and material requirements, Post Process Volume configuration, performance tuning, scalability tiers, and platform compatibility",
-          "version": "1.0.0"
-        },
-        {
-          "id": "lyra-starter-game",
-          "description": "Patterns, conventions, and extension rules for projects built on the Lyra Starter Game sample — covering the Experience system, Game Feature Plugin structure, modular gameplay initialization, PawnData configuration, GAS integration, and asset loading strategy",
-          "version": "1.0.0"
-        },
-        {
-          "id": "mass-entity",
-          "description": "UE5 Mass Entity framework — authoring Fragments, Processors, Traits, and Tags; spawning entities; modifying entity composition via deferred commands; configuring observer processors; integrating Mass Avoidance and Navigation; debugging with the Mass Debugger",
-          "version": "1.0.0"
-        },
-        {
-          "id": "material-system",
-          "description": "Unreal Engine 5 material authoring and runtime material management — choosing between UMaterialInstanceDynamic, UMaterialInstanceConstant, Material Parameter Collections, and Custom Primitive Data; C++ parameter API; parent material architecture; shader permutation management",
-          "version": "1.0.0"
-        },
-        {
-          "id": "metasounds",
-          "description": "MetaSounds plugin authoring in UE5 — DSP graph architecture, asset types (Source, Patch, Preset), runtime parameter control from C++ and Blueprint, custom C++ node creation, execution model (render blocks, constructor pins, triggers), performance tuning, and integration with UAudioComponent",
-          "version": "1.0.0"
-        },
-        {
-          "id": "nanite",
-          "description": "UE5 Nanite virtualized geometry system — enabling Nanite on assets, supported mesh and component types, material restrictions, World Position Offset clamping, fallback mesh configuration, C++ support APIs, console variables, visualization modes, and performance budgeting",
-          "version": "1.0.0"
-        },
-        {
-          "id": "online-subsystem",
-          "description": "Unreal Engine's Online Subsystem (OSSv1) and Online Services (OSSv2) — session creation and lifecycle, asynchronous delegate patterns, multi-OSS configuration, platform identity and friends interfaces, and the architectural trade-offs between the two API generations",
-          "version": "1.0.0"
-        },
-        {
-          "id": "python-editor-scripting",
-          "description": "Python Editor Scripting plugin for UE5 — editor-only automation workflows, asset batch processing, actor manipulation, Blueprint type exposure via Python decorators, Editor Utility Widget authoring, and multi-mode script execution",
-          "version": "1.0.0"
-        },
-        {
-          "id": "replication",
-          "description": "UE5 network replication — property replication setup, RPC authoring and routing rules, RepNotify patterns, stateful vs event-based decisions, network roles and modes, relevancy and bandwidth management, push model, replicated subobjects, Fast TArray, atomic replication, and debugging",
-          "version": "1.0.0"
-        },
-        {
-          "id": "save-game",
-          "description": "Unreal Engine 5 built-in save/load system — `USaveGame` subclass authoring, slot-based I/O via `UGameplayStatics`, sync vs. async API, actor world-state serialization, save data versioning, and corruption protection patterns",
-          "version": "1.0.0"
-        },
-        {
-          "id": "smart-objects",
-          "description": "Smart Objects plugin for UE5 — data-driven, slot-based AI interaction system including USmartObjectComponent registration and lifecycle, spatial slot querying, claim/occupy/release workflow, USmartObjectDefinition asset authoring, GameplayInteractions StateTree integration, and Behavior Tree / Mass Entity bindings",
-          "version": "1.0.0"
-        },
-        {
-          "id": "state-tree",
-          "description": "StateTree plugin usage in UE5 — authoring Tasks, Evaluators, and Conditions in C++, configuring Schemas and context data, managing InstanceData, setting up transitions and selectors, integrating with AI controllers, and running External StateTrees",
-          "version": "1.0.0"
-        },
-        {
-          "id": "subsystems",
-          "description": "UE5 Subsystem framework — choosing the right subsystem type, lifecycle hooks, C++ access patterns, tick support, dependency ordering, Blueprint exposure, and loose coupling between subsystems",
-          "version": "1.0.0"
-        },
-        {
-          "id": "unreal-build-system",
-          "description": "UnrealBuildTool (UBT) configuration — Build.cs module rules, Target.cs target setup, module types and loading phases, IWYU include discipline, conditional compilation, and third-party library integration for UE5 C++ projects",
-          "version": "1.0.0"
-        },
-        {
-          "id": "unreal-insights",
-          "description": "Profiling and telemetry analysis in UE5 — capturing CPU/GPU timing, memory allocations, asset loading, and network traffic via the Trace system, and analyzing recorded sessions in the Unreal Insights viewer",
-          "version": "1.0.0"
-        }
-      ]
+    "gamedesign": {
+      "tiers": {
+        "core": [],
+        "library": []
+      }
     }
   }
 }
