@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-06-07T11:20:03.450Z",
+  "generated": "2026-06-13T02:30:32.000Z",
   "modules": {
     "code": {
       "engines": {
@@ -982,8 +982,100 @@
     },
     "gamedesign": {
       "tiers": {
-        "core": [],
-        "library": []
+        "core": [
+          {
+            "id": "principles",
+            "description": "Working discipline for the game-design skill family — user-driven collaboration protocol, section-cycle authoring contract, one-way design→code boundary, delta discipline for design edits, facts-registry and ID conventions, language rules, and the critique stance",
+            "version": "1.0.0",
+            "always": true
+          }
+        ],
+        "library": [
+          {
+            "id": "accessibility",
+            "description": "Game accessibility method — the standards (Game Accessibility Guidelines, Xbox Accessibility Guidelines, AbleGamers APX, CVAA), impairment categories and their design responses, the GAG basic/intermediate/advanced commitment tiers, the player-experience-first stance, the legal floor, and high-impact features",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "balance",
+            "description": "Systemic balance method — cost curves for transitive systems, payoff matrices and mixed strategies for intransitive (RPS) systems, power and difficulty curves, TTK/TTC pacing targets, tuning-knob discipline (feel/curve/gate), dominant-strategy and feedback-loop diagnostics",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "brainstorm-methods",
+            "description": "Ideation method toolkit — diverge/converge discipline (Double Diamond, IDEO \"defer judgment\"), brainwriting with an LLM (production blocking), the divergence method catalog (verb-first, genre mashup, MDA-backward, world-first, constraint-first; SCAMPER, random stimulus, Lotus Blossom), problem framing (How Might We), convergence tools (Pugh matrix, How-Now-Wow, idea backlog), the Klein pre-mortem, find-the-fun, and constraints as fuel",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "core-loops",
+            "description": "Engagement loop architecture — loop anatomy (action→reward→investment→re-entry), timescale layering from moment-to-moment to meta, dual skill/accumulation loops, appointment and return triggers, resource-flow diagnostics, and the ethical line between habit and compulsion exploitation",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "economy",
+            "description": "In-game economy method — the faucet/sink conservation model, currency taxonomy (soft/hard/premium/event), value chains (Cook), Machinations resource-flow notation, inflation and deflation guardrails, pity/gacha probability math, sink design, and economy health telemetry",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "frameworks",
+            "description": "Foundational experience frameworks for grounding design decisions — MDA aesthetics targeting (8 aesthetics, backward design), self-determination needs (SDT/PENS), the flow channel with player-controlled difficulty (active DDA), and game-feel responsiveness budgets (~100 ms)",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "level-design",
+            "description": "Level and content design method — bubble diagrams and graph layout, pacing via beat sheets and intensity graphs, the kishōtenketsu four-part structure, the \"gym\" mechanic-teaching pattern, movement/combat metrics, critical/golden/optional paths, and composition and guidance",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "liveops",
+            "description": "Live-service design method — the live-service premise, battle-pass anatomy and parameters, content calendars and cadence, content-injection budgets vs team capacity, the engagement-vs-exploitation line, and the per-event post-mortem loop",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "monetization-ethics",
+            "description": "Ethical monetization method — the dark-pattern taxonomy (Zagal's four categories; darkpattern.games), loot-box/gacha odds disclosure, the legal landscape (FTC v. Epic, regional loot-box rulings, UK ICO Children's Code), designing for minors, the friction/honesty test, and the red-line review severity",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "narrative",
+            "description": "Narrative design method — the story bible as canon source, character sheets that earn a gameplay function, branching structures (gauntlet, branch-and-bottleneck, foldback, open) and their combinatorial cost, environmental and embedded storytelling, reactive bark/dialogue systems (Firewatch model), and ludonarrative consonance",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "player-motivation",
+            "description": "Audience motivation models for targeting and validating design decisions — the Quantic Foundry 12-motivation model (6 pairs, 3 empirical clusters, 9 gamer types), motivation-driven audience definition, system-coverage checks, and the limits of the Bartle taxonomy",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "progression",
+            "description": "Progression architecture — progression axes (vertical power, horizontal breadth, cosmetic, mastery), XP curve formula families and threshold derivation, time-to-max and pacing budgets, unlock pacing and gating, power-vs-content coupling, skill-tree and build-diversity design, and the bounds of adaptive difficulty",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "review-lenses",
+            "description": "The review toolkit for design documents — critique vs review distinction, the lens catalog (completeness, clarity/implementability, pillar alignment, systems-math, domain, feasibility, scope), the four-level severity rubric, verdict semantics, the adversarial reviewer stance, Braintrust dynamics, plussing, and cross-scope consistency checks",
+            "version": "1.0.0",
+            "always": false
+          },
+          {
+            "id": "ux-onboarding",
+            "description": "Player-facing UX and onboarding method — George Fan's tutorial principles, just-in-time teach-by-doing, the FTUE funnel as an instrumented telemetry contract, cognitive-load budgets (Hodent), UI flow diagrams, and feedback/affordance/signifier discipline",
+            "version": "1.0.0",
+            "always": false
+          }
+        ]
       }
     }
   }
