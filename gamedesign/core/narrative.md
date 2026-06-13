@@ -5,7 +5,7 @@ version: 1.0.0
 # Narrative Design
 
 > **Scope**: Narrative design method — the story bible as canon source, character sheets that earn a gameplay function, branching structures (gauntlet, branch-and-bottleneck, foldback, open) and their combinatorial cost, environmental and embedded storytelling, reactive bark/dialogue systems (Firewatch model), and ludonarrative consonance.
-> **Load when**: designing story, characters, dialogue, or quests; choosing a branching structure; writing barks or reactive dialogue; aligning narrative with mechanics; building a story bible or character sheet; preparing the narrative section pack.
+> **Load when**: designing story, characters, dialogue, or quests; choosing a branching structure; writing barks or reactive dialogue; aligning narrative with mechanics; building a story bible or character sheet.
 
 ---
 
@@ -20,8 +20,8 @@ factions, timeline, naming conventions. Everything written elsewhere must agree
 with it.
 
 - Treat the bible as the narrative **facts registry**: proper nouns, dates, and
-  canon facts referenced ≥2 places belong in GD-IDS (`terms`/`entities`) so a
-  character's home town can't drift between two quests.
+  canon facts must stay consistent everywhere so a character's home town can't
+  drift between two quests.
 - Tone and content guardrails live here too — what the game will and won't depict.
 
 ## Character Sheets With a Gameplay Function
@@ -52,7 +52,7 @@ afford:
   content. **Foldback** (branch-and-bottleneck) is the workhorse — it grants felt
   choice while keeping authored content linear-ish; reconvergence points are
   where you reclaim scope.
-- Track choice **consequences as state** (flags in GD-IDS), so reactive content
+- Track choice **consequences as state** (flags), so reactive content
   (barks, world changes) can read them consistently.
 
 ## Environmental & Embedded Storytelling
@@ -75,8 +75,8 @@ specify the selection logic, not just the lines:
   **cooldown** (anti-repetition), and a **one-shot vs variant pool** flag.
 - **Barge-in / interruption** handling: what happens when a higher-priority line
   fires mid-bark, or the player moves away — define it or get audible nonsense.
-- The selection rules are a small state machine — document them in section C as
-  rules, not as a flat line list; the lines are content, the *selector* is design.
+- The selection rules are a small state machine — define them as rules, not as a
+  flat line list; the lines are content, the *selector* is design.
 
 ## Ludonarrative Consonance
 
@@ -89,16 +89,6 @@ contradicting itself.
 - When a mechanic must diverge from fiction for fun, make it a **named, deliberate
   trade-off** (an aesthetic-vs-systems tension, frameworks-rule MDA language) —
   not an accident.
-
-## Authoring
-
-- Story bible = the narrative canon; canon facts referenced repeatedly → GD-IDS.
-- Branching structure and choice-state flags belong in section C; bark selector
-  logic in section C with its state machine.
-- Section H acceptance criteria can encode reactivity ("AC: choosing X at DD-4
-  changes companion barks in zone 3").
-- Localization-sensitive content (word order, gendered terms, string growth) is
-  flagged for the UX/accessibility layer.
 
 ## Anti-patterns
 

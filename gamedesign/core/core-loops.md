@@ -59,8 +59,8 @@ Pair a **skill loop** (mastery-driven: better play → better outcomes) with an
   economy math belongs to the economy rule.)
 - Name each loop's **aspirational driver** — the visible thing the player wants
   that the loop feeds. A loop without a visible aspiration is maintenance work.
-- Loop connections across systems are GD-INDEX `Depends` edges: state which
-  system produces and which consumes every connecting resource.
+- For loop connections across systems, state which system produces and which
+  consumes every connecting resource.
 
 ## Appointment & Return Triggers
 
@@ -87,20 +87,12 @@ known habit engine — and the most ethically loaded:
 - Zagal's dark-pattern categories — **temporal** (forced grind, appointment
   abuse), **monetary** (pay to skip pain you designed), **social** (guilt and
   obligation as levers), **psychological** (exploitative variable rewards) —
-  are Critical-severity review findings when they are load-bearing in a loop.
+  are load-bearing dark patterns to avoid.
 - Design tests: "would this loop still be engaging with deterministic
   rewards?" (if no — the schedule is the game, and that is a finding); "are we
   rewarding play, or monetizing anxiety?"
 - Randomness for *variety* (build diversity, encounter spice) is distinct from
   randomness as a *retention or monetization lever* aimed at compulsion.
-
-## Documenting Loops
-
-- **GAME.md loop stack**: the verb chain per layer (e.g., `scout → fight →
-  loot → upgrade → unlock region`), one line per layer with its "why again".
-- **Per-system GDDs** state the system's loop role (which stage of which layer
-  it serves) in sections A/B, and wire timing targets into section H acceptance
-  criteria (e.g., "AC: a full core-loop pass completes in 45–90 s").
 
 ## Anti-patterns
 
@@ -111,7 +103,6 @@ known habit engine — and the most ethically loaded:
 - Retention via punishment: streaks, decay, and FOMO as primary return drivers.
 - Variable-ratio schedules stacked on monetized rewards and labeled
   "engagement".
-- Loop timing asserted nowhere — no acceptance criteria, no target bands, "it
-  feels right" as the spec.
+- Loop timing asserted nowhere — no target bands, "it feels right" as the spec.
 - Loops documented as marketing prose instead of a traceable verb/resource
   chain.

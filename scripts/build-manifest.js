@@ -7,8 +7,15 @@
 //   gamedesign/{core,library}/*.md           → modules.gamedesign.tiers.{core,library}
 //
 // Reads frontmatter (version) and header metadata (Scope, Load when, References)
-// from each .md file. `always` is auto-derived per rule as `tier === 'core'`
-// (the always-installed core bootstrap), mirroring the CLI's 1→2 normalization.
+// from each .md file.
+//
+// `always` semantics differ per module:
+//   - code: auto-derived per rule as `tier === 'core'` (the always-installed
+//     core bootstrap), mirroring the CLI's 1→2 normalization.
+//   - gamedesign: always `false` for every tier. The module's no-args bootstrap
+//     policy is `all-rules` (it installs every tier regardless of `always`), and
+//     both tiers are load-on-demand by `Load when`, so an `always:true` would be
+//     a lie about the load semantics of canonical knowledge.
 //
 // Usage: node scripts/build-manifest.js
 
@@ -127,11 +134,16 @@ function buildCodeModule() {
   return { engines };
 }
 
-/** Build `modules.gamedesign.tiers.{core,library}` (reserved, may be empty). */
+/**
+ * Build `modules.gamedesign.tiers.{core,library}`. `always` is `false` for both
+ * tiers (see the file header): the module bootstraps via `all-rules` and loads
+ * on demand by `Load when`, so `always` is inert and must not claim core rules
+ * are always-installed the way `code`-core is.
+ */
 function buildGamedesignModule() {
   const tiers = {};
   for (const tier of GAMEDESIGN_TIERS) {
-    tiers[tier] = buildTier(path.join(ROOT, GAMEDESIGN_MODULE, tier), tier === 'core');
+    tiers[tier] = buildTier(path.join(ROOT, GAMEDESIGN_MODULE, tier), false);
   }
   return { tiers };
 }

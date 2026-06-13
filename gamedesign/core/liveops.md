@@ -5,7 +5,7 @@ version: 1.0.0
 # Live Operations
 
 > **Scope**: Live-service design method — the live-service premise, battle-pass anatomy and parameters, content calendars and cadence, content-injection budgets vs team capacity, the engagement-vs-exploitation line, and the per-event post-mortem loop.
-> **Load when**: designing a battle pass, season, or live event; planning a content calendar; budgeting content injection; setting event cadence; designing recurring or limited-time content; running a live-ops retrospective; preparing the liveops section pack.
+> **Load when**: designing a battle pass, season, or live event; planning a content calendar; budgeting content injection; setting event cadence; designing recurring or limited-time content; running a live-ops retrospective.
 
 ---
 
@@ -69,7 +69,7 @@ Passes). Parameters to specify:
   (streak loss, decay, FOMO as the primary driver).
 - The **dark-pattern catalog and legal landscape** are owned by the
   monetization-ethics rule — live-ops *applies* it. Any live-ops mechanic
-  load-bearing on manufactured anxiety is a Critical review finding there.
+  load-bearing on manufactured anxiety crosses into that rule's territory.
 - Design test: **does the calendar respect a player who skips a season?** Earned
   progress and identity should survive a break.
 
@@ -84,15 +84,6 @@ Live-ops is a feedback system — each event teaches the next:
   event with no retro is flying blind.
 - Persist retros as artifacts (the design-side analog of code patches) so lessons
   outlive the team's memory of a season.
-
-## Authoring & Telemetry
-
-- The calendar, battle-pass parameters, and cadence commitments are design facts
-  (GD-IDS constants + a GAME.md or system-level liveops section).
-- Section I telemetry: pass-tier progression distribution, event participation
-  funnels, season completion rates, churn around season boundaries.
-- Section H acceptance criteria encode the contract ("AC: a daily-active player
-  completes the premium pass with ≥5 days of season remaining").
 
 ## Anti-patterns
 

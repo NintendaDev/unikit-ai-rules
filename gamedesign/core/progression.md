@@ -5,7 +5,7 @@ version: 1.0.0
 # Progression
 
 > **Scope**: Progression architecture — progression axes (vertical power, horizontal breadth, cosmetic, mastery), XP curve formula families and threshold derivation, time-to-max and pacing budgets, unlock pacing and gating, power-vs-content coupling, skill-tree and build-diversity design, and the bounds of adaptive difficulty.
-> **Load when**: designing levels/XP, writing progression formulas, pacing unlocks, designing skill trees or talent systems, setting time-to-max targets, coupling power growth to content difficulty, preparing the progression section pack.
+> **Load when**: designing levels/XP, writing progression formulas, pacing unlocks, designing skill trees or talent systems, setting time-to-max targets, coupling power growth to content difficulty.
 
 ---
 
@@ -45,7 +45,7 @@ The XP curve is the **time-shape** of progression. Pick a family deliberately
   bands. Numbers serve the pacing target — never forward from a cool exponent.
 - State **cumulative vs per-level** explicitly — a tenfold difference in reading.
 - Every curve obeys the formula contract (FORM-id, variable table, output range,
-  worked example) — section D.
+  worked example).
 
 ## Time-to-Max & Pacing Budgets
 
@@ -71,8 +71,8 @@ The XP curve is the **time-shape** of progression. Pick a family deliberately
   | Skill / mastery | demonstrated ability | rewards competence |
   | Paywall | payment | a monetization decision — flag in review |
 
-- A gate that blocks **core fun** behind grind or payment is a Major+ review
-  finding; gate *breadth and depth*, never the core verb.
+- Never gate **core fun** behind grind or payment; gate *breadth and depth*,
+  never the core verb.
 
 ## Power vs Content Coupling
 
@@ -81,7 +81,7 @@ The XP curve is the **time-shape** of progression. Pick a family deliberately
   balance rule. This rule decides *what unlocks when*; balance decides *how strong*.
 - The two must stay coupled: if content difficulty outruns the power curve →
   walls; if power outruns content → the game trivializes. Document both curves
-  and their intended gap in section D.
+  and their intended gap.
 
 ## Skill Trees & Build Diversity
 
@@ -100,7 +100,7 @@ The XP curve is the **time-shape** of progression. Pick a family deliberately
   preferred over silent rubber-banding (the flow/DDA theory is owned by the
   frameworks rule). Zohaib's DDA survey: hidden adjustment that players notice
   breaks trust and cheapens earned progress.
-- If difficulty adapts, **say so** in section J/G and make the adaptation legible
+- If difficulty adapts, **say so** and make the adaptation legible
   or opt-in — secret rubber-banding invalidates the vertical axis it rides on.
 
 ## Anti-patterns

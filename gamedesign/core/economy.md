@@ -5,7 +5,7 @@ version: 1.0.0
 # Game Economy
 
 > **Scope**: In-game economy method — the faucet/sink conservation model, currency taxonomy (soft/hard/premium/event), value chains (Cook), Machinations resource-flow notation, inflation and deflation guardrails, pity/gacha probability math, sink design, and economy health telemetry.
-> **Load when**: designing currencies or resources, modeling faucet/sink flow, pricing rewards or shop items, designing gacha/loot/pity systems, checking for inflation or a stalled economy, drawing resource-flow diagrams, preparing the economy section pack.
+> **Load when**: designing currencies or resources, modeling faucet/sink flow, pricing rewards or shop items, designing gacha/loot/pity systems, checking for inflation or a stalled economy, drawing resource-flow diagrams.
 
 ---
 
@@ -22,8 +22,8 @@ between them, not the size of either.
 - **Net flow** = faucets − sinks per cohort per time. Persistent positive net
   flow → inflation; persistent negative → starvation/grind. Neither is wrong by
   default — it must be a *chosen* target with a guardrail.
-- Document the **faucet/sink ledger** per currency in section D: every source and
-  every drain, with rate estimates. A currency with faucets and no sinks is a
+- The **faucet/sink ledger** per currency names every source and every drain,
+  with rate estimates. A currency with faucets and no sinks is a
   design bug — it accumulates into meaninglessness (this is the resource-flow
   half of the core-loops rule, owned here for the math).
 
@@ -99,7 +99,7 @@ rate (legal/ethical framing lives in monetization-ethics; the *math* lives here)
 
 ## Economy Health Telemetry
 
-Section I events for an economy (questions they answer):
+Telemetry for an economy (questions it answers):
 
 - Per-currency **balance distribution** by cohort — are whales draining sinks,
   are new players starved?

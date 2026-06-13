@@ -5,7 +5,7 @@ version: 1.0.0
 # Game Balance
 
 > **Scope**: Systemic balance method — cost curves for transitive systems, payoff matrices and mixed strategies for intransitive (RPS) systems, power and difficulty curves, TTK/TTC pacing targets, tuning-knob discipline (feel/curve/gate), dominant-strategy and feedback-loop diagnostics.
-> **Load when**: designing or tuning numeric systems, writing formulas or stat tables, pricing objects (units, items, upgrades), checking for dominant strategies or power creep, defining tuning knobs, planning difficulty or progression curves, preparing section D or G content.
+> **Load when**: designing or tuning numeric systems, writing formulas or stat tables, pricing objects (units, items, upgrades), checking for dominant strategies or power creep, defining tuning knobs, planning difficulty or progression curves.
 
 ---
 
@@ -42,8 +42,6 @@ and total benefit.
 
 - The curve need not be linear — diminishing or accelerating returns are
   legitimate curve *shapes*, chosen and documented, never accidents.
-- Section D documents the currency conversion table and the anchor; every
-  numeric object in the system must be placeable on the curve.
 
 ## Intransitive Systems: RPS Math (Schreiber)
 
@@ -64,8 +62,8 @@ B beats C beats A.
 ## Power Curves, TTK / TTC
 
 - Maintain two explicit curves: **player power growth** and **content
-  difficulty**; their gap is the felt challenge over time. Both belong in
-  section D as formulas or tables — not vibes.
+  difficulty**; their gap is the felt challenge over time. Express both as
+  formulas or tables — not vibes.
 - **TTK/TTC** (time-to-kill / time-to-clear) are the primary pacing metrics for
   combat-likes: set target bands per enemy/content tier (e.g., fodder 2–4 s,
   elite 15–25 s), then **derive stats backward from the bands**. Numbers exist
@@ -74,7 +72,7 @@ B beats C beats A.
   (type, range, meaning), output range (clamped or not, and why), and a worked
   example with concrete values.
 
-## Tuning Knobs (Section G Discipline)
+## Tuning Knobs
 
 Categorize every knob — the category states its blast radius:
 
@@ -90,26 +88,15 @@ Categorize every knob — the category states its blast radius:
 
 ## Degenerate Strategies & Feedback Loops
 
-- **Dominant-strategy test** (section E, the Sirlin check): at each major
+- **Dominant-strategy test** (the Sirlin check): at each major
   decision point, is there a choice that is correct regardless of context? If
-  yes, the decision is dead — in review this is a Critical finding.
+  yes, the decision is dead.
 - **Positive feedback** (winning → more winning) accelerates games and
   snowballs; add dampeners deliberately: diminishing returns, escalating costs,
   catch-up mechanics. **Negative feedback** stabilizes but can punish skill —
   placement matters: rubber-band resources, not the player's hands.
 - Watch the classic failure modes: kingmaking (a loser decides the winner),
   turtling (passivity dominates), grinding substituting for decisions.
-
-## Process
-
-- Spreadsheet or simulate before playtesting: curves and equilibria are
-  checkable on paper; spend playtests on what math cannot see — perception,
-  fun, discoverability.
-- Balance in passes: systemic (currencies, curves) → per-object placement →
-  perception polish. Skipping the systemic pass turns all later tuning into
-  whack-a-mole.
-- Every tuning change is a recorded delta (version bump, changelog entry, AC
-  delta line). Silent number edits desynchronize design from implementation.
 
 ## Anti-patterns
 

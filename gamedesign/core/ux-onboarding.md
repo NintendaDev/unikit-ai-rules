@@ -5,7 +5,7 @@ version: 1.0.0
 # UX & Onboarding
 
 > **Scope**: Player-facing UX and onboarding method — George Fan's tutorial principles, just-in-time teach-by-doing, the FTUE funnel as an instrumented telemetry contract, cognitive-load budgets (Hodent), UI flow diagrams, and feedback/affordance/signifier discipline.
-> **Load when**: designing tutorials, onboarding, or first-time user experience; building UI flows or menus; instrumenting funnels; teaching mechanics; reducing cognitive load; designing the HUD; preparing the ux section pack.
+> **Load when**: designing tutorials, onboarding, or first-time user experience; building UI flows or menus; instrumenting funnels; teaching mechanics; reducing cognitive load; designing the HUD.
 
 ---
 
@@ -43,7 +43,7 @@ The first-time user experience is a **measured funnel**, not a vibe
 - Define the onboarding as **discrete, ordered steps** (launch → first verb →
   first reward → first system → first session-end). Each step is a telemetry
   event.
-- The funnel is a **section I contract**: name the events, the drop-off you'll
+- Define the funnel: name the events, the drop-off you'll
   watch per step, and the KPI ("≥X% reach first reward"). A step with no event is
   a blind spot — you cannot fix a drop-off you can't see.
 - **Drop-off is localized**: a cliff between step 3 and 4 names the exact moment
@@ -90,15 +90,6 @@ player; accessibility ensures players with impairments can play at all. Subtitle
 defaults, remappable controls, colorblind-safe signifiers, and text scaling are
 owned by the accessibility rule — UX must leave room for them (e.g., never encode
 critical state by color alone).
-
-## Authoring
-
-- Onboarding step list + drop-off KPIs → section I (telemetry) and section H
-  (acceptance criteria: "AC: ≥70% of new players complete the first core-loop
-  pass").
-- UI flow graph → section C; menu depth budgets are design facts.
-- Feedback/signifier conventions referenced across systems live in GD-IDS or the
-  GAME.md UX pillar, not re-decided per screen.
 
 ## Anti-patterns
 

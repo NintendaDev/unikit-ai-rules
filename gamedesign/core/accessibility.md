@@ -5,7 +5,7 @@ version: 1.0.0
 # Accessibility
 
 > **Scope**: Game accessibility method — the standards (Game Accessibility Guidelines, Xbox Accessibility Guidelines, AbleGamers APX, CVAA), impairment categories and their design responses, the GAG basic/intermediate/advanced commitment tiers, the player-experience-first stance, the legal floor, and high-impact features.
-> **Load when**: designing or reviewing for accessibility; setting accessibility requirements; writing GDD section J; committing to a guideline tier; planning input remapping, subtitles, colorblind support, or difficulty options; checking legal obligations.
+> **Load when**: designing or reviewing for accessibility; setting accessibility requirements; committing to a guideline tier; planning input remapping, subtitles, colorblind support, or difficulty options; checking legal obligations.
 
 ---
 
@@ -43,12 +43,11 @@ sound, or timing alone each excludes a population — add a redundant channel.
 GAG sorts features into **Basic / Intermediate / Advanced** by impact-vs-effort:
 
 - **Basic = the floor** — high impact, low effort (subtitles, remappable inputs,
-  no flashing-without-warning). Treat Basic as **mandatory**; missing a Basic item
-  is a Major+ review finding.
+  no flashing-without-warning). Treat Basic as **mandatory**.
 - **Intermediate = should** — commit per the audience and pillars.
 - **Advanced = stretch** — deeper support (full screen-reader play, extensive
   difficulty granularity); a deliberate, scoped bet.
-- **Commit a target tier per scope** in section J and hold it; "we'll add
+- **Commit a target tier per scope** and hold it; "we'll add
   accessibility later" is the anti-pattern this rule exists to prevent.
 
 ## APX — Player Experience, Not a Checkbox
@@ -68,8 +67,8 @@ AbleGamers' Accessible Player Experiences reframes from "tick the box" to
   chat, lobbies) be accessible — captions for voice, text alternatives. It is
   **law**, not best practice, for games with comms in scope.
 - Regional obligations vary (EU EAA and others expanding); when comms or a target
-  market triggers a legal requirement, it is a **Critical** finding if unmet, not
-  a suggestion. Surface the obligation; the user decides scope.
+  market triggers a legal requirement, it must be met, not treated as a
+  suggestion. Surface the obligation; the user decides scope.
 
 ## High-Impact Features
 
@@ -82,15 +81,6 @@ The reliably high-return set (commit these first):
 - **Scalable difficulty / assist options** decoupled from "easy mode" stigma.
 - **No unwarned flashing** (photosensitivity — a safety, not a preference, issue).
 - **Audio cues mirrored visually** and vice versa.
-
-## Authoring (Section J)
-
-- Section J lists the **GAG Basic minimum** met, the committed tier, the specific
-  decisions, and any **deviations with rationale** (why a Basic item is out of
-  scope — a deliberate, recorded exception, never silent).
-- Accessibility options that change mechanics (assist modes, slow-down) interact
-  with balance/progression — note the cross-dependency in section F.
-- Photosensitivity and CVAA obligations become section H acceptance criteria.
 
 ## Anti-patterns
 

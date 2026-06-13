@@ -95,18 +95,6 @@ satisfaction, not a separate feature to add.
 - Feel parameters are tuning knobs of category `feel` — tunable late, but the
   response *budget* is a design commitment made early.
 
-## Applying Frameworks in Authoring
-
-- **GAME.md pillars**: each pillar names its target aesthetics and a design test
-  ("if a feature doesn't make dying interesting, cut it").
-- **SYSTEM section B (Player Fantasy)**: "the player feels X when Y" must map to
-  a framework term — an aesthetic, a need, a flow intent — not a vibe.
-- **Collaborative options**: justify recommendations through frameworks
-  ("Recommended: option B — preserves Competence under failure, fits PIL-2's
-  Challenge test"), then defer the decision to the user.
-- **Reviews**: frameworks are shared diagnostic vocabulary ("this dynamic
-  contradicts the Discovery target"), not a checklist to fill.
-
 ## Anti-patterns
 
 - Designing mechanics-first, then rationalizing an aesthetic story around them.

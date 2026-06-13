@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-06-13T02:30:32.000Z",
+  "generated": "2026-06-13T06:53:51.348Z",
   "modules": {
     "code": {
       "engines": {
@@ -984,14 +984,6 @@
       "tiers": {
         "core": [
           {
-            "id": "principles",
-            "description": "Working discipline for the game-design skill family — user-driven collaboration protocol, section-cycle authoring contract, one-way design→code boundary, delta discipline for design edits, facts-registry and ID conventions, language rules, and the critique stance",
-            "version": "1.0.0",
-            "always": true
-          }
-        ],
-        "library": [
-          {
             "id": "accessibility",
             "description": "Game accessibility method — the standards (Game Accessibility Guidelines, Xbox Accessibility Guidelines, AbleGamers APX, CVAA), impairment categories and their design responses, the GAG basic/intermediate/advanced commitment tiers, the player-experience-first stance, the legal floor, and high-impact features",
             "version": "1.0.0",
@@ -1000,12 +992,6 @@
           {
             "id": "balance",
             "description": "Systemic balance method — cost curves for transitive systems, payoff matrices and mixed strategies for intransitive (RPS) systems, power and difficulty curves, TTK/TTC pacing targets, tuning-knob discipline (feel/curve/gate), dominant-strategy and feedback-loop diagnostics",
-            "version": "1.0.0",
-            "always": false
-          },
-          {
-            "id": "brainstorm-methods",
-            "description": "Ideation method toolkit — diverge/converge discipline (Double Diamond, IDEO \"defer judgment\"), brainwriting with an LLM (production blocking), the divergence method catalog (verb-first, genre mashup, MDA-backward, world-first, constraint-first; SCAMPER, random stimulus, Lotus Blossom), problem framing (How Might We), convergence tools (Pugh matrix, How-Now-Wow, idea backlog), the Klein pre-mortem, find-the-fun, and constraints as fuel",
             "version": "1.0.0",
             "always": false
           },
@@ -1041,7 +1027,7 @@
           },
           {
             "id": "monetization-ethics",
-            "description": "Ethical monetization method — the dark-pattern taxonomy (Zagal's four categories; darkpattern.games), loot-box/gacha odds disclosure, the legal landscape (FTC v. Epic, regional loot-box rulings, UK ICO Children's Code), designing for minors, the friction/honesty test, and the red-line review severity",
+            "description": "Ethical monetization method — the dark-pattern taxonomy (Zagal's four categories; darkpattern.games), loot-box/gacha odds disclosure, the legal landscape (FTC v. Epic, regional loot-box rulings, UK ICO Children's Code), designing for minors, and the friction/honesty test",
             "version": "1.0.0",
             "always": false
           },
@@ -1064,18 +1050,13 @@
             "always": false
           },
           {
-            "id": "review-lenses",
-            "description": "The review toolkit for design documents — critique vs review distinction, the lens catalog (completeness, clarity/implementability, pillar alignment, systems-math, domain, feasibility, scope), the four-level severity rubric, verdict semantics, the adversarial reviewer stance, Braintrust dynamics, plussing, and cross-scope consistency checks",
-            "version": "1.0.0",
-            "always": false
-          },
-          {
             "id": "ux-onboarding",
             "description": "Player-facing UX and onboarding method — George Fan's tutorial principles, just-in-time teach-by-doing, the FTUE funnel as an instrumented telemetry contract, cognitive-load budgets (Hodent), UI flow diagrams, and feedback/affordance/signifier discipline",
             "version": "1.0.0",
             "always": false
           }
-        ]
+        ],
+        "library": []
       }
     }
   }

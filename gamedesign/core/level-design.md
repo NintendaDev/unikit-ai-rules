@@ -5,7 +5,7 @@ version: 1.0.0
 # Level Design
 
 > **Scope**: Level and content design method — bubble diagrams and graph layout, pacing via beat sheets and intensity graphs, the kishōtenketsu four-part structure, the "gym" mechanic-teaching pattern, movement/combat metrics, critical/golden/optional paths, and composition and guidance.
-> **Load when**: designing levels, encounters, or content layout; pacing a level or campaign; sequencing mechanic introductions; setting movement or combat metrics; drawing bubble diagrams or intensity graphs; preparing the levels section pack.
+> **Load when**: designing levels, encounters, or content layout; pacing a level or campaign; sequencing mechanic introductions; setting movement or combat metrics; drawing bubble diagrams or intensity graphs.
 
 ---
 
@@ -64,9 +64,8 @@ geometry must respect:
 
 - Movement metrics: jump height/distance, dash range, climb reach, run speed.
 - Combat metrics: weapon range, sightlines, cover spacing, encounter footprint.
-- **Document the metric set** as facts (they belong in GD-IDS as constants) so
-  every level reads from the same numbers; a wall jumpable in one level and not
-  another is a metrics-desync bug.
+- Keep the metric set consistent so every level reads from the same numbers; a
+  wall jumpable in one level and not another is a metrics-desync bug.
 - Build greyboxes to metrics first; art and theming come after the space plays.
 
 ## Critical, Golden & Optional Paths
@@ -90,16 +89,6 @@ Guide players without UI markers wherever the pillars allow:
 - Reserve hard markers (quest arrows, waypoints) for when implicit guidance
   fails or accessibility requires them (the accessibility rule may mandate an
   explicit-guidance option).
-
-## Authoring
-
-- Section A/C carry the topology (bubble graph) and the beat sheet; section H
-  acceptance criteria can encode pacing ("AC: no combat encounter exceeds 90 s
-  without a rest beat").
-- Movement/combat metrics are GD-IDS constants referenced across levels, not
-  re-decided per file.
-- Cross-system content dependencies (a level needs SYS-grapple) are GD-INDEX
-  `Depends` edges.
 
 ## Anti-patterns
 
