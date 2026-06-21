@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-06-13T06:53:51.348Z",
+  "generated": "2026-06-21T05:55:59.377Z",
   "modules": {
     "code": {
       "engines": {
@@ -991,69 +991,107 @@
           },
           {
             "id": "balance",
-            "description": "Systemic balance method — cost curves for transitive systems, payoff matrices and mixed strategies for intransitive (RPS) systems, power and difficulty curves, TTK/TTC pacing targets, tuning-knob discipline (feel/curve/gate), dominant-strategy and feedback-loop diagnostics",
+            "description": "Systemic balance method — kinds of balance and how to verify them (including Schell's twelve named axes of balance), possibility-space levers (determinism, information, symmetry, solvability), cost curves and anchors for transitive systems, payoff matrices and mixed strategies for intransitive (RPS) systems, triangularity (safe-vs-risky choices), probability and expected-value tooling, situational and shadow costs, character-build viability, power/difficulty curves with TTK/TTC, luck-vs-skill design, DDA and AI fairness, tuning-knob discipline and the doubling/halving method, perfect imbalance, dominant-strategy/feedback diagnostics, Sylvester's depth-vs-complexity (elegance) lens on balance, his degenerate-strategy framing, his experience-first balancing stance (balance strategies-in-situations, not tools; cut rather than patch; build a systems mental model from playtests), and the simulation-harness method plus staged production-timeline balancing cadence (Zubek)",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "balance-schell-twelve-types.md",
+              "balance-probability-ev.md"
+            ]
           },
           {
             "id": "core-loops",
-            "description": "Engagement loop architecture — loop anatomy (action→reward→investment→re-entry), timescale layering from moment-to-moment to meta, dual skill/accumulation loops, appointment and return triggers, resource-flow diagnostics, and the ethical line between habit and compulsion exploitation",
+            "description": "Engagement loop architecture — loop anatomy (action→reward→investment→re-entry), the action stage as operative-vs-resultant verbs (depth via emergence) and as a stream of meaningful decisions (viable options, information, partly-predictable consequences, uncertainty/yomi), goal quality and short/long-term goal stacking, arc-vs-loop structure, timescale layering from moment-to-moment to meta, player awareness layers, interest curves (session-level pacing of engagement: hook→peaks/valleys→climax, fractal across timescales), anticipation as re-entry fuel, dual skill/accumulation loops and the skill ramp (the loop as a learning engine that keeps opening deeper layers), the motivation→loop→reward map, overlapping-loop re-entry (Zeigarnik), reward cadence and the reward-type palette, appointment and return triggers, resource-flow diagnostics, loop construction and cadence (the concentric/onion loop diagram, the core-loop-vs-micro-loop distinction, building loops outward, deriving loops from a user story), and the ethical line between habit and compulsion exploitation",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "core-loops-interest-curves.md",
+              "core-loops-reward-design.md"
+            ]
           },
           {
             "id": "economy",
-            "description": "In-game economy method — the faucet/sink conservation model, currency taxonomy (soft/hard/premium/event), value chains (Cook), Machinations resource-flow notation, inflation and deflation guardrails, pity/gacha probability math, sink design, and economy health telemetry",
+            "description": "In-game economy method — the faucet/sink conservation model, economy archetypes (fixed / player-dynamic / F2P / prestige / real-currency), currency taxonomy, value chains (Cook) and marginal value, Machinations resource-flow notation, supply & demand and market price, scarcity as a lever, time as a resource, supply-side vs demand-side inflation guardrails, open vs closed economies, trading and auction design, pity/gacha probability math, conversion chains and the exchange-rate calculation, conversion-loop profitability and the four runaway-loop limiters (Zubek), and economy health telemetry",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "economy-conversion-loops.md"
+            ]
           },
           {
             "id": "frameworks",
-            "description": "Foundational experience frameworks for grounding design decisions — MDA aesthetics targeting (8 aesthetics, backward design), self-determination needs (SDT/PENS), the flow channel with player-controlled difficulty (active DDA), and game-feel responsiveness budgets (~100 ms)",
+            "description": "Foundational experience frameworks for grounding design decisions — the Lens meta-method for inspecting a design from many viewpoints, MDA aesthetics targeting (8 aesthetics, backward design), Schell's Elemental Tetrad (Mechanics/Story/Aesthetics/Technology) as a complementary decomposition lens, Sylvester's engines-of-experience lens (the game as a machine that generates emotion via mechanics + fiction) with emotional triggers and the human-value/change principle, elegance (depth-to-complexity ratio, emergent depth from minimal mechanics), the experience-design stance (the game is a vehicle, not the experience) with essential-experience capture, unifying theme and resonance, self-determination needs (SDT/PENS), the flow channel with player-controlled difficulty (active DDA), and game-feel responsiveness budgets (~100 ms)",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "frameworks-elegance.md",
+              "frameworks-venues-supporting-lenses.md"
+            ]
           },
           {
             "id": "level-design",
-            "description": "Level and content design method — bubble diagrams and graph layout, pacing via beat sheets and intensity graphs, the kishōtenketsu four-part structure, the \"gym\" mechanic-teaching pattern, movement/combat metrics, critical/golden/optional paths, and composition and guidance",
+            "description": "Level and content design method, theory and practitioner craft. The architecture of game spaces (space schemas, Alexander's pattern lens, function-first layout, the level's structural anatomy, landmarks, virtual-scale cues), bubble diagrams, scale & proportions, modular kit construction, pacing (beat sheets, intensity graphs, the interest curve, the kishōtenketsu structure, whole-game macrostructure), the \"gym\" mechanic-teaching pattern, level memorability (the signature hook and the wow-moment palette), atmosphere & believability, environmental storytelling, the psychology of perception and of horror, navigation/readability/wayfinding and the diegetic signal palette, movement organization and exploration incentives, the object-readability \"visual language\", combat encounter design (focus, front line, cover, waves, allies), sandbox design (vantage points, tools, nonlinearity), multiplayer layout & balance (classic topologies, spawns, points of interest), movement/combat metrics, and the metric-driven greybox→whitebox→final production pipeline",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "level-design-combat-encounters.md",
+              "level-design-multiplayer.md",
+              "level-design-metrics-production.md",
+              "level-design-horror.md",
+              "level-design-sandbox.md"
+            ]
           },
           {
             "id": "liveops",
-            "description": "Live-service design method — the live-service premise, battle-pass anatomy and parameters, content calendars and cadence, content-injection budgets vs team capacity, the engagement-vs-exploitation line, and the per-event post-mortem loop",
+            "description": "Live-service design method — the live-service premise, the LiveOps mechanic palette (events, special offers, tournaments, content updates), battle-pass anatomy and parameters, content calendars and cadence with marketing-calendar alignment, platform in-app events (App Store / Google Play event cards), content-injection budgets vs team capacity, player segmentation and personalization, A/B testing and experimentation, re-engagement and messaging channels, the engagement-vs-exploitation line, and the per-event post-mortem loop",
             "version": "1.0.0",
             "always": false
           },
           {
             "id": "monetization-ethics",
-            "description": "Ethical monetization method — the dark-pattern taxonomy (Zagal's four categories; darkpattern.games), loot-box/gacha odds disclosure, the legal landscape (FTC v. Epic, regional loot-box rulings, UK ICO Children's Code), designing for minors, and the friction/honesty test",
+            "description": "Ethical monetization method — the dark-pattern taxonomy (Zagal's four categories; darkpattern.games), the named cognitive biases monetization exploits, cost-obfuscation pricing tactics, the exploit-vs-honest design fork, expected-value vs utility, pay-to-win / whale-targeting ethics, loot-box/gacha odds disclosure, the legal landscape (FTC v. Epic, regional loot-box rulings, UK ICO Children's Code), designing for minors, and the friction/honesty test",
             "version": "1.0.0",
             "always": false
           },
           {
             "id": "narrative",
-            "description": "Narrative design method — the story bible as canon source, character sheets that earn a gameplay function, branching structures (gauntlet, branch-and-bottleneck, foldback, open) and their combinatorial cost, environmental and embedded storytelling, reactive bark/dialogue systems (Firewatch model), and ludonarrative consonance",
+            "description": "Narrative design method — the story-vs-game (Aristotle-vs-Mario) tension, the two story structures (string of pearls vs the story machine), Sylvester's three narrative-tool families (scripted story vs world narrative vs emergent story) and the scripted-vs-emergent trade-off, fiction as the meaning layer that amplifies mechanics, world-building for player-generated stories (world coherence, apophenia, labeling/abstraction/chronicle/commentator amplifiers), dramatic structure models mapped to game phases/levels, character arc (write-from-the-arc-backwards, want vs need, the backstory \"ghost\"), character-design tools (the character web, interpersonal circumplex, traits, avatars, status, transformation), antagonist and supporting-cast design, player agency, the agency/motivation-mismatch (\"desk-jumping\") problem and the human-interaction problem, indirect control and the illusion of freedom, meaningful choice, mechanics-as-meaning and ludonarrative consonance, level-as-story, cinematics discipline, reactive bark/dialogue systems, transmedia worlds and what makes a fictional world endure, environmental and emergent storytelling, quests as composable modules and open-world quest-dependency design with the stateful-branching \"spooky action at a distance\" hazard (Zubek), and narrative pre-production artifacts (story bible, GCD, pitch)",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "narrative-character-toolkit.md",
+              "narrative-transmedia-worlds.md",
+              "narrative-bark-dialogue.md"
+            ]
           },
           {
             "id": "player-motivation",
-            "description": "Audience motivation models for targeting and validating design decisions — the Quantic Foundry 12-motivation model (6 pairs, 3 empirical clusters, 9 gamer types), motivation-driven audience definition, system-coverage checks, and the limits of the Bartle taxonomy",
+            "description": "Audience motivation models for targeting and validating design decisions — the Quantic Foundry 12-motivation model (6 pairs, 3 empirical clusters, 9 gamer types), Maslow/SDT need framing, Bartle and Lazzaro as complementary lenses, LeBlanc's pleasure taxonomy, demographic/psychographic audience signals, the four player mental abilities behind constructed experience, Sylvester's audience-facing emotional triggers, the fulfillment-vs-compulsion (genuine satisfaction vs Skinner-box motivation) distinction, the Big Five (OCEAN) personality correlation with motivations (Zubek/Yee), motivation-driven audience definition, and system-coverage checks",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "player-motivation-emotion-triggers.md"
+            ]
           },
           {
             "id": "progression",
-            "description": "Progression architecture — progression axes (vertical power, horizontal breadth, cosmetic, mastery), XP curve formula families and threshold derivation, time-to-max and pacing budgets, unlock pacing and gating, power-vs-content coupling, skill-tree and build-diversity design, and the bounds of adaptive difficulty",
+            "description": "Progression architecture — progression axes (vertical, horizontal, cosmetic, mastery), relationship types, the curve-type taxonomy and threshold derivation, time-to-max and pacing budgets, velocity/acceleration, actual-vs-perceived progression and the four elements of perceived difficulty, unlock pacing and gating, the reinforcement-schedule taxonomy and workload-change/level-curve pacing (Zubek), regression and loss, power-vs-content coupling, skill-tree design, the elder-game transition, co-op progression pitfalls, adaptive difficulty, and PvP progression (sum × feedback matrix, power curves, game length)",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "progression-reinforcement-schedules.md"
+            ]
           },
           {
             "id": "ux-onboarding",
-            "description": "Player-facing UX and onboarding method — George Fan's tutorial principles, just-in-time teach-by-doing, the FTUE funnel as an instrumented telemetry contract, cognitive-load budgets (Hodent), UI flow diagrams, and feedback/affordance/signifier discipline",
+            "description": "Player-facing UX and onboarding method — George Fan's tutorial principles, just-in-time teach-by-doing, the FTUE funnel as an instrumented telemetry contract, cognitive-load budgets (Hodent), UI flow diagrams, feedback/affordance/signifier discipline, Schell's juiciness and the interaction loop, channels-and-modes information mapping, interface transparency, the first-impression hook, indirect control through UI constraints, Sylvester's interface-as-intent-translation (mapping, constrained control, invisible input assist, interface friction/noise), metaphor and intuition in the interface, and the learning ramp / skill ladder (accessibility floor, depth ceiling, skill range, invisible/optional/adaptive teaching, flexible goals), and learning as overcoming uncertainty (Koster's safe-experimentation space, Costikyan's uncertainty taxonomy as a teaching sequence)",
             "version": "1.0.0",
-            "always": false
+            "always": false,
+            "references": [
+              "ux-onboarding-channels-modes.md",
+              "ux-onboarding-interface-craft.md",
+              "ux-onboarding-learning-ramp.md"
+            ]
           }
         ],
         "library": []
