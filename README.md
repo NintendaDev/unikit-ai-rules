@@ -2,16 +2,24 @@
 
 Official rules registry for the [UniKit AI](https://github.com/NintendaDev/unikit-ai) game development toolkit.
 
+Rules are grouped into two modules: **`code`** — engine-specific coding rules for Unity, Godot, Godot .NET, and Unreal Engine 5 — and **`gamedesign`** — engine-agnostic game-design knowledge that applies to any project.
+
 ## Structure
 
 ```
-<engine>/
-  core/         Core rules (always loaded): code style, design principles, testing, performance
-  stack/        Stack rules (on demand): framework-specific patterns and conventions
-    references/ Supplementary reference docs for complex frameworks
+code/                 Engine-specific rules
+  <engine>/
+    core/             Core rules (always loaded): code style, design principles, testing, performance
+    stack/            Stack rules (on demand): framework-specific patterns and conventions
+      references/     Supplementary reference docs for complex frameworks
+gamedesign/           Engine-agnostic game-design rules
+  core/               Design knowledge: core loops, balance, economy, narrative, progression, UX…
+    references/       Supplementary reference docs
 ```
 
-### Supported Engines
+## Modules
+
+### `code` — engine-specific
 
 | Engine | Core | Stack |
 |--------|------|-------|
@@ -20,7 +28,11 @@ Official rules registry for the [UniKit AI](https://github.com/NintendaDev/uniki
 | Godot 4 .NET | 5 rules | 39 rules |
 | Unreal Engine 5 | 6 rules | 31 rules |
 
-For the full per-engine rule list with links, versions, and descriptions, see the [Rules Catalog](docs/rules-catalog.md).
+### `gamedesign` — engine-agnostic
+
+12 core rules covering the craft of game design, independent of any engine: `accessibility`, `balance`, `core-loops`, `economy`, `frameworks`, `level-design`, `liveops`, `monetization-ethics`, `narrative`, `player-motivation`, `progression`, `ux-onboarding`.
+
+For the full per-module rule list with links, versions, and descriptions, see the [Rules Catalog](docs/rules-catalog.md).
 
 ## How It Works
 
