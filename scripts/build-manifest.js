@@ -1,6 +1,22 @@
 #!/usr/bin/env node
-// Build manifest.json from rule files on disk.
-// Reads frontmatter (version) and header metadata (Scope, Load when, References) from each .md file.
+// Build manifest.json from rule files on disk (schema:2).
+//
+// Physical layout (schema:2, D8):
+//   code/<engine>/{core,stack}/*.md         → modules.code.engines.<engine>.{core,stack}
+//   code/<engine>/<tier>/references/*.md     → reference files for a rule
+//   gamedesign/{core,library}/*.md           → modules.gamedesign.tiers.{core,library}
+//
+// Reads frontmatter (version) and header metadata (Scope, Load when, References)
+// from each .md file.
+//
+// `always` semantics differ per module:
+//   - code: auto-derived per rule as `tier === 'core'` (the always-installed
+//     core bootstrap), mirroring the CLI's 1→2 normalization.
+//   - gamedesign: always `false` for every tier. The module's no-args bootstrap
+//     policy is `all-rules` (it installs every tier regardless of `always`), and
+//     both tiers are load-on-demand by `Load when`, so an `always:true` would be
+//     a lie about the load semantics of canonical knowledge.
+//
 // Usage: node scripts/build-manifest.js
 
 import fs from 'fs';
@@ -11,8 +27,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, '..');
 
+const SCHEMA = 2;
+const CODE_MODULE = 'code';
+const GAMEDESIGN_MODULE = 'gamedesign';
+
 const ENGINES = ['unity', 'godot', 'godot-net', 'unreal-engine-5'];
-const CATEGORIES = ['core', 'stack'];
+const CODE_TIERS = ['core', 'stack'];
+const GAMEDESIGN_TIERS = ['core', 'library'];
 
 function parseFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---/);
@@ -63,94 +84,108 @@ function parseHeaderMeta(content) {
   return { description, references };
 }
 
-function buildEngineManifest(engineId) {
-  const result = { core: [], stack: [] };
+/**
+ * Read every .md rule from `dir` into rule objects. `always` is set from
+ * `isCore` (the always-installed core bootstrap flag) for each rule.
+ */
+function buildTier(dir, isCore) {
+  if (!fs.existsSync(dir)) return [];
 
-  for (const category of CATEGORIES) {
-    const dir = path.join(ROOT, engineId, category);
-    if (!fs.existsSync(dir)) continue;
+  const files = fs.readdirSync(dir)
+    .filter(f => f.endsWith('.md'))
+    .sort();
 
-    const files = fs.readdirSync(dir)
-      .filter(f => f.endsWith('.md'))
-      .sort();
+  const rules = [];
+  for (const file of files) {
+    const content = fs.readFileSync(path.join(dir, file), 'utf-8');
+    const fm = parseFrontmatter(content);
+    const meta = parseHeaderMeta(content);
+    const id = file.replace(/\.md$/, '');
 
-    for (const file of files) {
-      const content = fs.readFileSync(path.join(dir, file), 'utf-8');
-      const fm = parseFrontmatter(content);
-      const meta = parseHeaderMeta(content);
-      const id = file.replace(/\.md$/, '');
+    const rule = {
+      id,
+      description: meta.description,
+      version: fm.version || '1.0.0',
+      always: isCore,
+    };
 
-      const rule = {
-        id,
-        description: meta.description,
-        version: fm.version || '1.0.0',
-      };
-
-      if (meta.references.length > 0) {
-        rule.references = meta.references;
-      }
-
-      result[category].push(rule);
+    if (meta.references.length > 0) {
+      rule.references = meta.references;
     }
+
+    rules.push(rule);
   }
 
-  return result;
+  return rules;
 }
 
-function validate(manifest) {
+/** Build `modules.code.engines.<engine>.{core,stack}`. */
+function buildCodeModule() {
+  const engines = {};
+  for (const engineId of ENGINES) {
+    const engineDir = path.join(ROOT, CODE_MODULE, engineId);
+    if (!fs.existsSync(engineDir)) continue;
+
+    engines[engineId] = {
+      core: buildTier(path.join(engineDir, 'core'), true),
+      stack: buildTier(path.join(engineDir, 'stack'), false),
+    };
+  }
+  return { engines };
+}
+
+/**
+ * Build `modules.gamedesign.tiers.{core,library}`. `always` is `false` for both
+ * tiers (see the file header): the module bootstraps via `all-rules` and loads
+ * on demand by `Load when`, so `always` is inert and must not claim core rules
+ * are always-installed the way `code`-core is.
+ */
+function buildGamedesignModule() {
+  const tiers = {};
+  for (const tier of GAMEDESIGN_TIERS) {
+    tiers[tier] = buildTier(path.join(ROOT, GAMEDESIGN_MODULE, tier), false);
+  }
+  return { tiers };
+}
+
+/** Validate a single tier's rules. Returns the error count. */
+function validateTier(scope, rules, refsBaseDir) {
   let errors = 0;
+  const ids = new Set();
 
-  for (const [engineId, engine] of Object.entries(manifest.engines)) {
-    for (const category of CATEGORIES) {
-      const rules = engine[category];
-      const ids = new Set();
+  for (const rule of rules) {
+    // ID format
+    if (!/^[a-z][a-z0-9-]*$/.test(rule.id)) {
+      console.error(`ERROR: ${scope}/${rule.id} — invalid id format (must be ^[a-z][a-z0-9-]*$)`);
+      errors++;
+    }
 
-      for (const rule of rules) {
-        // ID format
-        if (!/^[a-z][a-z0-9-]*$/.test(rule.id)) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — invalid id format (must be ^[a-z][a-z0-9-]*$)`);
+    // Duplicate check
+    if (ids.has(rule.id)) {
+      console.error(`ERROR: ${scope}/${rule.id} — duplicate id`);
+      errors++;
+    }
+    ids.add(rule.id);
+
+    // Description length
+    if (rule.description.length < 10) {
+      console.error(`ERROR: ${scope}/${rule.id} — description too short (${rule.description.length} chars, min 10)`);
+      errors++;
+    }
+
+    // Version format
+    if (!/^\d+\.\d+\.\d+/.test(rule.version)) {
+      console.error(`ERROR: ${scope}/${rule.id} — invalid version format "${rule.version}"`);
+      errors++;
+    }
+
+    // Reference files exist
+    if (rule.references) {
+      for (const ref of rule.references) {
+        const refPath = path.join(refsBaseDir, 'references', ref);
+        if (!fs.existsSync(refPath)) {
+          console.error(`ERROR: ${scope}/${rule.id} — reference "${ref}" not found at ${refPath}`);
           errors++;
-        }
-
-        // Duplicate check
-        if (ids.has(rule.id)) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — duplicate id`);
-          errors++;
-        }
-        ids.add(rule.id);
-
-        // Description length
-        if (rule.description.length < 10) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — description too short (${rule.description.length} chars, min 10)`);
-          errors++;
-        }
-
-        // Version format
-        if (!/^\d+\.\d+\.\d+/.test(rule.version)) {
-          console.error(`ERROR: ${engineId}/${category}/${rule.id} — invalid version format "${rule.version}"`);
-          errors++;
-        }
-
-        // Reference files exist
-        if (rule.references) {
-          for (const ref of rule.references) {
-            const refPath = path.join(ROOT, engineId, category, 'references', ref);
-            if (!fs.existsSync(refPath)) {
-              console.error(`ERROR: ${engineId}/${category}/${rule.id} — reference "${ref}" not found at ${refPath}`);
-              errors++;
-            }
-          }
-        }
-      }
-
-      // Core ∩ Stack must be empty
-      if (category === 'stack') {
-        const coreIds = new Set(engine.core.map(r => r.id));
-        for (const rule of rules) {
-          if (coreIds.has(rule.id)) {
-            console.error(`ERROR: ${engineId} — "${rule.id}" exists in both core and stack`);
-            errors++;
-          }
         }
       }
     }
@@ -159,20 +194,49 @@ function validate(manifest) {
   return errors;
 }
 
+function validate(manifest) {
+  let errors = 0;
+
+  // code module — per engine, per tier
+  const codeEngines = manifest.modules[CODE_MODULE].engines;
+  for (const [engineId, engine] of Object.entries(codeEngines)) {
+    for (const tier of CODE_TIERS) {
+      const scope = `${CODE_MODULE}/${engineId}/${tier}`;
+      const refsBase = path.join(ROOT, CODE_MODULE, engineId, tier);
+      errors += validateTier(scope, engine[tier], refsBase);
+    }
+
+    // core ∩ stack must be empty
+    const coreIds = new Set(engine.core.map(r => r.id));
+    for (const rule of engine.stack) {
+      if (coreIds.has(rule.id)) {
+        console.error(`ERROR: ${CODE_MODULE}/${engineId} — "${rule.id}" exists in both core and stack`);
+        errors++;
+      }
+    }
+  }
+
+  // gamedesign module — per tier
+  const gdTiers = manifest.modules[GAMEDESIGN_MODULE].tiers;
+  for (const tier of GAMEDESIGN_TIERS) {
+    const scope = `${GAMEDESIGN_MODULE}/${tier}`;
+    const refsBase = path.join(ROOT, GAMEDESIGN_MODULE, tier);
+    errors += validateTier(scope, gdTiers[tier], refsBase);
+  }
+
+  return errors;
+}
+
 // --- Main ---
 
 const manifest = {
-  schema: 1,
+  schema: SCHEMA,
   generated: new Date().toISOString(),
-  engines: {},
+  modules: {
+    [CODE_MODULE]: buildCodeModule(),
+    [GAMEDESIGN_MODULE]: buildGamedesignModule(),
+  },
 };
-
-for (const engineId of ENGINES) {
-  const engineDir = path.join(ROOT, engineId);
-  if (!fs.existsSync(engineDir)) continue;
-
-  manifest.engines[engineId] = buildEngineManifest(engineId);
-}
 
 // Validate
 const errorCount = validate(manifest);
@@ -188,9 +252,14 @@ fs.writeFileSync(outPath, JSON.stringify(manifest, null, 2) + '\n', 'utf-8');
 
 // Summary
 let totalRules = 0;
-for (const [engineId, engine] of Object.entries(manifest.engines)) {
+const codeEngines = manifest.modules[CODE_MODULE].engines;
+for (const [engineId, engine] of Object.entries(codeEngines)) {
   const count = engine.core.length + engine.stack.length;
   totalRules += count;
-  console.log(`  ${engineId}: ${engine.core.length} core, ${engine.stack.length} stack`);
+  console.log(`  code/${engineId}: ${engine.core.length} core, ${engine.stack.length} stack`);
 }
-console.log(`\nGenerated manifest.json: ${totalRules} rules across ${Object.keys(manifest.engines).length} engines`);
+const gdTiers = manifest.modules[GAMEDESIGN_MODULE].tiers;
+const gdCount = gdTiers.core.length + gdTiers.library.length;
+totalRules += gdCount;
+console.log(`  gamedesign: ${gdTiers.core.length} core, ${gdTiers.library.length} library`);
+console.log(`\nGenerated manifest.json (schema:${SCHEMA}): ${totalRules} rules across ${Object.keys(codeEngines).length} engines + gamedesign`);

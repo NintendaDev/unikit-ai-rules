@@ -22,18 +22,14 @@ jobs:
       - name: Build and validate manifest
         run: node scripts/build-manifest.js
 
+      # The `generated` field is a fresh `new Date().toISOString()` on every build
+      # (scripts/build-manifest.js), so a plain `git diff` always reports a change.
+      # `-I` skips hunks whose changed lines ALL match the pattern — a real content
+      # change never hides behind it, because its own lines do not match.
+      # Do NOT drop the `-I` flag: without it this check fails on every run.
       - name: Check manifest is up to date
         run: |
-          git diff --exit-code manifest.json || {
-            echo "::error::manifest.json is out of date. Run 'node scripts/build-manifest.js' and commit."
+          git diff --exit-code -I'"generated":' manifest.json || {
+            echo "::error::manifest.json is out of date (the 'generated' timestamp is ignored). Run 'node scripts/build-manifest.js' and commit the result."
             exit 1
           }
-
-      - name: Commit updated manifest (push to main only)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add manifest.json
-          git diff --cached --quiet || git commit -m "chore: regenerate manifest.json"
-          git push
