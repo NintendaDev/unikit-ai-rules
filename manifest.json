@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-06-21T05:55:59.377Z",
+  "generated": "2026-08-19T16:53:41.564Z",
   "modules": {
     "code": {
       "engines": {
@@ -33,7 +33,7 @@
             {
               "id": "testing",
               "description": "Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests",
-              "version": "1.0.0",
+              "version": "1.1.0",
               "always": true
             }
           ],

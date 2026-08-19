@@ -35,12 +35,17 @@ const ENGINES = ['unity', 'godot', 'godot-net', 'unreal-engine-5'];
 const CODE_TIERS = ['core', 'stack'];
 const GAMEDESIGN_TIERS = ['core', 'library'];
 
+// CRLF-tolerant on purpose. Git stores these files with LF, but a Windows checkout
+// hands them back with CRLF, and an LF-only anchor matches nothing there: every rule
+// then falls through to the `1.0.0` default below. A version bump made on Windows
+// would silently never reach the manifest, and `rules sync` would never offer the
+// edited rule to anyone.
 function parseFrontmatter(content) {
-  const match = content.match(/^---\n([\s\S]*?)\n---/);
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) return {};
 
   const fm = {};
-  for (const line of match[1].split('\n')) {
+  for (const line of match[1].split(/\r?\n/)) {
     const kv = line.match(/^(\w+):\s*(.+)$/);
     if (kv) fm[kv[1]] = kv[2].trim();
   }
@@ -52,7 +57,7 @@ function parseHeaderMeta(content) {
   const references = [];
 
   // Strip frontmatter first
-  const body = content.replace(/^---\n[\s\S]*?\n---\n*/, '');
+  const body = content.replace(/^---\r?\n[\s\S]*?\r?\n---(\r?\n)*/, '');
 
   for (const line of body.split('\n')) {
     const scopeMatch = line.match(/^>\s*\*\*Scope\*\*:\s*(.+)/);

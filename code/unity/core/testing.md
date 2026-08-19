@@ -1,5 +1,5 @@
 ---
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Unit Testing Rules
@@ -399,19 +399,20 @@ namespace Pawnshop.SomeModule.PlayTests
 
 ## Running Tests
 
-```
-# Run all EditMode tests
-mcp__UnityMCP__run_tests(mode="EditMode")
+The test runner belongs to the editor, so a suite is started through the engine
+MCP server rather than from a shell. **Take the call names from your own tool
+list, not from here:** they differ between servers and between versions of one
+server, and a name written down in a rule is wrong for whoever is on the other
+one.
 
-# Run specific test assembly
-mcp__UnityMCP__run_tests(mode="EditMode", assembly_names=["Pawnshop.Wallets.Tests"])
+What to ask for, in this order:
 
-# Run specific test by name
-mcp__UnityMCP__run_tests(mode="EditMode", test_names=["FullTestName"])
-
-# Poll results
-mcp__UnityMCP__get_test_job(job_id="...", wait_timeout=30)
-```
+1. **The EditMode suite as a whole** — the default after a broad change.
+2. **Narrowed to one assembly** — when a single module is affected (see the list below).
+3. **Narrowed to one test by its full name** — when reproducing a single failure.
+4. **Polled to completion.** A run is asynchronous: the call that starts it hands back
+   a job, not a verdict. A report you did not poll to its end is not evidence that the
+   suite passed — neither is a run that timed out.
 
 Test assemblies: `Game.Tests.EditMode`, `Game.Tests.PlayMode`, `Pawnshop.Wallets.Tests`, `Pawnshop.MiniGames.Tests`, `Pawnshop.GameInventory.Tests.EditMode`, `Pawnshop.SelectionSystems.Simple.Tests`.
 
