@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-08-19T16:53:41.564Z",
+  "generated": "2026-09-06T02:35:10.629Z",
   "modules": {
     "code": {
       "engines": {
@@ -65,7 +65,7 @@
             {
               "id": "aspid-mvvm",
               "description": "Rules for Aspid.MVVM UI binding framework: ViewModel creation, MonoView, binding attributes, commands, observable collections, binders, Zenject registration, R3 integration",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "aspid-mvvm-binders-quickref.md",
@@ -94,7 +94,7 @@
             {
               "id": "dotween",
               "description": "DOTween Pro tweening library for Unity — tween creation and chaining, Sequence composition, tween lifecycle and control, global configuration, safe mode, recycling, callbacks, ease types, and DOTween Pro visual components (DOTweenAnimation, DOTweenPath, DOTweenVisualManager)",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "dotween-shortcuts.md"
@@ -145,7 +145,7 @@
             {
               "id": "ironsource",
               "description": "IronSource LevelPlay ad monetization SDK for Unity — initialization lifecycle, rewarded/interstitial/banner ad patterns, mediation setup, privacy compliance, and revenue optimization",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "ironsource-api.md"
@@ -196,7 +196,7 @@
             {
               "id": "node-canvas",
               "description": "Rules for creating custom NodeCanvas entities: ActionTask, ConditionTask, BTNode, BTDecorator, BTComposite, FSMState, BBParameter, graph events, easing. Also: lookup of built-in tasks, conditions, and BT nodes",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "node-canvas-bt-nodes-quickref.md",
@@ -276,7 +276,7 @@
             {
               "id": "vcontainer",
               "description": "VContainer dependency injection framework for Unity — LifetimeScope composition roots, injection methods (constructor/method/property), scope hierarchy, entry point interfaces, UniTask/UniRx/ECS integrations, and performance optimizations",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "vcontainer-registration.md"
@@ -291,7 +291,7 @@
             {
               "id": "zenject",
               "description": "Zenject dependency injection framework for Unity — binding API, container hierarchy, injection methods, installer types, entry points, execution order, and composition root patterns",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "zenject-factories.md",
@@ -389,7 +389,7 @@
             {
               "id": "godot-jolt",
               "description": "Godot Jolt Physics integration — enabling Jolt as the 3D physics backend, behavioral differences from Godot Physics, configuration guidance, and GDScript usage patterns",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "godot-jolt-settings.md"
@@ -692,7 +692,7 @@
             {
               "id": "nakama",
               "description": "Nakama .NET SDK integration for Godot 4 C# — client setup, authentication, session lifecycle, real-time socket connection, error handling, retry configuration, and data serialization",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "nakama-social.md",
@@ -798,7 +798,7 @@
             {
               "id": "behavior-tree",
               "description": "Unreal Engine's event-driven Behavior Tree system — authoring Tasks, Decorators, and Services in C++, wiring AIController and Blackboard, managing NodeMemory, configuring Observer Aborts, and structuring AI decision trees",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "behavior-tree-nodes.md"
@@ -831,7 +831,7 @@
             {
               "id": "environment-query-system",
               "description": "Unreal Engine's Environment Query System — architecture (Generators, Tests, Contexts), running queries from C++, custom node authoring in C++, Behavior Tree integration, debugging with EQSTestingPawn, and performance tuning",
-              "version": "1.0.0",
+              "version": "1.0.1",
               "always": false,
               "references": [
                 "eqs-generators.md",

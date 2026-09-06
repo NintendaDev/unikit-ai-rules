@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Nakama .NET SDK
 
 > **Scope**: Nakama .NET SDK integration for Godot 4 C# — client setup, authentication, session lifecycle, real-time socket connection, error handling, retry configuration, and data serialization.
 > **Load when**: integrating Nakama backend, setting up authentication, managing user sessions, connecting the real-time socket, handling API errors, configuring retry logic, serializing Nakama payloads, implementing HTML5/WebGL builds with Nakama.
-> **References**: `.unikit/memory/stack/references/nakama-social.md` (social features), `.unikit/memory/stack/references/nakama-gameplay.md` (storage, RPC, matchmaking, leaderboards, notifications)
+> **References**: `.unikit/memory/code/stack/references/nakama-social.md` (social features), `.unikit/memory/code/stack/references/nakama-gameplay.md` (storage, RPC, matchmaking, leaderboards, notifications)
 
 ---
 
