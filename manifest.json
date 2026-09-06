@@ -114,9 +114,15 @@
             },
             {
               "id": "feel",
-              "description": "MoreMountains Feel library for adding game feel in Unity — MMF_Player setup and scripting, feedback sequencing, timing configuration, event system, runtime modification, and custom feedback authoring",
-              "version": "1.0.0",
-              "always": false
+              "description": "MoreMountains Feel library for adding game feel in Unity — MMF_Player setup and scripting, feedback sequencing, timing configuration, shakers and springs, render-pipeline requirements, the event system, runtime modification, and custom feedback authoring",
+              "version": "1.1.0",
+              "always": false,
+              "references": [
+                "feel-quickref.md",
+                "feel-feedbacks-full.md",
+                "feel-tools-full.md",
+                "feel-use-cases.md"
+              ]
             },
             {
               "id": "firebase",
@@ -250,8 +256,24 @@
               "always": false
             },
             {
+              "id": "sonity",
+              "description": "Sonity audio middleware for Unity — the SoundContainer/SoundEvent asset model, playing and stopping sounds from C#, owner Transform lifecycle, SoundParameters and Modifiers, polyphony and voice budgeting, mixing and player volume control, audio data loading, and the SoundManager settings that govern all of it",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "sonity-soundparameters.md",
+                "sonity-functions.md"
+              ]
+            },
+            {
               "id": "spine",
               "description": "Spine skeletal animation runtime for Unity — component selection, animation state management, multi-track blending, skin combining, event handling, shader and render pipeline setup, and performance tuning",
+              "version": "1.0.0",
+              "always": false
+            },
+            {
+              "id": "text-animator",
+              "description": "Febucci Text Animator for Unity (v3) — animating TextMesh Pro and UI Toolkit texts with rich-text effect tags, driving the typewriter component from C#, wiring typing events and action tags, and authoring custom effects, actions and typing timings as ScriptableObjects",
               "version": "1.0.0",
               "always": false
             },
