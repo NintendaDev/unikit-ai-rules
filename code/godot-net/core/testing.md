@@ -1,5 +1,5 @@
 ---
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Unit Testing Rules
@@ -16,6 +16,7 @@ version: 1.0.0
 - Test location: `test/` at project root, or `modules/{ModuleName}/test/` for module-specific tests
 - Test files: `{ClassName}Test.cs` — GdUnit4 discovers classes with `[TestSuite]`
 - All test classes MUST have `[TestSuite]` attribute
+- `[RequireGodotRuntime]` separates pure-logic tests (fast, no engine boot) from engine-dependent tests. The `gdUnit4.analyzers` package (rule `GdUnit0501`) flags a test method for this attribute whenever it references **any** `Godot.*` type — not only `Node`/`Resource`/`GodotObject`, but also plain value types such as `Vector2`/`Vector3`/`Color`/`Transform3D`. A test using only plain .NET types (`int`, `float`, `string`, custom non-Godot classes) may stay unmarked; a test touching any `Godot.*` type needs `[RequireGodotRuntime]` or the build fails with `GdUnit0501`.
 
 ## Class Type -> Test Approach
 
@@ -56,6 +57,8 @@ modules/{ModuleName}/
 ### Project Configuration
 
 GdUnit4 C# tests are compiled as part of the Godot .NET project. Ensure `addons/gdUnit4/` is installed and the plugin is enabled in Project Settings.
+
+The GdUnit4 addon's own version (`plugin.cfg`) and the `gdUnit4.test.adapter` NuGet package version are **not synced** — nuget.org may not publish a package matching the addon's version at all (e.g. addon `6.x` vs. latest published API package `5.1.0-rc5`). Pick the latest available NuGet versions independently of the addon version; don't assume they match.
 
 For pure C# tests (NUnit/xUnit), create a separate `.csproj` test project:
 
@@ -375,8 +378,11 @@ dotnet test Game.Tests.csproj
 dotnet test --filter "FullyQualifiedName~WalletTest"
 ```
 
+GdUnit4 also ships a VSTest adapter (`gdUnit4.test.adapter` NuGet package) that in principle lets `dotnet test` discover and run GdUnit4 C# tests directly. In this project, that path does not work: `dotnet test` (VSTest path) exits 0 with zero tests reported despite the adapter being referenced, and the cause hasn't been isolated. The verified, working path for GdUnit4 tests is the classic runner: `addons/gdUnit4/runtest.cmd --add <path>` (requires `GODOT_BIN` pointing at the project's Godot .NET executable). Prefer `runtest.cmd` (or the `GdUnitCmdTool.gd` invocation above) over `dotnet test` for GdUnit4 tests until the VSTest discovery issue is understood.
+
 ## Additional Test Requirements
 
+- Mark every test that references any `Godot.*` type — including plain value types like `Vector3`/`Color`, not only `Node`/`GodotObject` — with `[RequireGodotRuntime]`; `gdUnit4.analyzers` enforces this at compile time (`GdUnit0501`). Keep tests touching only plain .NET types unmarked so they run fast without the engine.
 - When code uses string constants to reference node paths, input actions, or animation names (e.g., `GetNode("NodePath")`, `Input.IsActionPressed("action_name")`), these constants SHOULD be covered by tests verifying the referenced node/action/animation exists
 - Always free Node instances in `[After]` — use GdUnit4's `AutoFree()` for automatic cleanup
 - When testing autoloads, mock them or replace via DI

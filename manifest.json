@@ -520,7 +520,7 @@
             {
               "id": "testing",
               "description": "Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests",
-              "version": "1.0.0",
+              "version": "1.1.0",
               "always": true
             }
           ],
