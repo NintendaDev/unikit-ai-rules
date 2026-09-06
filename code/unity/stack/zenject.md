@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Zenject
 
 > **Scope**: Zenject dependency injection framework for Unity — binding API, container hierarchy, injection methods, installer types, entry points, execution order, and composition root patterns.
 > **Load when**: wiring dependencies with Zenject, creating installers or bindings, choosing lifetimes, injecting into MonoBehaviours or plain C# classes, implementing IInitializable/ITickable/IDisposable, debugging container resolution errors, managing scene or project-level container scope.
-> **References**: `.unikit/memory/stack/references/zenject-factories.md` (factories), `.unikit/memory/stack/references/zenject-memorypools.md` (memory pools), `.unikit/memory/stack/references/zenject-signals.md` (signals), `.unikit/memory/stack/references/zenject-subcontainers.md` (sub-containers), `.unikit/memory/stack/references/zenject-automocking.md` (auto-mocking in tests), `.unikit/memory/stack/references/zenject-async.md` (async initialization).
+> **References**: `.unikit/memory/code/stack/references/zenject-factories.md` (factories), `.unikit/memory/code/stack/references/zenject-memorypools.md` (memory pools), `.unikit/memory/code/stack/references/zenject-signals.md` (signals), `.unikit/memory/code/stack/references/zenject-subcontainers.md` (sub-containers), `.unikit/memory/code/stack/references/zenject-automocking.md` (auto-mocking in tests), `.unikit/memory/code/stack/references/zenject-async.md` (async initialization).
 
 ---
 

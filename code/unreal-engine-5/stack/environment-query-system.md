@@ -1,10 +1,12 @@
-version: 1.0.0
+---
+version: 1.0.1
+---
 
 # Environment Query System (EQS)
 
 > **Scope**: Unreal Engine's Environment Query System — architecture (Generators, Tests, Contexts), running queries from C++, custom node authoring in C++, Behavior Tree integration, debugging with EQSTestingPawn, and performance tuning.
 > **Load when**: authoring EQS queries, creating custom EQS Generators or Tests or Contexts in C++, integrating EQS with Behavior Trees, running EQS queries from AIController, debugging EQS results with EQSTestingPawn, optimizing AI spatial queries.
-> **References**: `.unikit/memory/stack/references/eqs-generators.md` (generator catalog), `.unikit/memory/stack/references/eqs-tests.md` (test catalog)
+> **References**: `.unikit/memory/code/stack/references/eqs-generators.md` (generator catalog), `.unikit/memory/code/stack/references/eqs-tests.md` (test catalog)
 
 ---
 
@@ -259,8 +261,8 @@ void UEnvQueryTest_InSight::RunTest(FEnvQueryInstance& QueryInstance) const
 
 ## EQS Node Lookup Workflow
 
-1. **Choose a Generator** → open `.unikit/memory/stack/references/eqs-generators.md` for the built-in type catalog and parameters.
-2. **Choose Tests** → open `.unikit/memory/stack/references/eqs-tests.md` for test types, scoring modes, and filter settings.
+1. **Choose a Generator** → open `.unikit/memory/code/stack/references/eqs-generators.md` for the built-in type catalog and parameters.
+2. **Choose Tests** → open `.unikit/memory/code/stack/references/eqs-tests.md` for test types, scoring modes, and filter settings.
 3. **Do NOT guess parameter names** — always check the reference files.
 
 ## EQS Testing Pawn

@@ -1,10 +1,12 @@
-version: 1.0.0
+---
+version: 1.0.1
+---
 
 # Behavior Tree
 
 > **Scope**: Unreal Engine's event-driven Behavior Tree system — authoring Tasks, Decorators, and Services in C++, wiring AIController and Blackboard, managing NodeMemory, configuring Observer Aborts, and structuring AI decision trees.
 > **Load when**: authoring AI behavior with Behavior Trees, creating custom BT Tasks or Decorators or Services in C++, setting up AIController with a Behavior Tree, accessing or writing Blackboard values, debugging tree execution or abort flow, designing patrol or combat AI.
-> **References**: `.unikit/memory/stack/references/behavior-tree-nodes.md` (built-in node catalog)
+> **References**: `.unikit/memory/code/stack/references/behavior-tree-nodes.md` (built-in node catalog)
 
 ---
 
@@ -376,7 +378,7 @@ PublicDependencyModuleNames.AddRange(new string[]
 
 Open the node catalog when you need to pick a built-in node rather than writing a custom one.
 
-1. First — check `.unikit/memory/stack/references/behavior-tree-nodes.md`. It lists all built-in composites, decorators, services, and tasks with their key properties.
+1. First — check `.unikit/memory/code/stack/references/behavior-tree-nodes.md`. It lists all built-in composites, decorators, services, and tasks with their key properties.
 2. If the catalog has a node that fits, prefer it over a custom implementation.
 3. If nothing fits, author a custom node following the C++ patterns above.
 

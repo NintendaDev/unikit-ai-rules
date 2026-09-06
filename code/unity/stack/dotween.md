@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # DOTween Pro
 
 > **Scope**: DOTween Pro tweening library for Unity — tween creation and chaining, Sequence composition, tween lifecycle and control, global configuration, safe mode, recycling, callbacks, ease types, and DOTween Pro visual components (DOTweenAnimation, DOTweenPath, DOTweenVisualManager).
 > **Load when**: animating values with DOTween, creating tweens or sequences, chaining SetEase/SetLoops/SetDelay, wiring tween callbacks, managing tween lifecycle (kill/pause/complete), configuring DOTween initialization, using DOTweenAnimation or DOTweenPath components, debugging tween errors or memory leaks, animating UI with DOTween.
-> **References**: `.unikit/memory/stack/references/dotween-shortcuts.md` (shortcut methods catalog)
+> **References**: `.unikit/memory/code/stack/references/dotween-shortcuts.md` (shortcut methods catalog)
 
 ---
 
@@ -64,7 +64,7 @@ canvasGroup.DOFade(0f, 0.5f);
 image.DOFillAmount(1f, 1f);
 ```
 
-See `.unikit/memory/stack/references/dotween-shortcuts.md` for the full shortcut catalog.
+See `.unikit/memory/code/stack/references/dotween-shortcuts.md` for the full shortcut catalog.
 
 ### FROM tween
 
@@ -305,7 +305,7 @@ transform.DOSpiral(duration: 2f, axis: null, mode: SpiralMode.Expand, speed: 1f,
 
 ## Shortcuts Lookup Workflow
 
-1. Need a shortcut for a specific Unity component? Open `.unikit/memory/stack/references/dotween-shortcuts.md`.
+1. Need a shortcut for a specific Unity component? Open `.unikit/memory/code/stack/references/dotween-shortcuts.md`.
 2. Find the component section (Transform, RectTransform, Material, Camera, UI, Rigidbody, etc.).
 3. Locate the method signature and parameters.
 4. Do NOT guess method names — always verify against the reference.

@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Godot Jolt Physics
 
 > **Scope**: Godot Jolt Physics integration — enabling Jolt as the 3D physics backend, behavioral differences from Godot Physics, configuration guidance, and GDScript usage patterns.
 > **Load when**: configuring Jolt Physics backend, debugging physics behavior differences, tuning physics performance, migrating from Godot Physics or godot-jolt extension, authoring collision shapes for Jolt, working with Area3D/RigidBody3D/CharacterBody3D with Jolt active.
-> **References**: `.unikit/memory/stack/references/godot-jolt-settings.md` (settings reference)
+> **References**: `.unikit/memory/code/stack/references/godot-jolt-settings.md` (settings reference)
 
 ---
 
@@ -104,7 +104,7 @@ Unlike Godot Physics, Jolt **does** fire `body_entered` / `body_exited` signals 
 
 ## Settings Lookup Workflow
 
-1. Open `.unikit/memory/stack/references/godot-jolt-settings.md` for the full settings reference.
+1. Open `.unikit/memory/code/stack/references/godot-jolt-settings.md` for the full settings reference.
 2. Use the category sections (Sleep, Collisions, Solver, Limits, etc.) to find the relevant parameter.
 3. Critical settings to review first when switching to Jolt: `collision_margin_fraction`, `generate_all_kinematic_contacts`, `enable_ray_cast_face_index`, `max_bodies`, `velocity_steps`.
 

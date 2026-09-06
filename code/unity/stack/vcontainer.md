@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # VContainer
 
 > **Scope**: VContainer dependency injection framework for Unity — LifetimeScope composition roots, injection methods (constructor/method/property), scope hierarchy, entry point interfaces, UniTask/UniRx/ECS integrations, and performance optimizations.
 > **Load when**: wiring dependency injection with VContainer — creating LifetimeScopes, registering services, choosing injection method, managing scope hierarchy, implementing IStartable/ITickable/IDisposable entry points, debugging container build errors, integrating VContainer with UniTask or UniRx.
-> **References**: `.unikit/memory/stack/references/vcontainer-registration.md` (registration method catalog)
+> **References**: `.unikit/memory/code/stack/references/vcontainer-registration.md` (registration method catalog)
 
 ---
 
@@ -406,7 +406,7 @@ Only beneficial for large containers — adds overhead for small registration se
 
 ## Registration Method Catalog Lookup
 
-Open `.unikit/memory/stack/references/vcontainer-registration.md` when you need to:
+Open `.unikit/memory/code/stack/references/vcontainer-registration.md` when you need to:
 - Choose between `RegisterComponent`, `RegisterComponentInHierarchy`, `RegisterComponentInNewPrefab`, or `RegisterComponentOnNewGameObject`
 - Decide whether to use `Register<T>` vs `RegisterInstance` vs delegate registration
 - Check lifetime constraints for a specific registration method

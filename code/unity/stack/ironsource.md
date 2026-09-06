@@ -1,12 +1,12 @@
 ---
-version: 1.0.0
+version: 1.0.1
 ---
 
 # IronSource / LevelPlay
 
 > **Scope**: IronSource LevelPlay ad monetization SDK for Unity — initialization lifecycle, rewarded/interstitial/banner ad patterns, mediation setup, privacy compliance, and revenue optimization.
 > **Load when**: integrating IronSource or LevelPlay ads, loading rewarded video ads, showing interstitial or banner ads, handling ad callbacks, configuring ad mediation, GDPR or COPPA compliance for ads, debugging ad load failures or reward delivery.
-> **References**: `.unikit/memory/stack/references/ironsource-api.md` (API lookup — all classes, methods, events, enums, error codes)
+> **References**: `.unikit/memory/code/stack/references/ironsource-api.md` (API lookup — all classes, methods, events, enums, error codes)
 
 ---
 
