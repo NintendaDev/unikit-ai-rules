@@ -380,6 +380,31 @@ dotnet test --filter "FullyQualifiedName~WalletTest"
 
 GdUnit4 also ships a VSTest adapter (`gdUnit4.test.adapter` NuGet package) that in principle lets `dotnet test` discover and run GdUnit4 C# tests directly. In this project, that path does not work: `dotnet test` (VSTest path) exits 0 with zero tests reported despite the adapter being referenced, and the cause hasn't been isolated. The verified, working path for GdUnit4 tests is the classic runner: `addons/gdUnit4/runtest.cmd --add <path>` (requires `GODOT_BIN` pointing at the project's Godot .NET executable). Prefer `runtest.cmd` (or the `GdUnitCmdTool.gd` invocation above) over `dotnet test` for GdUnit4 tests until the VSTest discovery issue is understood.
 
+### What a change implies
+
+| change | what to run |
+|---|---|
+| a source file of one project | the test projects referencing that project, and those referencing them |
+| a public contract — an interface, a signal, a resource schema | the same, plus the tests of every consumer of that contract |
+| build configuration, a package version, the solution root | every test |
+| documentation, assets and their `.import` files, data no test covers | nothing — no run is needed |
+| narrowing failed — no project boundary, or a path-addressed GdUnit4 suite | every test |
+
+### Finding the affected tests
+
+This engine has **two test paths with two different granularities**, and only one of them
+carries a declared graph:
+
+- **C# projects declare their dependencies.** The module owning a changed `.cs` file is the
+  nearest `.csproj` walking up the directory tree; its outgoing references are the
+  `<ProjectReference>` entries inside that file. To find who references a project, search
+  the `.csproj` files for its path — there is no index. A test project is recognised by
+  referencing the test framework package (`gdUnit4.api`, or NUnit/xUnit for a pure C# suite).
+- **GdUnit4 tests are addressed by path** (`--add test/`), not by project, so a suite
+  selected that way cannot be narrowed through the graph above — only by directory.
+- A change touching both worlds, or one whose mapping is not evident, takes the last row of
+  the map. **Do not invent a project reference that is not written in a `.csproj`.**
+
 ## Additional Test Requirements
 
 - Mark every test that references any `Godot.*` type — including plain value types like `Vector3`/`Color`, not only `Node`/`GodotObject` — with `[RequireGodotRuntime]`; `gdUnit4.analyzers` enforces this at compile time (`GdUnit0501`). Keep tests touching only plain .NET types unmarked so they run fast without the engine.

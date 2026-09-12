@@ -350,6 +350,34 @@ godot --headless -s addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_wallet.
 godot --headless -s addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_wallet.gd -gunit_test_name=test_with_valid_amount -gexit
 ```
 
+### What a change implies
+
+| change | what to run |
+|---|---|
+| a source file of one module | the tests covering that module and those depending on it |
+| a public contract — a class API, a signal, a resource schema | the same, plus the tests of every consumer of that contract |
+| project settings, an addon version, the project root | every test |
+| documentation, assets and their `.import` files, data no test covers | nothing — no run is needed |
+| narrowing failed — no module boundary to walk | every test |
+
+### Finding the affected tests
+
+GDScript has **no assembly or module manifest**. There is no per-module declaration to walk
+up to and no reference list to search, so narrowing by a declared dependency graph does not
+exist on this engine. What does exist:
+
+- **Tests are addressed by path.** GUT selects a directory (`-gdir=`) or a file (`-gtest=`),
+  so the unit of narrowing is a folder or a file, never a declared module.
+- **A test file is recognised** by living under the configured test directory and by the
+  `test_` filename prefix `## Naming` prescribes.
+- **The link between a source file and its tests is a convention, not a declaration** —
+  `res://tests/unit/test_<thing>.gd` for `<thing>`. A convention can be followed but not
+  verified, so a miss is silent.
+
+Because that last point cannot be checked, treat narrowing here as best-effort: when the
+mapping is not evident from the paths, take the last row of the map and run everything.
+**Do not infer a module graph this engine does not have.**
+
 ## Additional Test Requirements
 
 - When code uses string constants to reference node paths, input actions, or animation names (e.g., `$"NodePath"`, `Input.is_action_pressed(&"action_name")`), these constants SHOULD be covered by tests verifying the referenced node/action/animation exists

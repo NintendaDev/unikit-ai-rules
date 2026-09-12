@@ -440,6 +440,34 @@ RunUAT.bat RunUnreal -project=MyProject.uproject \
     -ReportOutputPath=TestResults/
 ```
 
+### What a change implies
+
+| change | what to run |
+|---|---|
+| a source file of one module | the tests of that module, and of the modules that depend on it |
+| a public contract — an interface, a `USTRUCT`, a gameplay tag, a delegate | the same, plus the tests of every consumer of that contract |
+| a build target, a plugin version, the `.uproject` | every test |
+| documentation, content assets and their data, nothing a test covers | nothing — no run is needed |
+| narrowing failed — a change in a core module nearly everything depends on | every test |
+
+### Finding the affected tests
+
+- **A module is declared by a `.Build.cs`** — one per module, a `ModuleRules` subclass. The
+  module owning a changed file is the nearest `.Build.cs` walking up the directory tree.
+- **Its outgoing dependencies live in that same file**, in `PublicDependencyModuleNames`
+  and `PrivateDependencyModuleNames`. To find who depends on a module, search the
+  `.Build.cs` files for its name; there is no index to consult.
+- **Tests are not selected by module.** Gauntlet narrows by the dotted automation name
+  (`-test="Game."`), which follows the hierarchy declared in the test macros, not the module
+  graph. So the graph tells you *which* tests matter, and the prefix is how you then ask for
+  them — the two are different namespaces and a module name is not automatically a valid
+  prefix.
+- **A test is recognised** by its automation macro registration (`IMPLEMENT_*_AUTOMATION_TEST`
+  and friends) and the flag mask `## Test Registration` prescribes.
+
+When the automation prefix for an affected module cannot be established, take the last row
+of the map. **Do not assume a module name doubles as a test prefix.**
+
 ## Additional Test Requirements
 
 - When code uses `FName` constants to reference sockets, data table rows, or gameplay tags (e.g., `FName(TEXT("WeaponSocket"))`, `Tag.MatchesTag(DamageTag)`), these constants MUST be covered by tests verifying the referenced asset/tag/socket exists

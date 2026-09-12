@@ -407,14 +407,40 @@ one.
 
 What to ask for, in this order:
 
-1. **The EditMode suite as a whole** — the default after a broad change.
-2. **Narrowed to one assembly** — when a single module is affected (see the list below).
-3. **Narrowed to one test by its full name** — when reproducing a single failure.
-4. **Polled to completion.** A run is asynchronous: the call that starts it hands back
+1. **Scoped to what changed** — see the map below. Running everything is one outcome of
+   that map, not the starting point.
+2. **Narrowed to one test by its full name** — when reproducing a single failure.
+3. **Polled to completion.** A run is asynchronous: the call that starts it hands back
    a job, not a verdict. A report you did not poll to its end is not evidence that the
    suite passed — neither is a run that timed out.
 
-Test assemblies: `Game.Tests.EditMode`, `Game.Tests.PlayMode`, `Pawnshop.Wallets.Tests`, `Pawnshop.MiniGames.Tests`, `Pawnshop.GameInventory.Tests.EditMode`, `Pawnshop.SelectionSystems.Simple.Tests`.
+### What a change implies
+
+| change | what to run |
+|---|---|
+| a source file of one module | the test assemblies of that module, and of the modules that reference it |
+| a public contract — an interface, a schema, an event | the same, plus the assemblies of every consumer of that contract |
+| build configuration, a dependency version, the project root | every test |
+| documentation, assets and their `.meta` files, data no test covers | nothing — no run is needed |
+| narrowing failed — no module graph, or the change lands in the predefined assembly | every test |
+
+### Finding the affected assemblies
+
+- **A module is declared by an assembly definition.** The module owning a changed file is
+  the nearest `.asmdef` found walking up the directory tree from that file.
+- **Its outgoing references live in that same file** — the `references` array of the
+  `.asmdef`, holding either assembly names or GUIDs. To find who references a module,
+  search the `.asmdef` files for its name or GUID; there is no index to consult.
+- **A test assembly is recognised** by `precompiledReferences` carrying
+  `nunit.framework.dll`, or by `includePlatforms: ["Editor"]` together with a
+  `defineConstraints` entry of `UNITY_INCLUDE_TESTS` — the shape `## Framework & Mode`
+  above prescribes.
+- **Code outside every `.asmdef` compiles into the predefined assembly**
+  (`Assembly-CSharp`), which nearly everything else references. A change landing there
+  cannot be narrowed, and takes the last row of the map.
+
+Assembly names are per project, so none are listed here: they are discovered from the
+`.asmdef` files above, never recalled from a rule.
 
 ## Additional Test Requirements
 
