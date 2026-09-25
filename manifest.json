@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-09-06T02:35:10.629Z",
+  "generated": "2026-09-25T06:25:32.395Z",
   "modules": {
     "code": {
       "engines": {
@@ -254,6 +254,23 @@
               "description": "Rules for RNGNeeds plugin — ProbabilityList<T>, weighted random selection, pick methods, item management, influence providers, seeding",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "shapes",
+              "description": "Shapes by Freya Holmér (v4.6, namespace `Shapes`) — GPU vector graphics for Unity: choosing between shape components and immediate-mode drawing, the shared styling model (thickness spaces, geometry, blend modes, dashes, gradients, depth and stencil), render-pipeline and build setup, batching and performance rules, and a case library of HUD, world-space, procedural and debug drawing recipes",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "shapes-components.md",
+                "shapes-immediate-mode.md",
+                "shapes-draw-api.md",
+                "shapes-styling.md",
+                "shapes-setup-performance.md",
+                "shapes-cases-hud.md",
+                "shapes-cases-world.md",
+                "shapes-cases-procedural.md",
+                "shapes-cases-debug.md"
+              ]
             },
             {
               "id": "sonity",
