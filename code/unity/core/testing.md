@@ -1,10 +1,10 @@
 ---
-version: 1.1.0
+version: 2.0.0
 ---
 
 # Unit Testing Rules
 
-> **Scope**: Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests.
+> **Scope**: Rules for NUnit unit tests — what to test, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests.
 > **Load when**: writing or reviewing unit tests, creating test doubles, setting up test assemblies.
 
 ---
@@ -22,9 +22,29 @@ version: 1.1.0
 | Pure C# (POCO, no MonoBehaviour) | Recommended | Not needed |
 | MonoBehaviour with extractable logic | For pure logic | For lifecycle |
 | MonoBehaviour with coroutines | Not applicable | Required |
-| MonoBehaviour with physics/UI | Not applicable | Required |
+| MonoBehaviour whose logic needs frames or physics | Not applicable | Required (presentation is checked by a frame, not by a test) |
 | ScriptableObject | Recommended | Not needed |
 | Static utility class | Recommended | Not needed |
+
+## What to Test
+
+Decide by who owns the value or the content, not by what is easy to assert.
+
+| Target class | What it is | What to do |
+|---|---|---|
+| Logic and system values | Calculations, state transitions, parsing and serialization, contracts between modules; identifiers, keys, serialized field names, format versions, protocol constants | Test exact outcomes on inputs the test supplies. Pin one key, id or field name exactly. Never pin a total or a full set that grows with content (catalog rows, schema sheets, fields, enemies, golden files, word lists): assert the invariant ("every X has a Y", "ids are unique", "no key outside the list") and take the expected value from the fixture's own data |
+| Tunable data | Values owned by game design — balance, costs, durations, probabilities, curves, config entries — whatever the storage: ScriptableObject assets, JSON/text configs | A live number is never written into a test. Test logic on values the test creates itself (see "ScriptableObject in Tests"). Live data gets at most one aggregate validity check per data family: range, order, required keys, uniqueness, references resolve; bounds come from the design source (a knob's range, a "Safe range", an acceptance criterion) or from limits in the code — never from today's number. Where design numbers must be pinned (a port, a migration), keep them in one marked passport fixture that is allowed to go red |
+| Authored content | Editor-serialized state: prefabs, scenes, materials, shaders (`.shader`, Shader Graph), animation clips and controllers, VFX Graph, UI Toolkit (`.uxml`/`.uss`) and uGUI layouts; shader sources, UI markup, art and audio files | No unit test. The evidence is a frame or a read-back through the editor. The one exception is a single aggregate test for a defect class that was actually found |
+| Lookup by name | The code finds an object, node, socket or tag by a string: `GlobalBlackboard.Find("…")`, `Transform.Find`, tags | At most one aggregate reference check per module, or fail fast at load; never one test per constant |
+
+Everything else — the engine and its frameworks, trivial accessors, generated code — gets no tests.
+
+**Smell check.** If a designer changing a number, or a new catalog row, field or enemy, turns a test red while the system is intact, the test is pinned to a tunable value or to a growing list. Rewrite it as bounds or an invariant, or take the expected value from the fixture.
+
+**Examples.**
+
+- Pin: the key `"CustomerSpawnPoint"` the code looks up; `Reward.Compute(base, multiplier)` on inputs the test supplies.
+- Do not pin: `MaxHealth == 100` read from a live `EnemyConfig` asset; "the table has 24 rows".
 
 ## File & Folder Structure
 
@@ -189,7 +209,7 @@ Use `[TestCaseSource]` for complex data sets. Avoid copy-pasting test methods.
 
 ## Boundary Conditions
 
-For **every** method under test, check applicable boundaries:
+For each unit of logic under test, check the boundaries its contract can actually deliver. A boundary the contract cannot reach (a NaN passed to a method that is fed only validated config) is not tested:
 
 ### Value Boundaries
 
@@ -337,7 +357,7 @@ public void TearDown()
 
 ## PlayMode Tests
 
-Use PlayMode when testing MonoBehaviour lifecycle, coroutines, physics, or UI.
+Use PlayMode when testing MonoBehaviour lifecycle, coroutines, or physics — logic that needs frames. Presentation (UI layout, visuals) is checked by a frame, not by a test.
 
 ```csharp
 using System.Collections;
@@ -444,7 +464,7 @@ Assembly names are per project, so none are listed here: they are discovered fro
 
 ## Additional Test Requirements
 
-- When code uses string constants to reference scene objects or components (e.g., `GlobalBlackboard.Find("GlobalBlackboard")`, `blackboard.GetVariableValue<Transform>("CustomerSpawnPoint")`), these constants MUST be covered by tests. Tests should verify that the referenced asset (prefab, scene object) exists with the expected identifier and contains the expected variables/components with correct types. This prevents silent runtime failures from typos or renamed objects.
+- When code finds a scene object, prefab, node, socket or tag by a string constant (e.g., `GlobalBlackboard.Find("GlobalBlackboard")`, `blackboard.GetVariableValue<Transform>("CustomerSpawnPoint")`), cover those references with at most one aggregate check per module — or make the lookup fail fast at load. Do not write one test per constant. The aggregate check verifies that each referenced asset (prefab, scene object) exists with the expected identifier and has the expected variables/components with correct types, which prevents silent runtime failures from typos or renamed objects.
 - Always call `Dispose()` in `[TearDown]` for all `IDisposable` test subjects and `CancellationTokenSource` instances created during tests.
 - Cover pool-friendly MonoBehaviour `Reset()` with a reflection-based test verifying all fields are reset to default values after `Reset()` call.
 

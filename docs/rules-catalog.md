@@ -34,7 +34,7 @@ Engine-specific coding rules, organized by game engine. **Core** rules are alway
 | [design-principles](../code/unity/core/design-principles.md) | 1.0.0 | Universal software design principles — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming |
 | [folders-structure](../code/unity/core/folders-structure.md) | 1.0.0 | Project folder organization, module structure, namespace conventions, external asset boundaries |
 | [performance](../code/unity/core/performance.md) | 1.0.0 | Rules for performance optimization — memory/GC, caching, ZLinq, strings, object pooling, delegates, math, physics, UI optimization, mobile specifics |
-| [testing](../code/unity/core/testing.md) | 1.1.0 | Rules for NUnit unit tests — AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests |
+| [testing](../code/unity/core/testing.md) | 2.0.0 | Rules for NUnit unit tests — what to test, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests |
 
 #### Stack rules
 
@@ -94,7 +94,7 @@ Engine-specific coding rules, organized by game engine. **Core** rules are alway
 | [design-principles](../code/godot/core/design-principles.md) | 1.0.0 | Universal software design principles adapted for Godot — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming |
 | [folders-structure](../code/godot/core/folders-structure.md) | 1.0.0 | Project folder organization, module structure, file conventions, external asset boundaries |
 | [performance](../code/godot/core/performance.md) | 1.0.0 | Rules for performance optimization — memory/GC, caching, strings, object pooling, signals, math, physics, UI optimization, process management, mobile specifics |
-| [testing](../code/godot/core/testing.md) | 1.0.0 | Rules for GUT (Godot Unit Test) framework — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests |
+| [testing](../code/godot/core/testing.md) | 2.0.0 | Rules for GUT (Godot Unit Test) framework — what to test, test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests |
 
 #### Stack rules
 
@@ -134,7 +134,7 @@ Engine-specific coding rules, organized by game engine. **Core** rules are alway
 | [design-principles](../code/godot-net/core/design-principles.md) | 1.0.0 | Universal software design principles adapted for Godot .NET — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming |
 | [folders-structure](../code/godot-net/core/folders-structure.md) | 1.0.0 | Project folder organization, module structure, namespace conventions, external asset boundaries |
 | [performance](../code/godot-net/core/performance.md) | 1.0.0 | Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, process management, mobile specifics |
-| [testing](../code/godot-net/core/testing.md) | 1.1.0 | Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests |
+| [testing](../code/godot-net/core/testing.md) | 2.0.0 | Rules for unit tests in Godot .NET — what to test, GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests |
 
 #### Stack rules
 
@@ -193,7 +193,7 @@ Engine-specific coding rules, organized by game engine. **Core** rules are alway
 | [folders-structure](../code/unreal-engine-5/core/folders-structure.md) | 1.0.0 | Project folder organization, module structure, namespace conventions, plugin boundaries, Build.cs patterns |
 | [performance](../code/unreal-engine-5/core/performance.md) | 1.0.0 | Rules for performance optimization — memory/GC, caching, strings, object pooling, delegates, math, physics, UI optimization, Tick management, cooking/packaging, mobile specifics |
 | [pipeline](../code/unreal-engine-5/core/pipeline.md) | 1.0.0 | UE5 development pipeline — C++ scaffolding strategy, Blueprint iteration, Live Coding boundaries, structural change batching, data-driven configuration. Architecture-specific sections: Actor/Component, GAS, Mass Entity |
-| [testing](../code/unreal-engine-5/core/testing.md) | 1.0.0 | Rules for UE5 Automation Framework tests — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands |
+| [testing](../code/unreal-engine-5/core/testing.md) | 2.0.0 | Rules for UE5 Automation Framework tests — what to test, test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands |
 
 #### Stack rules
 
