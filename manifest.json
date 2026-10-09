@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-09-25T06:25:32.395Z",
+  "generated": "2026-10-09T14:28:09.164Z",
   "modules": {
     "code": {
       "engines": {
@@ -49,6 +49,44 @@
               "description": "Google Mobile Ads Unity plugin — SDK initialization, UMP consent flow, banner/interstitial/rewarded/app-open ad loading and lifecycle management, ad event callbacks, test ad unit IDs, and mobile ad monetization patterns",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "all-in-one-3d-shader",
+              "description": "Seaside Studios \"All In One 3D Shader\" (also written \"All In 1 3D Shader\" or \"AllIn1 3D Shader\"; v2.74, namespace `AllIn13DShader`) — one stackable-effects uber-shader for 3D meshes under URP: choosing a lighting model and effects per material class, what is safe and what is forbidden on mobile, variant and build-size control (Active Effects List, URP feature defines, Bake Shader Keywords), SRP Batcher and shadow rules, runtime property control, URP renderer setup, and a case library of mobile material profiles, gameplay effects and environment looks",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "all-in-one-3d-shader-effects-quickref.md",
+                "all-in-one-3d-shader-effects-full.md",
+                "all-in-one-3d-shader-mobile-optimization.md",
+                "all-in-one-3d-shader-variants-and-baking.md",
+                "all-in-one-3d-shader-urp-setup.md",
+                "all-in-one-3d-shader-runtime-scripting.md",
+                "all-in-one-3d-shader-cases-mobile-profiles.md",
+                "all-in-one-3d-shader-cases-gameplay-fx.md",
+                "all-in-one-3d-shader-cases-environment.md"
+              ]
+            },
+            {
+              "id": "all-in-one-vfx-toolkit",
+              "description": "Seaside Studios \"All In One VFX Toolkit\" (also written \"All In 1 VFX Toolkit\" or \"AllIn1 VFX Toolkit\"; v2.32, namespace `AllIn1VfxToolkit`) — a stackable-effects unlit uber-shader plus editor tooling for particles, trails, sprites, meshes and UI under Built-in, URP and HDRP: choosing the shader file per pipeline, picking and budgeting effects, what is safe and what is forbidden on mobile, render-state and blend setup, Particle System Custom Data, runtime property control and pooling, texture and import rules, variant and keyword limits, and a case library of combat and environment effects",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "all-in-one-vfx-toolkit-mobile-optimization.md",
+                "all-in-one-vfx-toolkit-effects-quickref.md",
+                "all-in-one-vfx-toolkit-effects-full.md",
+                "all-in-one-vfx-toolkit-pipeline-setup.md",
+                "all-in-one-vfx-toolkit-shaders-and-variants.md",
+                "all-in-one-vfx-toolkit-material-configuration.md",
+                "all-in-one-vfx-toolkit-authoring-workflow.md",
+                "all-in-one-vfx-toolkit-particles.md",
+                "all-in-one-vfx-toolkit-runtime-scripting.md",
+                "all-in-one-vfx-toolkit-textures.md",
+                "all-in-one-vfx-toolkit-troubleshooting.md",
+                "all-in-one-vfx-toolkit-cases-combat.md",
+                "all-in-one-vfx-toolkit-cases-environment.md"
+              ]
             },
             {
               "id": "animancer",
@@ -311,6 +349,29 @@
               "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "unity-biome-mcp",
+              "description": "Operating the Unity Editor through the Unity Biome MCP server (v2.0.0) — choosing among its ~160 tools, addressing scene objects and assets, batching and transactional scene edits, the C# write → sync → test loop, NUnit and playtest runs, Play Mode probes, UI, media and physics authoring, and the evidence each kind of claim requires, including the server behaviours that silently rewrite paths, values and replies",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "unity-biome-mcp-connection-session.md",
+                "unity-biome-mcp-batch-transactions.md",
+                "unity-biome-mcp-scene-objects.md",
+                "unity-biome-mcp-prefabs-assets.md",
+                "unity-biome-mcp-csharp-compile.md",
+                "unity-biome-mcp-tests.md",
+                "unity-biome-mcp-playtest-dsl.md",
+                "unity-biome-mcp-runtime-playmode.md",
+                "unity-biome-mcp-ugui.md",
+                "unity-biome-mcp-uitoolkit.md",
+                "unity-biome-mcp-diagnostics-performance.md",
+                "unity-biome-mcp-screenshots-visual.md",
+                "unity-biome-mcp-animation.md",
+                "unity-biome-mcp-materials-vfx.md",
+                "unity-biome-mcp-physics-spatial.md"
+              ]
             },
             {
               "id": "vcontainer",
