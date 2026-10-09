@@ -1,10 +1,10 @@
 ---
-version: 1.1.0
+version: 2.0.0
 ---
 
 # Unit Testing Rules
 
-> **Scope**: Rules for unit tests in Godot .NET — GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests.
+> **Scope**: Rules for unit tests in Godot .NET — what to test, GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests.
 > **Load when**: writing or reviewing unit tests, creating test doubles, setting up test structure.
 
 ---
@@ -27,9 +27,29 @@ version: 1.1.0
 | Resource (custom data) | Recommended | Not needed |
 | Node with extractable logic | For pure logic | For lifecycle |
 | Node with _Process/_PhysicsProcess | Not applicable | Required (scene runner) |
-| Node with physics/UI interaction | Not applicable | Required (scene runner) |
+| Node whose logic needs frames or physics | Not applicable | Required (scene runner) |
 | Static utility class | Recommended | Not needed |
 | Autoload singletons | With mock replacement | With real autoload |
+
+## What to Test
+
+Decide by who owns the value or the content, not by what is easy to assert.
+
+| Target class | What it is | What to do |
+|---|---|---|
+| Logic and system values | Calculations, state transitions, parsing and serialization, contracts between modules; identifiers, keys, serialized field names, format versions, protocol constants | Test exact outcomes on inputs the test supplies. Pin one key, id or field name exactly. Never pin a total or a full set that grows with content (catalog rows, schema sheets, fields, enemies, golden files, word lists): assert the invariant ("every X has a Y", "ids are unique", "no key outside the list") and take the expected value from the fixture's own data |
+| Tunable data | Values owned by game design — balance, costs, durations, probabilities, curves, config entries — whatever the storage: `Resource` (`.tres`) files, JSON/text configs | A live number is never written into a test. Test logic on values the test creates itself (see "Resource in Tests"). Live data gets at most one aggregate validity check per data family: range, order, required keys, uniqueness, references resolve; bounds come from the design source (a knob's range, a "Safe range", an acceptance criterion) or from limits in the code — never from today's number. Where design numbers must be pinned (a port, a migration), keep them in one marked passport fixture that is allowed to go red |
+| Authored content | Editor-serialized state: `.tscn` scenes, materials, shaders (`.gdshader`), animations, themes, UI layouts; shader sources, UI markup, art and audio files | No unit test. The evidence is a frame or a read-back through the editor. The one exception is a single aggregate test for a defect class that was actually found |
+| Lookup by name | The code finds an object, node, socket or tag by a string: `GetNode("NodePath")`, `Input.IsActionPressed("…")`, animation names | At most one aggregate reference check per module, or fail fast at load; never one test per constant |
+
+Everything else — the engine and its frameworks, trivial accessors, generated code — gets no tests.
+
+**Smell check.** If a designer changing a number, or a new catalog row, field or enemy, turns a test red while the system is intact, the test is pinned to a tunable value or to a growing list. Rewrite it as bounds or an invariant, or take the expected value from the fixture.
+
+**Examples.**
+
+- Pin: the serialized field name a save file relies on; a reward formula on test-supplied values.
+- Do not pin: `MaxHealth` read from a live `.tres`; "the catalog has 24 rows".
 
 ## File & Folder Structure
 
@@ -168,7 +188,7 @@ public void WithVariousMultipliers_ReturnsExpectedValue(
 
 ## Boundary Conditions
 
-For **every** method under test, check applicable boundaries:
+For each unit of logic under test, check the boundaries its contract can actually deliver. A boundary the contract cannot reach (a NaN passed to a method that is fed only validated config) is not tested:
 
 ### Value Boundaries
 
@@ -325,6 +345,8 @@ public void TearDown()
 
 ## Scene Runner Tests (GdUnit4)
 
+> Exception, not a model for scene content: use this only as a smoke check that a scene instantiates or for logic that needs frames or input. Do not assert what the scene contains.
+
 For tests requiring scene tree, use GdUnit4's `ISceneRunner`:
 
 ```csharp
@@ -408,7 +430,7 @@ carries a declared graph:
 ## Additional Test Requirements
 
 - Mark every test that references any `Godot.*` type — including plain value types like `Vector3`/`Color`, not only `Node`/`GodotObject` — with `[RequireGodotRuntime]`; `gdUnit4.analyzers` enforces this at compile time (`GdUnit0501`). Keep tests touching only plain .NET types unmarked so they run fast without the engine.
-- When code uses string constants to reference node paths, input actions, or animation names (e.g., `GetNode("NodePath")`, `Input.IsActionPressed("action_name")`), these constants SHOULD be covered by tests verifying the referenced node/action/animation exists
+- When code finds a node, input action or animation by a string constant (e.g., `GetNode("NodePath")`, `Input.IsActionPressed("action_name")`), cover those references with at most one aggregate check per module — or make the lookup fail fast at load. Do not write one test per constant. The aggregate check verifies that each referenced node/action/animation exists
 - Always free Node instances in `[After]` — use GdUnit4's `AutoFree()` for automatic cleanup
 - When testing autoloads, mock them or replace via DI
 - Cover pool-friendly `Reset()` methods with a test verifying all fields return to default values after reset

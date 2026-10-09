@@ -1,10 +1,10 @@
 ---
-version: 1.0.0
+version: 2.0.0
 ---
 
 # Unit Testing Rules
 
-> **Scope**: Rules for UE5 Automation Framework tests — test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands.
+> **Scope**: Rules for UE5 Automation Framework tests — what to test, test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands.
 > **Load when**: writing or reviewing unit tests, creating test doubles, setting up test structure.
 
 ---
@@ -25,10 +25,30 @@ version: 1.0.0
 | Plain C++ (FStruct, non-UObject) | Recommended | Not needed |
 | UObject with extractable logic | For pure logic | For lifecycle |
 | UActorComponent with Tick | Not applicable | Required (world needed) |
-| AActor with physics/collision | Not applicable | Required (world needed) |
+| AActor whose logic needs physics/collision | Not applicable | Required (world needed) |
 | UDataAsset / UDataTable | Recommended | Not needed |
 | Static utility (FBlueprintFunctionLibrary) | Recommended | Not needed |
 | USubsystem | With mock world | With real world |
+
+## What to Test
+
+Decide by who owns the value or the content, not by what is easy to assert.
+
+| Target class | What it is | What to do |
+|---|---|---|
+| Logic and system values | Calculations, state transitions, parsing and serialization, contracts between modules; identifiers, keys, serialized field names, format versions, protocol constants | Test exact outcomes on inputs the test supplies. Pin one key, id or field name exactly. Never pin a total or a full set that grows with content (catalog rows, schema sheets, fields, enemies, golden files, word lists): assert the invariant ("every X has a Y", "ids are unique", "no key outside the list") and take the expected value from the fixture's own data |
+| Tunable data | Values owned by game design — balance, costs, durations, probabilities, curves, config entries — whatever the storage: `UDataAsset` and `UDataTable` rows, ini configs | A live number is never written into a test. Test logic on values the test creates itself (see "UDataAsset / USTRUCT in Tests"). Live data gets at most one aggregate validity check per data family: range, order, required keys, uniqueness, references resolve; bounds come from the design source (a knob's range, a "Safe range", an acceptance criterion) or from limits in the code — never from today's number. Where design numbers must be pinned (a port, a migration), keep them in one marked passport fixture that is allowed to go red |
+| Authored content | Editor-serialized state: `.umap` levels, `.uasset` Blueprints, materials, Niagara systems, UMG widgets, Sequencer assets; shader sources, UI markup, art and audio files | No unit test. The evidence is a frame or a read-back through the editor. The one exception is a single aggregate test for a defect class that was actually found |
+| Lookup by name | The code finds an object, node, socket or tag by a string: `FName` sockets, data table row names, gameplay tags | At most one aggregate reference check per module, or fail fast at load; never one test per constant |
+
+Everything else — the engine and its frameworks, trivial accessors, generated code — gets no tests.
+
+**Smell check.** If a designer changing a number, or a new catalog row, field or enemy, turns a test red while the system is intact, the test is pinned to a tunable value or to a growing list. Rewrite it as bounds or an invariant, or take the expected value from the fixture.
+
+**Examples.**
+
+- Pin: the gameplay tag the code matches; a damage formula on test-supplied values.
+- Do not pin: `Config->Health` read from a live `UDataAsset`; "the data table has 24 rows".
 
 ## File & Folder Structure
 
@@ -254,7 +274,7 @@ bool FAsyncLoadTest::RunTest(const FString& Parameters)
 
 ## Boundary Conditions
 
-For **every** method under test, check applicable boundaries:
+For each unit of logic under test, check the boundaries its contract can actually deliver. A boundary the contract cannot reach (a NaN passed to a method that is fed only validated config) is not tested:
 
 ### Value Boundaries
 
@@ -470,7 +490,7 @@ of the map. **Do not assume a module name doubles as a test prefix.**
 
 ## Additional Test Requirements
 
-- When code uses `FName` constants to reference sockets, data table rows, or gameplay tags (e.g., `FName(TEXT("WeaponSocket"))`, `Tag.MatchesTag(DamageTag)`), these constants MUST be covered by tests verifying the referenced asset/tag/socket exists
+- When code finds a socket, data table row or gameplay tag by an `FName` constant (e.g., `FName(TEXT("WeaponSocket"))`, `Tag.MatchesTag(DamageTag)`), cover those references with at most one aggregate check per module — or make the lookup fail fast at load. Do not write one test per constant. The aggregate check verifies that each referenced asset/tag/socket exists
 - Always clean up spawned Actors and created Worlds in tests — use RAII patterns or explicit cleanup at test end
 - When testing Subsystems, create a minimal UWorld + UGameInstance to host the Subsystem lifecycle
 - Cover poolable Actor `ResetForPool()` with a test verifying all state fields return to default values after reset
