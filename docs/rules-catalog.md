@@ -34,7 +34,7 @@ Engine-specific coding rules, organized by game engine. **Core** rules are alway
 | [design-principles](../code/unity/core/design-principles.md) | 1.0.0 | Universal software design principles — SOLID, GRASP, KISS, DRY, inheritance guidelines, SRP decision framework, method design, defensive programming |
 | [folders-structure](../code/unity/core/folders-structure.md) | 1.0.0 | Project folder organization, module structure, namespace conventions, external asset boundaries |
 | [performance](../code/unity/core/performance.md) | 1.0.0 | Rules for performance optimization — memory/GC, caching, ZLinq, strings, object pooling, delegates, math, physics, UI optimization, mobile specifics |
-| [testing](../code/unity/core/testing.md) | 2.0.0 | Rules for NUnit unit tests — what to test, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests |
+| [testing](../code/unity/core/testing.md) | 2.1.0 | Rules for NUnit unit tests — what to test, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests |
 
 #### Stack rules
 

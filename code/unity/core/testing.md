@@ -1,5 +1,5 @@
 ---
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Unit Testing Rules
@@ -425,11 +425,14 @@ list, not from here:** they differ between servers and between versions of one
 server, and a name written down in a rule is wrong for whoever is on the other
 one.
 
-What to ask for, in this order:
+What to ask for:
 
-1. **Scoped to what changed** — see the map below. Running everything is one outcome of
-   that map, not the starting point.
-2. **Narrowed to one test by its full name** — when reproducing a single failure.
+1. **The scope the caller names** — a checkpoint run takes its scope from the caller's
+   run-width policy, and this rule does not narrow it. The map below applies only when no
+   scope is named; when it cannot be applied with confidence, run everything —
+   one wide run costs less than two narrow ones.
+2. **One test by its full name** — to read a failure you have already seen, outside a
+   checkpoint; never a step before a checkpoint run or its repeat.
 3. **Polled to completion.** A run is asynchronous: the call that starts it hands back
    a job, not a verdict. A report you did not poll to its end is not evidence that the
    suite passed — neither is a run that timed out.
