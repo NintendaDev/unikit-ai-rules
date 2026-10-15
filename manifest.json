@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-10-09T14:29:20.939Z",
+  "generated": "2026-10-15T11:46:22.550Z",
   "modules": {
     "code": {
       "engines": {
@@ -331,6 +331,18 @@
               "description": "Febucci Text Animator for Unity (v3) — animating TextMesh Pro and UI Toolkit texts with rich-text effect tags, driving the typewriter component from C#, wiring typing events and action tags, and authoring custom effects, actions and typing timings as ScriptableObjects",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "ugui-layout",
+              "description": "Authoring uGUI object hierarchies, self-contained screens and widgets, reusable button prefabs and variants, object names, RectTransform anchors, and automatic layout",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "ugui-layout-hierarchy-cases.md",
+                "ugui-layout-prefab-cases.md",
+                "ugui-layout-layout-recipes.md",
+                "ugui-layout-source-audit.md"
+              ]
             },
             {
               "id": "ui-toolkit",
