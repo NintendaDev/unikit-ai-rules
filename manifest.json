@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-10-15T11:48:35.362Z",
+  "generated": "2026-10-16T08:07:16.657Z",
   "modules": {
     "code": {
       "engines": {
@@ -361,6 +361,38 @@
               "description": "UniTask async/await rules — CancellationToken, exception handling, timeouts, UniTaskVoid, API conventions",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "unitext",
+              "description": "LightSide UniText v3.30.0 (namespace `LightSide`, packages `media.lightside.unitext` + `media.lightside.core`) — a Unicode text and document engine for Unity UI, world space and extruded 3D: choosing the component, installing fonts and font families, writing formatted text (bold, italic, strikethrough, underline, color, size, Markdown, links, spoilers), building the tag vocabulary a project needs, applying effects (stroke, shadow, glow, gradients), animating text (wave, shake, typewriter reveal, sequencer, hover rules), emoji and inline sprites, selection and input fields, the runtime C# API, layout and large documents, and what is affordable on a phone",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "unitext-components-setup.md",
+                "unitext-runtime-api.md",
+                "unitext-markup-system.md",
+                "unitext-formatting-tags-quickref.md",
+                "unitext-formatting-tags-full.md",
+                "unitext-fonts.md",
+                "unitext-effects-paint.md",
+                "unitext-materials-shaders.md",
+                "unitext-animation-phase.md",
+                "unitext-animation-reveal-sequencer.md",
+                "unitext-range-state-rules.md",
+                "unitext-emoji.md",
+                "unitext-inline-media.md",
+                "unitext-interaction-links.md",
+                "unitext-selection-context-menu.md",
+                "unitext-input-fields.md",
+                "unitext-clipboard-rtl-ime.md",
+                "unitext-layout-documents.md",
+                "unitext-3d-text.md",
+                "unitext-performance-mobile.md",
+                "unitext-version-traps.md",
+                "unitext-tmp-migration.md",
+                "unitext-cases-vendor-samples.md",
+                "unitext-cases-vendor-samples-effects-animation.md"
+              ]
             },
             {
               "id": "unity-biome-mcp",
