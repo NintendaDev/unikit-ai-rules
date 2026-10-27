@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-10-16T08:07:16.657Z",
+  "generated": "2026-10-27T10:41:24.379Z",
   "modules": {
     "code": {
       "engines": {
@@ -415,6 +415,35 @@
                 "unity-biome-mcp-animation.md",
                 "unity-biome-mcp-materials-vfx.md",
                 "unity-biome-mcp-physics-spatial.md"
+              ]
+            },
+            {
+              "id": "unity-cli",
+              "description": "Operating Unity from a terminal or an AI agent with the Unity CLI (`unity`, v1.0.0-beta.14) and its live-Editor layer (the `com.unity.pipeline` package, 0.9.1-exp.1) — choosing between standalone commands and `unity command` against a running Editor, installing Editors and creating projects, authoring scenes, prefabs, GameObjects, UI, sprites, materials and animations through the CLI, compile, test and Play Mode loops, headless builds and CI, licenses, version control, and the behaviours where a call reports success but nothing changed",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "unity-cli-install-diagnostics.md",
+                "unity-cli-editors-modules.md",
+                "unity-cli-projects-templates.md",
+                "unity-cli-auth-cloud.md",
+                "unity-cli-licenses.md",
+                "unity-cli-version-control.md",
+                "unity-cli-build-ci.md",
+                "unity-cli-editor-session.md",
+                "unity-cli-multi-editor-worktrees.md",
+                "unity-cli-scenes.md",
+                "unity-cli-gameobjects-components.md",
+                "unity-cli-prefabs.md",
+                "unity-cli-assets-import.md",
+                "unity-cli-sprites-atlases.md",
+                "unity-cli-materials-shaders.md",
+                "unity-cli-animation-timeline.md",
+                "unity-cli-baking.md",
+                "unity-cli-scripts-compile-eval.md",
+                "unity-cli-tests.md",
+                "unity-cli-playmode-runtime.md",
+                "unity-cli-settings-packages.md"
               ]
             },
             {
