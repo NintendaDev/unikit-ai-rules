@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-10-27T10:41:24.379Z",
+  "generated": "2026-11-03T06:15:44.988Z",
   "modules": {
     "code": {
       "engines": {
@@ -128,6 +128,31 @@
               "description": "Unity Cinemachine camera system — Virtual Camera authoring, CinemachineBrain setup, body and aim algorithms, noise and impulse effects, camera blending and priority, State-Driven cameras, Timeline integration, and scripting via extensions",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "coplay-unity-mcp",
+              "description": "Operating the Unity Editor through CoplayDev MCP for Unity and its `unity-mcp` CLI: selecting a session and tools, inspecting before editing, choosing task-specific workflows, and verifying persisted and runtime results",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "coplay-unity-mcp-connection-cli.md",
+                "coplay-unity-mcp-batch-custom-tools.md",
+                "coplay-unity-mcp-scene-objects.md",
+                "coplay-unity-mcp-prefabs-assets.md",
+                "coplay-unity-mcp-scripts-compilation.md",
+                "coplay-unity-mcp-ui-ugui.md",
+                "coplay-unity-mcp-ui-toolkit.md",
+                "coplay-unity-mcp-materials-vfx.md",
+                "coplay-unity-mcp-camera-rendering.md",
+                "coplay-unity-mcp-animation-sprites.md",
+                "coplay-unity-mcp-tests-playmode.md",
+                "coplay-unity-mcp-profiling.md",
+                "coplay-unity-mcp-probuilder.md",
+                "coplay-unity-mcp-asset-generation-blender.md",
+                "coplay-unity-mcp-physics.md",
+                "coplay-unity-mcp-packages-build.md",
+                "coplay-unity-mcp-sources.md"
+              ]
             },
             {
               "id": "dotween",
@@ -548,10 +573,47 @@
               "always": false
             },
             {
+              "id": "fennara-godot-mcp",
+              "description": "Operating Fennara's Godot connection, choosing the correct MCP, CLI, or repository workflow, and verifying scene, code, import, visual, and runtime changes",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "fennara-godot-mcp-connection-cli.md",
+                "fennara-godot-mcp-maintenance-export.md",
+                "fennara-godot-mcp-scenes-resources.md",
+                "fennara-godot-mcp-scripts-diagnostics.md",
+                "fennara-godot-mcp-assets-import.md",
+                "fennara-godot-mcp-settings-input.md",
+                "fennara-godot-mcp-visual-animation.md",
+                "fennara-godot-mcp-runtime-playtesting.md",
+                "fennara-godot-mcp-multi-project-worktrees.md",
+                "fennara-godot-mcp-operations-troubleshooting.md",
+                "fennara-godot-mcp-built-in-chat.md",
+                "fennara-godot-mcp-sources.md"
+              ]
+            },
+            {
               "id": "fmod",
               "description": "FMOD Studio GDExtension (utopia-rise/fmod-gdextension) for Godot 4 — bank lifecycle management, event playback tiers (one-shot / node / manual), parameter control, 3D spatial audio, Bus/VCA mixer control, timeline callbacks, and project export with banks",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "gdai-godot-mcp",
+              "description": "Operating the Godot Editor through GDAI MCP: selecting task-specific tools, inspecting projects, editing scenes and scripts, and checking saved and running results",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "gdai-godot-mcp-connection-configuration.md",
+                "gdai-godot-mcp-project-navigation.md",
+                "gdai-godot-mcp-scenes-nodes.md",
+                "gdai-godot-mcp-resources-physics.md",
+                "gdai-godot-mcp-ui-layout.md",
+                "gdai-godot-mcp-scripts-debugging.md",
+                "gdai-godot-mcp-runtime-verification.md",
+                "gdai-godot-mcp-editor-scripting.md",
+                "gdai-godot-mcp-sources.md"
+              ]
             },
             {
               "id": "gdextension",
@@ -982,6 +1044,37 @@
               "description": "Blueprint visual scripting patterns in UE5 — when to use Blueprint vs C++, exposing C++ systems via UPROPERTY/UFUNCTION specifiers, communication patterns (interfaces, delegates, casting, function libraries), and Blueprint graph organization",
               "version": "1.0.0",
               "always": false
+            },
+            {
+              "id": "chir24-unreal-mcp",
+              "description": "Operating Unreal Editor through ChiR24 Unreal MCP (EngineWire), choosing capabilities and task-specific workflows, and verifying editor, saved and runtime results",
+              "version": "1.0.0",
+              "always": false,
+              "references": [
+                "chir24-unreal-mcp-connection-configuration.md",
+                "chir24-unreal-mcp-gateway-discovery.md",
+                "chir24-unreal-mcp-execution-safety.md",
+                "chir24-unreal-mcp-resources-prompts.md",
+                "chir24-unreal-mcp-assets-data.md",
+                "chir24-unreal-mcp-actors-levels.md",
+                "chir24-unreal-mcp-environment-lighting.md",
+                "chir24-unreal-mcp-geometry-pcg.md",
+                "chir24-unreal-mcp-blueprints.md",
+                "chir24-unreal-mcp-ui-umg.md",
+                "chir24-unreal-mcp-materials-textures.md",
+                "chir24-unreal-mcp-characters-animation-physics.md",
+                "chir24-unreal-mcp-gameplay-combat-inventory.md",
+                "chir24-unreal-mcp-ai-navigation.md",
+                "chir24-unreal-mcp-framework-input-networking.md",
+                "chir24-unreal-mcp-audio.md",
+                "chir24-unreal-mcp-vfx-niagara.md",
+                "chir24-unreal-mcp-cinematics-media.md",
+                "chir24-unreal-mcp-runtime-verification.md",
+                "chir24-unreal-mcp-builds-performance.md",
+                "chir24-unreal-mcp-scripting-automation.md",
+                "chir24-unreal-mcp-plugin-extension.md",
+                "chir24-unreal-mcp-sources.md"
+              ]
             },
             {
               "id": "common-ui",
