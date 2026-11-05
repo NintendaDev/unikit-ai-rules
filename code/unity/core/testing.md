@@ -1,5 +1,5 @@
 ---
-version: 2.1.0
+version: 2.2.0
 ---
 
 # Unit Testing Rules
@@ -27,6 +27,8 @@ version: 2.1.0
 | Static utility class | Recommended | Not needed |
 
 ## What to Test
+
+Whether tests are written at all is decided before this rule applies: by the plan, or by the user's word when there is no plan. This section says what to test once they are.
 
 Decide by who owns the value or the content, not by what is easy to assert.
 
@@ -419,6 +421,8 @@ namespace Pawnshop.SomeModule.PlayTests
 
 ## Running Tests
 
+This section says how to run tests, never whether to. A run is started only when the plan or the user's word asks for one.
+
 The test runner belongs to the editor, so a suite is started through the engine
 MCP server rather than from a shell. **Take the call names from your own tool
 list, not from here:** they differ between servers and between versions of one
@@ -437,14 +441,16 @@ What to ask for:
    a job, not a verdict. A report you did not poll to its end is not evidence that the
    suite passed — neither is a run that timed out.
 
-### What a change implies
+### How wide a chosen run goes
+
+This map sets the width of a run already chosen; it never makes a run due.
 
 | change | what to run |
 |---|---|
 | a source file of one module | the test assemblies of that module, and of the modules that reference it |
 | a public contract — an interface, a schema, an event | the same, plus the assemblies of every consumer of that contract |
 | build configuration, a dependency version, the project root | every test |
-| documentation, assets and their `.meta` files, data no test covers | nothing — no run is needed |
+| documentation, assets and their `.meta` files, data no test covers | nothing to run |
 | narrowing failed — no module graph, or the change lands in the predefined assembly | every test |
 
 ### Finding the affected assemblies

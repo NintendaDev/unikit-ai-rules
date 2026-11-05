@@ -1,5 +1,5 @@
 ---
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Unit Testing Rules
@@ -29,6 +29,8 @@ version: 2.0.0
 | Autoload singletons | With mock replacement | With real autoload |
 
 ## What to Test
+
+Whether tests are written at all is decided before this rule applies: by the plan, or by the user's word when there is no plan. This section says what to test once they are.
 
 Decide by who owns the value or the content, not by what is easy to assert.
 
@@ -360,6 +362,8 @@ func test_enemy_scene_spawns_correctly() -> void:
 
 ## Running Tests
 
+This section says how to run tests, never whether to. A run is started only when the plan or the user's word asks for one.
+
 ```
 # In-editor: GUT panel (bottom dock) > Run All / Run Selected
 # Command line:
@@ -372,14 +376,16 @@ godot --headless -s addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_wallet.
 godot --headless -s addons/gut/gut_cmdln.gd -gtest=res://tests/unit/test_wallet.gd -gunit_test_name=test_with_valid_amount -gexit
 ```
 
-### What a change implies
+### How wide a chosen run goes
+
+This map sets the width of a run already chosen; it never makes a run due.
 
 | change | what to run |
 |---|---|
 | a source file of one module | the tests covering that module and those depending on it |
 | a public contract — a class API, a signal, a resource schema | the same, plus the tests of every consumer of that contract |
 | project settings, an addon version, the project root | every test |
-| documentation, assets and their `.import` files, data no test covers | nothing — no run is needed |
+| documentation, assets and their `.import` files, data no test covers | nothing to run |
 | narrowing failed — no module boundary to walk | every test |
 
 ### Finding the affected tests

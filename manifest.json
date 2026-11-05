@@ -1,6 +1,6 @@
 {
   "schema": 2,
-  "generated": "2026-11-03T06:15:44.988Z",
+  "generated": "2026-11-05T09:12:07.450Z",
   "modules": {
     "code": {
       "engines": {
@@ -33,7 +33,7 @@
             {
               "id": "testing",
               "description": "Rules for NUnit unit tests — what to test, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, assembly definitions, ScriptableObject in tests, PlayMode tests",
-              "version": "2.1.0",
+              "version": "2.2.0",
               "always": true
             }
           ],
@@ -531,7 +531,7 @@
             {
               "id": "testing",
               "description": "Rules for GUT (Godot Unit Test) framework — what to test, test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, test organization, Resource in tests",
-              "version": "2.0.0",
+              "version": "2.1.0",
               "always": true
             }
           ],
@@ -733,7 +733,7 @@
             {
               "id": "testing",
               "description": "Rules for unit tests in Godot .NET — what to test, GdUnit4 C# framework, AAA pattern, test class structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, project configuration, Resource in tests, scene tests",
-              "version": "2.0.0",
+              "version": "2.1.0",
               "always": true
             }
           ],
@@ -1013,7 +1013,7 @@
             {
               "id": "testing",
               "description": "Rules for UE5 Automation Framework tests — what to test, test structure, naming, test doubles (Fake/Stub/Mock), parameterized tests, boundary conditions, module test organization, latent commands",
-              "version": "2.0.0",
+              "version": "2.1.0",
               "always": true
             }
           ],
