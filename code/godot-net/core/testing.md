@@ -391,6 +391,8 @@ public sealed class PlayerControllerTest
 
 This section says how to run tests, never whether to. A run is started only when the plan or the user's word asks for one.
 
+Unsaved changes in a loaded scene can stop a run or empty it. They are not yours to clear: they may be someone's work or stale data, a save writes them over the file, and a discard loses them for good. Never save or discard them on your own to get the run through. Ask the user, offering in this order: they save them themselves and say so (recommended), they are saved automatically and the run continues, or all of them are discarded and the run continues.
+
 ```
 # In-editor: GdUnit4 panel (bottom dock) > Run All / Run Selected
 

@@ -106,7 +106,7 @@ unity command build get_settings --project-path "<project>"
 
 - Mutating scene commands (`create`, `open`, `save`, `save_all`, `set_active`, `add_to_build`, `remove_from_build`) are refused in Play Mode with a recoverable error before any state is touched; `list_open` and `get_hierarchy` are safe. Stop Play Mode before authoring.
 - `scene open` and `scene create` clear the Editor's Undo stack, so they are always rejected inside `job batch`, even non-transactional ([unity-cli-editor-session.md](unity-cli-editor-session.md)).
-- Before a test run, every open scene must be saved: an unsaved scene makes the run hold the command lane for its whole timeout and end as a success with no tests (bridge `scene-4`). Require a test count above zero ([unity-cli-tests.md](unity-cli-tests.md)).
+- Before a test run, no open scene may have unsaved changes: an unsaved scene makes the run hold the command lane for its whole timeout and end as a success with no tests (bridge `scene-4`). What happens to such a scene is the user's answer, never your own save or discard (`Testing` rule, `## Running Tests`). Require a test count above zero ([unity-cli-tests.md](unity-cli-tests.md)).
 - Object edits made by `gameobject`/`component` commands are Undo-able; a scene save is not.
 
 ## Pitfalls

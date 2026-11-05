@@ -109,7 +109,7 @@ unity command test cancel                             # abort
 **Verify:** read the whole JSON answer (default human output keeps one summary line): number of tests above zero, failed count, status of each failed test. A failed test is still a successful call. A run with a part started in the background (Play Mode) is not over until that part reported through `test status` (bridge check `transport-3`). The result field names are not in the collected docs: read them from the live answer.
 
 **Pitfalls:**
-- Unsaved scene: the run holds the command lane for its whole timeout and ends as a success with no tests (`scene-4`). Save first, then check the count.
+- Unsaved scene: the run holds the command lane for its whole timeout and ends as a success with no tests (`scene-4`). Ask the user what happens to the unsaved changes (`Testing` rule, `## Running Tests`), then check the count.
 - Timeout: pass `--timeout` explicitly (the CLI's own default for `unity command` is 30 s, the command's is 600 s; which wins when you pass nothing is not documented). On a timeout the run is not cancelled: it goes on in the Editor, keeps no result and holds the lane. Do not start it again as it was; wait for the lane, then start it with `async_tests` and read `test status` (`transport-2`).
 - `test run` and `test list` are async commands and are rejected inside `job batch` (they would freeze the Editor).
 - Compile first. After a failed compile, reads describe the last good build (`compile-2`); fix and verify with `script recompile_status` ([unity-cli-scripts-compile-eval.md](unity-cli-scripts-compile-eval.md)).

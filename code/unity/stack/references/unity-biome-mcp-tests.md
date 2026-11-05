@@ -41,8 +41,10 @@ run_tests_wait(mode="EditMode", filter="^Game\\.Tests\\.InventoryTests\\.", time
 Rules:
 
 - Check all loaded scenes with `scene(action="list")` before dispatching; the status line shows only the active
-  scene's dirty flag. In a shared Editor a dirty scene is the other person's work — do not save or discard it to get
-  the run through; hand back instead.
+  scene's dirty flag. A dirty scene may be someone's work or stale data — never save or discard it on your own to get
+  the run through. Ask the user, offering in this order: they save it themselves and say so (recommended), it is saved
+  automatically and the run continues, or all its changes are discarded and the run continues. With nobody to ask,
+  hand back instead.
 - A refused dispatch reaches `run_tests_wait` as `PROTOCOL-ERROR|…|reason=run-start-boundary-missing`. The real cause
   is **not** in that line. Read `issues[].message` of the embedded snapshot, or the `dispatch_failed` line in the run's
   `events.jsonl`, before changing the filter or rebuilding.
