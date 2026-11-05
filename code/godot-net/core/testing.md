@@ -1,5 +1,5 @@
 ---
-version: 2.0.0
+version: 2.1.0
 ---
 
 # Unit Testing Rules
@@ -32,6 +32,8 @@ version: 2.0.0
 | Autoload singletons | With mock replacement | With real autoload |
 
 ## What to Test
+
+Whether tests are written at all is decided before this rule applies: by the plan, or by the user's word when there is no plan. This section says what to test once they are.
 
 Decide by who owns the value or the content, not by what is easy to assert.
 
@@ -387,6 +389,10 @@ public sealed class PlayerControllerTest
 
 ## Running Tests
 
+This section says how to run tests, never whether to. A run is started only when the plan or the user's word asks for one.
+
+Unsaved changes in a loaded scene can stop a run or empty it. They are not yours to clear: they may be someone's work or stale data, a save writes them over the file, and a discard loses them for good. Never save or discard them on your own to get the run through. Ask the user, offering in this order: they save them themselves and say so (recommended), they are saved automatically and the run continues, or all of them are discarded and the run continues.
+
 ```
 # In-editor: GdUnit4 panel (bottom dock) > Run All / Run Selected
 
@@ -402,14 +408,16 @@ dotnet test --filter "FullyQualifiedName~WalletTest"
 
 GdUnit4 also ships a VSTest adapter (`gdUnit4.test.adapter` NuGet package) that in principle lets `dotnet test` discover and run GdUnit4 C# tests directly. In this project, that path does not work: `dotnet test` (VSTest path) exits 0 with zero tests reported despite the adapter being referenced, and the cause hasn't been isolated. The verified, working path for GdUnit4 tests is the classic runner: `addons/gdUnit4/runtest.cmd --add <path>` (requires `GODOT_BIN` pointing at the project's Godot .NET executable). Prefer `runtest.cmd` (or the `GdUnitCmdTool.gd` invocation above) over `dotnet test` for GdUnit4 tests until the VSTest discovery issue is understood.
 
-### What a change implies
+### How wide a chosen run goes
+
+This map sets the width of a run already chosen; it never makes a run due.
 
 | change | what to run |
 |---|---|
 | a source file of one project | the test projects referencing that project, and those referencing them |
 | a public contract — an interface, a signal, a resource schema | the same, plus the tests of every consumer of that contract |
 | build configuration, a package version, the solution root | every test |
-| documentation, assets and their `.import` files, data no test covers | nothing — no run is needed |
+| documentation, assets and their `.import` files, data no test covers | nothing to run |
 | narrowing failed — no project boundary, or a path-addressed GdUnit4 suite | every test |
 
 ### Finding the affected tests
